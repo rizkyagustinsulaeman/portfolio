@@ -1,19 +1,19 @@
 @extends('administrator.layouts.main')
 
 @section('content')
+@push('section_header')
+        <h1>Users</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="{{ route('admin.users') }}">Users</a></div>
+            <div class="breadcrumb-item">Edit</div>
+        </div>
+    @endpush
+    @push('section_title')
+        User
+    @endpush
     <!-- Basic Tables start -->
-    <section class="section">
         <div class="card">
-            <div class="card-header">
-                Users
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.users') }}">User</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit</li>
-                    </ol>
-                </nav>
-            </div>
             <div class="card-content">
                 <div class="card-body">
                     <form action="{{ route('admin.users.update') }}" method="post" enctype="multipart/form-data"
@@ -25,7 +25,7 @@
                             <div class="col-md-6 col-12">
                                 <div class="form-group mandatory">
                                     <label for="userGroupField" class="form-label">User Group</label>
-                                    <select class="form-select form-select-solid" name="user_group" id="userGroupField"
+                                    <select class="form-control" name="user_group" id="userGroupField"
                                         data-parsley-required="true">
 
                                     </select>
@@ -146,7 +146,6 @@
             </div>
         </div>
 
-    </section>
     <!-- Basic Tables end -->
 @endsection
 

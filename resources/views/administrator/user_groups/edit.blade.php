@@ -2,18 +2,18 @@
 
 @section('content')
     <!-- Basic Tables start -->
-    <section class="section">
+    @push('section_header')
+        <h1>User Groups</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="{{ route('admin.user_groups') }}">User Groups</a></div>
+            <div class="breadcrumb-item">Edit</div>
+        </div>
+    @endpush
+    @push('section_title')
+        User Group
+    @endpush
         <div class="card">
-            <div class="card-header">
-                User Groups
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.user_groups') }}">User Group</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit</li>
-                    </ol>
-                </nav>
-            </div>
             <div class="card-content">
                 <div class="card-body">
                     <form action="{{ route('admin.user_groups.update') }}" method="post" enctype="multipart/form-data"
@@ -146,16 +146,12 @@
             </div>
         </div>
 
-    </section>
     <!-- Basic Tables end -->
 @endsection
 
 
 
 @push('js')
-    <script src="{{ asset('templateAdmin/assets/extensions/parsleyjs/parsley.min.js') }}"></script>
-    <script src="{{ asset('templateAdmin/assets/js/pages/parsley.js') }}"></script>
-
     <script type="text/javascript">
         $(document).ready(function() {
             const form = document.getElementById("form");

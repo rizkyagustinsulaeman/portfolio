@@ -9,12 +9,10 @@
                         @include('administrator.logs.filter.module')
                     </div>
                 </div>
-                <div class="row my-3">
-                    <div class="col-md-12">
-                        <div class="d-flex gap-1 float-end">
-                            <button type="reset" id="reset-btn" class="btn btn-danger text-white">Reset</button>
-                            <button id="filter_submit" class="btn btn-primary">Filter</button>
-                        </div>
+                <div class="col-md-12 mt-3">
+                    <div class="d-flex justify-content-end gap-1">
+                        <button type="reset" id="reset-btn" class="btn btn-danger text-white">Reset</button>
+                        <button id="filter_submit" class="btn btn-primary">Filter</button>
                     </div>
                 </div>
             </div>

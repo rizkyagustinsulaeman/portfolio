@@ -17,9 +17,9 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('value');
+            $table->string('created_by')->nullable();
             $table->timestamps();
-            $table->datetime('created_by')->nullable();
-            $table->bigint('updated_by')->nullable();
+            $table->string('updated_by')->nullable();
         });
     }
 

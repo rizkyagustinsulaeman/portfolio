@@ -1,155 +1,146 @@
 @extends('administrator.layouts.main')
 
 @section('content')
-    <!-- Basic Tables start -->
-    <section class="section">
-        <div class="card">
-            <div class="card-header">
-                User Groups
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.user_groups') }}">User Group</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Add</li>
-                    </ol>
-                </nav>
-            </div>
-            <div class="card-content">
-                <div class="card-body">
-                    <form action="{{ route('admin.user_groups.save') }}" method="post" enctype="multipart/form-data"
-                        class="form" id="form" data-parsley-validate>
-                        @csrf
-                        @method('POST')
-                        <div class="row">
-                            <div class="col-md-6 col-12">
-                                <div class="form-group mandatory">
-                                    <label for="first-name-column" class="form-label">Nama</label>
-                                    <input type="text" id="first-name-column" class="form-control"
-                                        placeholder="Masukan Nama User Group" name="name" autocomplete="off"
-                                        data-parsley-required="true">
-                                    <div class="" style="color: red" id="accessErrorName"></div>
-                                </div>
+    @push('section_header')
+        <h1>User Groups</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="{{ route('admin.user_groups') }}">User Groups</a></div>
+            <div class="breadcrumb-item">Add</div>
+        </div>
+    @endpush
+    @push('section_title')
+        User Group
+    @endpush
+    
+    <div class="card">
+        <div class="card-content">
+            <div class="card-body">
+                <form action="{{ route('admin.user_groups.save') }}" method="post" enctype="multipart/form-data"
+                    class="form" id="form" data-parsley-validate>
+                    @csrf
+                    @method('POST')
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <div class="form-group mandatory">
+                                <label for="first-name-column" class="form-label">Nama</label>
+                                <input type="text" id="first-name-column" class="form-control"
+                                    placeholder="Masukan Nama User Group" name="name" autocomplete="off"
+                                    data-parsley-required="true">
+                                <div class="" style="color: red" id="accessErrorName"></div>
                             </div>
-                            <div class="col-md-12 pt-3">
-                                <div class="form-group mandatory">
-                                    <label class="required form-label">Permissions</label>
-                                    <table id="table-permissions" class="compact table table-bordered" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th style="width:50px">No</th>
-                                                <th>Module</th>
-                                                <th>All</th>
-                                                <th>Access</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $no = 1; $index = 0; foreach ($modules as $module) { ?>
-                                            <tr class="permission-list">
-                                                <td><?php echo $no; ?></td>
-                                                <td>
-                                                    <?php echo $module->name; ?>
-                                                    <input type="hidden" name="access[<?php echo $index; ?>][modul_id]"
-                                                        value="<?php echo $module->id; ?>">
-                                                </td>
-                                                <td>
-                                                    <span class="akses">
-                                                        <label>
-                                                            <input class="check_all check_all_<?php echo $index; ?>"
-                                                                data-key_all="<?php echo $index; ?>"
-                                                                value="<?php echo $index; ?>" type="checkbox"
-                                                                name="access[<?php echo $index; ?>][check_all]">
-                                                        </label>
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                    $ind = 0;
-                                                    foreach ($module->access as $row) {
-                                                        $kode_akses = explode('_', $row->identifiers);
-                                                        $checked = '';
-                                                    
-                                                        echo '<span class="akses">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  <label>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                      <input class="access_' .
-                                                            $index .
-                                                            '"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                             type="checkbox"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                             name="access[' .
-                                                            $index .
-                                                            '][module_access][' .
-                                                            $row->id .
-                                                            ']"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                             value="1" ' .
-                                                            $checked .
-                                                            '>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                      ' .
-                                                            $row->name .
-                                                            '
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  </label>
-                                                                                                                                                                                                                                                                                                                                                                                                                                              </span>';
-                                                        $ind++;
-                                                    }
-                                                    ?>
-                                                </td>
-                                            </tr>
-                                            <?php
-                                                $no++;
-                                                $index++;
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                    <div id="accessError" style="color: red"></div>
-                                </div>
+                        </div>
+                        <div class="col-md-12 pt-3">
+                            <div class="form-group mandatory">
+                                <label class="required form-label">Permissions</label>
+                                <table id="table-permissions" class="compact table table-bordered" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:50px">No</th>
+                                            <th>Module</th>
+                                            <th>All</th>
+                                            <th>Access</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1; $index = 0; foreach ($modules as $module) { ?>
+                                        <tr class="permission-list">
+                                            <td><?php echo $no; ?></td>
+                                            <td>
+                                                <?php echo $module->name; ?>
+                                                <input type="hidden" name="access[<?php echo $index; ?>][modul_id]"
+                                                    value="<?php echo $module->id; ?>">
+                                            </td>
+                                            <td>
+                                                <span class="akses">
+                                                    <label>
+                                                        <input class="check_all check_all_<?php echo $index; ?>"
+                                                            data-key_all="<?php echo $index; ?>" value="<?php echo $index; ?>"
+                                                            type="checkbox" name="access[<?php echo $index; ?>][check_all]">
+                                                    </label>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                $ind = 0;
+                                                foreach ($module->access as $row) {
+                                                    $kode_akses = explode('_', $row->identifiers);
+                                                    $checked = '';
+                                                
+                                                    echo '<span class="akses">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <label>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <input class="access_' .
+                                                        $index .
+                                                        '"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         type="checkbox"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         name="access[' .
+                                                        $index .
+                                                        '][module_access][' .
+                                                        $row->id .
+                                                        ']"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         value="1" ' .
+                                                        $checked .
+                                                        '>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ' .
+                                                        $row->name .
+                                                        '
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </label>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </span>';
+                                                    $ind++;
+                                                }
+                                                ?>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                            $no++;
+                                            $index++;
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                                <div id="accessError" style="color: red"></div>
                             </div>
+                        </div>
 
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class='form-group mandatory'>
-                                    <fieldset>
-                                        <label class="form-label">
-                                            Status
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class='form-group mandatory'>
+                                <fieldset>
+                                    <label class="form-label">
+                                        Status
+                                    </label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" value="1"
+                                            id="flexRadioDefault1" checked data-parsley-required="true">
+                                        <label class="form-check-label form-label" for="flexRadioDefault1">
+                                            Aktif
                                         </label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status" value="1"
-                                                id="flexRadioDefault1" checked data-parsley-required="true">
-                                            <label class="form-check-label form-label" for="flexRadioDefault1">
-                                                Aktif
-                                            </label>
-                                        </div>
-                                    </fieldset>
-                                </div>
+                                    </div>
+                                </fieldset>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12 d-flex justify-content-end">
-                                <button type="submit" id="formSubmit" class="btn btn-primary me-1 mb-1">
-                                    <span class="indicator-label">Submit</span>
-                                    <span class="indicator-progress" style="display: none;">
-                                        Tunggu Sebentar...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                    </span>
-                                </button>
-                                <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                <a href="{{ route('admin.user_groups') }}" class="btn btn-danger me-1 mb-1">Cancel</a>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="submit" id="formSubmit" class="btn btn-primary me-1 mb-1">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress" style="display: none;">
+                                    Tunggu Sebentar...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
+                            </button>
+                            <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                            <a href="{{ route('admin.user_groups') }}" class="btn btn-danger me-1 mb-1">Cancel</a>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
-
-    </section>
-    <!-- Basic Tables end -->
+    </div>
 @endsection
 
-
-
 @push('js')
-    <script src="{{ asset('templateAdmin/assets/extensions/parsleyjs/parsley.min.js') }}"></script>
-    <script src="{{ asset('templateAdmin/assets/js/pages/parsley.js') }}"></script>
-
     <script type="text/javascript">
         $(document).ready(function() {
             const form = document.getElementById("form");

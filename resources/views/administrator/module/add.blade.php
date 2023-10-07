@@ -1,47 +1,39 @@
 @extends('administrator.layouts.main')
 
 @section('content')
-    <!-- Basic Tables start -->
-    <section class="section">
-        <div class="card">
-            <div class="card-header">
-                Modules
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.module') }}">Module</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Add</li>
-                    </ol>
-                </nav>
-            </div>
-            <div class="card-content">
-                <div class="card-body">
-                    <form action="{{ route('admin.module.save') }}" method="post" enctype="multipart/form-data"
-                        class="form" id="form" data-parsley-validate>
-                        @csrf
-                        @method('POST')
-                        <div class="row">
-                            <div class="col-md-6 col-12">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group mandatory">
-                                            <label for="namaField" class="form-label">Nama</label>
-                                            <input type="text" id="namaField" class="form-control"
-                                                placeholder="Masukan Nama" name="name" autocomplete="off"
-                                                data-parsley-required="true">
-                                        </div>
-                                    </div>
-                                </div>
+    @push('section_header')
+        <h1>Modules</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="{{ route('admin.logSystems') }}">Modules</a></div>
+            <div class="breadcrumb-item">Add</div>
+        </div>
+    @endpush
+    @push('section_title')
+        Module
+    @endpush
 
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group mandatory">
-                                            <label for="identifierField" class="form-label">Identifier</label>
-                                            <input type="text" id="identifierField" class="form-control"
-                                                placeholder="Masukan Identifier" name="identifiers" autocomplete="off"
-                                                data-parsley-required="true">
-                                        </div>
-                                    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <form action="{{ route('admin.module.save') }}" method="post" enctype="multipart/form-data" id="form" data-parsley-validate>
+                    @csrf
+                    @method('POST')
+                    <div class="card-header">
+                        <h4>Form Add</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-6">
+                                <div class="form-group mandatory">
+                                    <label for="namaField" class="form-label">Nama</label>
+                                    <input type="text" id="namaField" class="form-control" placeholder="Masukan Nama"
+                                        name="name" autocomplete="off"  data-parsley-required="true">
+                                </div>
+                                <div class="form-group mandatory">
+                                    <label for="identifierField" class="form-label">Identifier</label>
+                                    <input type="text" id="identifierField" class="form-control"
+                                        placeholder="Masukan Identifier" name="identifiers" autocomplete="off"  data-parsley-required="true">
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
@@ -49,21 +41,20 @@
                                     <div class="modul_akses-list" index-element="0">
                                         <div class="row rowAkses">
                                             <div class="col-md-5 col-11">
-                                                <div class="form-group">
+                                                <div class="form-group mandatory">
                                                     <label class="form-label">Tipe</label>
-                                                    <select class="modul_akses-tipe form-select"
-                                                        data-parsley-required="true" name="modul_akses[0][tipe]">
+                                                    <select class="modul_akses-tipe form-control" data-parsley-required="true"
+                                                         name="modul_akses[0][tipe]">
                                                         <option value="">Please Select</option>
                                                         <option value="page">Elemen Standar</option>
                                                         <option value="element">Elemen Lainnya</option>
                                                     </select>
                                                 </div>
                                             </div>
-
                                             <div class="col-md-6 col-11">
                                                 <div class="form-group kode_akses-select" style="display: none;">
                                                     <label class="form-label">Kode Akses</label>
-                                                    <select class="modul_akses-kode_akses-select kode_akses form-select"
+                                                    <select class="modul_akses-kode_akses-select kode_akses form-control"
                                                         name="modul_akses[0][kode_akses]">
                                                         <option value="">Please Select</option>
                                                         <option value="view">View</option>
@@ -86,34 +77,27 @@
                                 <br>
                                 <button class="more-akses btn btn-primary btn-sm" type="button"><i class="fa fa-plus"></i>
                                     Add more akses</button>
-
                             </div>
-
-                            <div class="row">
-                                <div class="col-12 d-flex justify-content-end">
-                                    <button type="submit" id="formSubmit" class="btn btn-primary me-1 mb-1">
-                                        <span class="indicator-label">Submit</span>
-                                        <span class="indicator-progress" style="display: none;">
-                                            Tunggu Sebentar...
-                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                        </span>
-                                    </button>
-                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                </div>
-                            </div>
-                    </form>
-                </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button type="submit" id="formSubmit" class="btn btn-primary me-1 mb-1">
+                            <span class="indicator-label">Submit</span>
+                            <span class="indicator-progress" style="display: none;">
+                                Tunggu Sebentar...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                        <button type="reset" class="btn btn-secondary me-1 mb-1">Reset</button>
+                        <a href="{{route('admin.module')}}" class="btn btn-danger me-1 mb-1">Kembali</a>
+                    </div>
+                </form>
             </div>
         </div>
-
-    </section>
-    <!-- Basic Tables end -->
+    </div>
 @endsection
 
 @push('js')
-    <script src="{{ asset('templateAdmin/assets/extensions/parsleyjs/parsley.min.js') }}"></script>
-    <script src="{{ asset('templateAdmin/assets/js/pages/parsley.js') }}"></script>
-
     <script type="text/javascript">
         $(document).ready(function() {
 

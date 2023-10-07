@@ -1,13 +1,15 @@
 <!-- Modal fileinput-preview-profile -->
-<div class="modal fade" id="fileinput-preview-profile" tabindex="-1" aria-labelledby="fileinput-preview-profile"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+<div class="modal fade" tabindex="-1" role="dialog" id="fileinput-preview-profile" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="fileinput-preview-profile">Fileinput Preview Profile</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="fileinput-preview-profileLabel">Filter Module</h5>
+                <button type="button" class="close" id="buttonCloseModuleModal" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal-body" id="fileinput-preview-profile">
+            <div class="modal-body" id="fileinput-preview-profileBody">
                 <form action="{{ route('admin.profile.update') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -28,8 +30,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-footer bg-whitesmoke br">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
@@ -37,10 +39,8 @@
         </div>
     </div>
 </div>
-
 @push('js')
     {{-- Tambahkan FileInput JavaScript --}}
-    <script src="{{ asset_administrator('assets/plugins/form-jasnyupload/fileinput.min.js') }}"></script>
     <script>
         $("#userFotoInputFile").fileinput({
             showUpload: false, // Hilangkan tombol "Upload"

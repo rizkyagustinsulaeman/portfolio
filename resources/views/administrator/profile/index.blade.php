@@ -1,18 +1,19 @@
 @extends('administrator.layouts.main')
 
 @section('content')
+@push('section_header')
+        <h1>profile</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
+            <div class="breadcrumb-item">Profile</div>
+            <div class="breadcrumb-item">{{auth()->user()->kode}}</div>
+        </div>
+    @endpush
+    @push('section_title')
+        Profile
+    @endpush
     <div class="container">
         <div class="main-body">
-
-            <!-- Breadcrumb -->
-            <nav aria-label="breadcrumb" class="main-breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Profile</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $data->user->kode }}</li>
-                </ol>
-            </nav>
-            <!-- /Breadcrumb -->
 
             <div class="row gutters-sm">
 
@@ -27,8 +28,8 @@
                                     <p class="text-secondary mb-1">Full Stack Developer</p>
                                     <p class="text-muted font-size-sm">
                                         {{ $data->alamat ? $data->alamat : '' }}</p>
-                                    <a href="javascript:void(0)" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                        data-bs-target="#fileinput-preview-profile">Ubah Foto Profile</a>
+                                    <a href="javascript:void(0)" class="btn btn-outline-primary" data-toggle="modal"
+                                        data-target="#fileinput-preview-profile">Ubah Foto Profile</a>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +139,7 @@
                                         <h6 class="mb-0">Pendidikan Terakhir</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <select class="form-select" name="pendidikan_terakhir"
+                                        <select class="form-control" name="pendidikan_terakhir"
                                             id="pendidikanTerakhirField">
                                             <option value="">Pilih Pendidikan Terakhir</option>
                                             <option value="SD"

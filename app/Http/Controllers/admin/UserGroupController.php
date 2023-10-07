@@ -39,19 +39,17 @@ class UserGroupController extends Controller
             ->addColumn('status', function ($row) {
                 if (isAllowed(static::$module, "status")) : //Check permission
                     if ($row->status) {
-                        $status = '<div class="d-flex"><div class="form-check form-switch form-check-custom form-check-solid">
-                        <input class="form-check-input h-20px w-30px changeStatus" data-ix="' . $row->id . '" type="checkbox" value="1"
-                            name="status" checked="checked" />
-                        <label class="form-check-label fw-bold text-gray-400"
-                            for="status"></label>
+                        $status = '<div class="d-flex"><div>
+                        <input class="tgl tgl-ios h-20px w-30px changeStatus" data-ix="' . $row->id . '" type="checkbox" value="1"
+                            name="status" checked="checked" id="status'.$row->id.'" />
+                        <label class="tgl-btn" for="status'.$row->id.'"></label>
                     </div>';
                         $status .= '<span class="badge bg-success">Aktif</span></div>';
                     } else {
-                        $status = '<div class="d-flex"><div class="form-check form-switch form-check-custom form-check-solid">
-                        <input class="form-check-input h-20px w-30px changeStatus" data-ix="' . $row->id . '" type="checkbox" value="1"
-                            name="status"/>
-                            <label class="form-check-label fw-bold text-gray-400"
-                            for="status"></label>
+                        $status = '<div class="d-flex"><div>
+                        <input class="tgl tgl-ios h-20px w-30px changeStatus" data-ix="' . $row->id . '" type="checkbox" value="1"
+                            name="status" id="status'.$row->id.'"/>
+                            <label class="tgl-btn" for="status'.$row->id.'"></label>
                             </div>';
                         $status .= '<span class="badge bg-danger">Tidak Aktif</span></div>';
                     }
@@ -61,17 +59,17 @@ class UserGroupController extends Controller
             ->addColumn('action', function ($row) {
                 $btn = "";
                 if (isAllowed(static::$module, "delete")) : //Check permission
-                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-danger btn-sm delete me-3 ">
+                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-danger btn-sm delete">
                     Delete
                 </a>';
                 endif;
                 if (isAllowed(static::$module, "edit")) : //Check permission
-                    $btn .= '<a href="'.route('admin.user_groups.edit',$row->id).'" class="btn btn-primary btn-sm me-3 ">
+                    $btn .= '<a href="'.route('admin.user_groups.edit',$row->id).'" class="btn btn-primary btn-sm mx-3">
                     Edit
                 </a>';
                 endif;
                 if (isAllowed(static::$module, "detail")) : //Check permission
-                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-secondary btn-sm me-3" data-bs-toggle="modal" data-bs-target="#detailUserGroups">
+                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-secondary btn-sm me-3" data-toggle="modal" data-target="#detailUserGroups">
                     Detail
                 </a>';
                 endif;

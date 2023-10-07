@@ -24,7 +24,9 @@ class CreateProfileTable extends Migration
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
             $table->text('alamat')->nullable();
+            $table->string('created_by')->nullable();
             $table->timestamps();
+            $table->string('updated_by')->nullable();
         });
     }
 

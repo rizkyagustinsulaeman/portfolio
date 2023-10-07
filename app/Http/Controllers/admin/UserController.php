@@ -25,38 +25,40 @@ class UserController extends Controller
     }
     
     public function getData(Request $request){
-        $data = User::query()->with('user_group');
+        $data = User::query()
+                    ->with('user_group')
+                    ->where('email', '!=', 'dev@daysf.com');
 
         if ($request->status || $request->usergroup) {
-            if ($request->status != "") {
-                $status = $request->status == "Aktif" ? 1 : 0;
-                $data->where("status", $status);
-            }
-            
-            if ($request->usergroup != "") {
-                $usergroupid = $request->usergroup ;
-                $data->where("user_group_id", $usergroupid);
-            }
-            $data->get();
+            $data = $data->where(function ($query) use ($request) {
+                if ($request->status != "") {
+                    $status = $request->status == "Aktif" ? 1 : 0;
+                    $query->where("status", $status);
+                }
+
+                if ($request->usergroup != "") {
+                    $query->where("user_group_id", $request->usergroup);
+                }
+            });
         }
+
+        $data = $data->get();
 
         return DataTables::of($data)
             ->addColumn('status', function ($row) {
                 if (isAllowed(static::$module, "status")) : //Check permission
                     if ($row->status) {
-                        $status = '<div class="d-flex"><div class="form-check form-switch form-check-custom form-check-solid">
-                        <input class="form-check-input h-20px w-30px changeStatus" data-ix="' . $row->id . '" type="checkbox" value="1"
-                            name="status" checked="checked" />
-                        <label class="form-check-label fw-bold text-gray-400"
-                            for="status"></label>
+                        $status = '<div class="d-flex"><div>
+                        <input class="tgl tgl-ios changeStatus" data-ix="' . $row->id . '" type="checkbox" value="1"
+                            name="status" checked="checked"  id="status'.$row->id.'"/>
+                        <label class="tgl-btn" for="status'.$row->id.'"></label>
                     </div>';
                         $status .= '<span class="badge bg-success">Aktif</span></div>';
                     } else {
-                        $status = '<div class="d-flex"><div class="form-check form-switch form-check-custom form-check-solid">
-                        <input class="form-check-input h-20px w-30px changeStatus" data-ix="' . $row->id . '" type="checkbox" value="1"
-                            name="status"/>
-                            <label class="form-check-label fw-bold text-gray-400"
-                            for="status"></label>
+                        $status = '<div class="d-flex"><div>
+                        <input class="tgl tgl-ios changeStatus" data-ix="' . $row->id . '" type="checkbox" value="1"
+                            name="status" id="status'.$row->id.'"/>
+                            <label class="tgl-btn" for="status'.$row->id.'"></label>
                             </div>';
                         $status .= '<span class="badge bg-danger">Tidak Aktif</span></div>';
                     }
@@ -66,17 +68,17 @@ class UserController extends Controller
             ->addColumn('action', function ($row) {
                 $btn = "";
                 if (isAllowed(static::$module, "delete")) : //Check permission
-                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-danger btn-sm delete me-3 ">
+                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-danger btn-sm delete  ">
                     Delete
                 </a>';
                 endif;
                 if (isAllowed(static::$module, "edit")) : //Check permission
-                    $btn .= '<a href="'.route('admin.users.edit',$row->id).'" class="btn btn-primary btn-sm me-3 ">
+                    $btn .= '<a href="'.route('admin.users.edit',$row->id).'" class="btn btn-primary btn-sm mx-3 ">
                     Edit
                 </a>';
                 endif;
                 if (isAllowed(static::$module, "detail")) : //Check permission
-                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-secondary btn-sm me-3" data-bs-toggle="modal" data-bs-target="#detailUser">
+                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-secondary btn-sm " data-toggle="modal" data-target="#detailUser">
                     Detail
                 </a>';
                 endif;
@@ -360,20 +362,25 @@ class UserController extends Controller
     }
 
     public function getDataArsip(Request $request){
-        $data = User::query()->with('user_group')->onlyTrashed();
+        $data = User::query()
+                    ->with('user_group')
+                    ->onlyTrashed()
+                    ->where('email', '!=', 'dev@daysf.com');
 
         if ($request->status || $request->usergroup) {
-            if ($request->status != "") {
-                $status = $request->status == "Aktif" ? 1 : 0;
-                $data->where("status", $status);
-            }
-            
-            if ($request->usergroup != "") {
-                $usergroupid = $request->usergroup ;
-                $data->where("user_group_id", $usergroupid);
-            }
-            $data->get();
+            $data = $data->where(function ($query) use ($request) {
+                if ($request->status != "") {
+                    $status = $request->status == "Aktif" ? 1 : 0;
+                    $query->where("status", $status);
+                }
+
+                if ($request->usergroup != "") {
+                    $query->where("user_group_id", $request->usergroup);
+                }
+            });
         }
+
+        $data = $data->get();
 
         return DataTables::of($data)
             ->addColumn('status', function ($row) {
@@ -401,12 +408,12 @@ class UserController extends Controller
             ->addColumn('action', function ($row) {
                 $btn = "";
                 if (isAllowed(static::$module, "delete")) : //Check permission
-                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-danger btn-sm delete me-3 ">
+                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-danger btn-sm delete  ">
                     Delete
                 </a>';
                 endif;
                 if (isAllowed(static::$module, "restore")) : //Check permission
-                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-primary restore btn-sm me-3 ">
+                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-primary restore btn-sm mx-3 ">
                     Restore
                 </a>';
                 endif;

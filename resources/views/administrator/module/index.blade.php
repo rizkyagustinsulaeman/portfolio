@@ -1,47 +1,47 @@
 @extends('administrator.layouts.main')
 
 @section('content')
-    <!-- Basic Tables start -->
-    <section class="section">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-6">
-                        Modules
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Module</li>
-                            </ol>
-                        </nav>
+    @push('section_header')
+        <h1>Modules</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="{{route('admin.dashboard')}}">Dashboard</a></div>
+            <div class="breadcrumb-item">Modules</div>
+        </div>
+    @endpush
+    @push('section_title')
+        Module
+    @endpush
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="col-8">
+                        <h4>List Data</h4>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4" style="display: flex; justify-content: flex-end;">
                         @if (isallowed('user', 'add'))
-                            <a href="{{ route('admin.module.add') }}" class="btn btn-primary mx-3 float-end">Tambah
-                                Data</a>
+                            <a href="{{ route('admin.module.add') }}" class="btn btn-primary">Tambah Data</a>
                         @endif
-                        {{-- <a href="javascript:void(0)" class="btn btn-primary float-end" id="filterButton">Filter</a> --}}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th width="30">No</th>
+                                    <th width="">Nama</th>
+                                    <th width="">Identifier</th>
+                                    <th width="200">Action</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
-            {{-- @include('administrator.module.filter.main') --}}
-            <div class="card-body">
-                <table class="table" id="datatable">
-                    <thead>
-                        <tr>
-                            <th width="30">No</th>
-                            <th width="">Nama</th>
-                            <th width="">Identifier</th>
-                            <th width="200">Action</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
         </div>
-
-    </section>
-    <!-- Basic Tables end -->
-
+    </div>
     @include('administrator.module.modal.detail')
 @endsection
 

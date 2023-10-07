@@ -1,17 +1,19 @@
 <!-- Modal Detail User -->
-<div class="modal fade" id="detailLogSystem" tabindex="-1" aria-labelledby="detailLogSystemLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+<div class="modal fade" tabindex="-1" role="dialog" id="detailLogSystem" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detailLogSystemLabel">Detail Log System</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="detailLogSystemLabel">Filter Module</h5>
+                <button type="button" class="close" id="buttonCloseModuleModal" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body" id="detailLogSystemBody">
-
+                
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+            <div class="modal-footer bg-whitesmoke br">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

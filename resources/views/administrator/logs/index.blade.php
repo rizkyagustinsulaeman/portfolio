@@ -1,23 +1,27 @@
 @extends('administrator.layouts.main')
 
 @section('content')
-    <!-- Basic Tables start -->
-    <section class="section">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-6">
-                        Log Systems
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Log System</li>
-                            </ol>
-                        </nav>
+    @push('section_header')
+        <h1>Log Systems</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="{{route('admin.dashboard')}}">Dashboard</a></div>
+            <div class="breadcrumb-item">Log Systems</div>
+        </div>
+    @endpush
+    @push('section_title')
+        Log
+    @endpush
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="col-8">
+                        <h4>List Data</h4>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4" style="display: flex; justify-content: flex-end;">
                         @if (isallowed('log_system', 'clear'))
-                            <a href="javascript:void(0)" class="btn btn-danger mx-3 float-end clear">
+                            <a href="javascript:void(0)" class="btn btn-danger clear">
                                 <span class="indicator-label-kode">Clear Logs</span>
                                 <span class="indicator-progress-kode" style="display: none;">
                                     <div class="d-flex">
@@ -27,32 +31,34 @@
                             </a>
                         @endif
                         @if (isallowed('log_system', 'export'))
-                            <a href="{{route('admin.logSystems.generatePDF')}}" target="_blank" class="btn btn-primary ms-3 float-end">
+                            <a href="{{ route('admin.logSystems.generatePDF') }}" target="_blank" class="btn btn-primary mx-3">
                                 Export
                             </a>
                         @endif
-                        <a href="javascript:void(0)" class="btn btn-primary float-end" id="filterButton">Filter</a>
+                        <a href="javascript:void(0)" class="btn btn-primary" id="filterButton">Filter</a>
+                    </div>
+                </div>
+                @include('administrator.logs.filter.main')
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">
+                                        #
+                                    </th>
+                                    <th>User</th>
+                                    <th>Module</th>
+                                    <th>Action</th>
+                                    <th>Tanggal</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
-            @include('administrator.logs.filter.main')
-            <div class="card-body">
-                <table class="table" id="datatable">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th width="">User</th>
-                            <th width="">Module</th>
-                            <th width="">Action</th>
-                            <th width="">Tanggal</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
         </div>
-
-    </section>
-    <!-- Basic Tables end -->
+    </div>
 
     @include('administrator.logs.modal.detail')
 @endsection
@@ -88,7 +94,7 @@
                 columns: [{
                         render: function(data, type, row, meta) {
                             return '<a href="javascript:void(0)" data-id="' + row.id +
-                                '" data-bs-toggle="modal" data-bs-target="#detailLogSystem">' +
+                                '" data-toggle="modal" data-target="#detailLogSystem">' +
                                 (meta.row + meta.settings._iDisplayStart + 1) + '</a>';
                         },
                     },

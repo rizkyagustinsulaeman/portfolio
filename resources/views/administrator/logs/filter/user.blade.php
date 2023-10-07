@@ -6,7 +6,7 @@
             <input type="text" class="d-none" name="user" id="inputUser">
         </div>
         <div class="col-4" style="padding-left: 0;"> <!-- Menggunakan col-4 agar tombol "Search" lebih kecil dan menghapus padding kiri -->
-            <a href="#" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#filterUserLogSystem">
+            <a href="#" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#filterUserLogSystem">
                 Search
             </a>
         </div>
@@ -16,12 +16,15 @@
 
 
 <!-- Modal Detail User -->
-<div class="modal fade" id="filterUserLogSystem" tabindex="-1" aria-labelledby="filterUserLogSystemLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+<div class="modal fade" tabindex="-1" role="dialog" id="filterUserLogSystem" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="filterUserLogSystemLabel">Filter User</h5>
-                <button type="button" id="buttonCloseUserLogSystem" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="close" id="buttonCloseUserLogSystem" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body" id="filterUserLogSystemBody">
                 <table class="table" id="datatableUserModal">
@@ -35,9 +38,8 @@
                     </thead>
                 </table>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+            <div class="modal-footer bg-whitesmoke br">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

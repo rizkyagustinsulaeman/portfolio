@@ -1,27 +1,30 @@
 <div class="col-md-6 col-12">
     <label for="inputModule">Module</label>
     <div class="row">
-        <div class="col-8" style="padding-right: 0;"> <!-- Menggunakan col-8 agar input lebih lebar dan menghapus padding kanan -->
+        <div class="col-8" style="padding-right: 0;">
+            <!-- Menggunakan col-8 agar input lebih lebar dan menghapus padding kanan -->
             <input type="text" class="form-control" id="inputModuleName" readonly>
             <input type="text" class="d-none" name="module" id="inputModule">
         </div>
-        <div class="col-4" style="padding-left: 0;"> <!-- Menggunakan col-4 agar tombol "Search" lebih kecil dan menghapus padding kiri -->
-            <a href="#" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#filterModuleLogSystem">
+        <div class="col-4" style="padding-left: 0;">
+            <!-- Menggunakan col-4 agar tombol "Search" lebih kecil dan menghapus padding kiri -->
+            <a href="#" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#filterModuleLogSystem">
                 Search
             </a>
         </div>
     </div>
 </div>
 
-
-
 <!-- Modal Detail Module -->
-<div class="modal fade" id="filterModuleLogSystem" tabindex="-1" aria-labelledby="filterModuleLogSystemLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+<div class="modal fade" tabindex="-1" role="dialog" id="filterModuleLogSystem" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="filterModuleLogSystemLabel">Filter Module</h5>
-                <button type="button" id="buttonCloseModuleModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="close" id="buttonCloseModuleModal" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body" id="filterModuleLogSystemBody">
                 <table class="table" id="datatableModuleModal">
@@ -34,9 +37,8 @@
                     </thead>
                 </table>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+            <div class="modal-footer bg-whitesmoke br">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -48,8 +50,8 @@
             var button = $(event.relatedTarget);
 
             // Now, you can initialize a new DataTable on the same table.
-            $("#datatableModuleModal").DataTable().destroy(); 
-            $('#datatableModuleModal tbody').remove(); 
+            $("#datatableModuleModal").DataTable().destroy();
+            $('#datatableModuleModal tbody').remove();
             var data_table_module = $('#datatableModuleModal').DataTable({
                 "oLanguage": {
                     "oPaginate": {
@@ -86,17 +88,17 @@
                 ],
             });
             //click di baris tabel barang
-        $('#datatableModuleModal tbody').on('click', 'tr', function () {
-                    
-            var data = data_table_module.row(this).data();
-			
-			$("#inputModule").val(data.identifiers);
-			$("#inputModuleName").val(data.name);
-                    
-            $('#buttonCloseModuleModal').click();
+            $('#datatableModuleModal tbody').on('click', 'tr', function() {
 
-        }); 
-		//end click di baris tabel barang
+                var data = data_table_module.row(this).data();
+
+                $("#inputModule").val(data.identifiers);
+                $("#inputModuleName").val(data.name);
+
+                $('#buttonCloseModuleModal').click();
+
+            });
+            //end click di baris tabel barang
         });
     </script>
 @endpush

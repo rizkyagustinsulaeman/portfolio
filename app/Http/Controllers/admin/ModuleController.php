@@ -29,17 +29,17 @@ class ModuleController extends Controller
             ->addColumn('action', function ($row) {
                 $btn = "";
                 if (isAllowed(static::$module, "delete")) : //Check permission
-                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-danger btn-sm delete me-3 ">
+                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-danger btn-sm delete  ">
                     Delete
                 </a>';
                 endif;
                 if (isAllowed(static::$module, "edit")) : //Check permission
-                    $btn .= '<a href="'.route('admin.module.edit',$row->id).'" class="btn btn-primary btn-sm me-3 ">
+                    $btn .= '<a href="'.route('admin.module.edit',$row->id).'" class="btn btn-primary btn-sm mx-3 ">
                     Edit
                 </a>';
                 endif;
                 if (isAllowed(static::$module, "detail")) : //Check permission
-                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-secondary btn-sm me-3" data-bs-toggle="modal" data-bs-target="#detailModule">
+                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-secondary btn-sm " data-toggle="modal" data-target="#detailModule">
                     Detail
                 </a>';
                 endif;

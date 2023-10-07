@@ -1,38 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ array_key_exists('nama_app_admin', $settings) ? $settings['nama_app_admin'] : '' }}</title>
-    <link rel="stylesheet" href="{{asset('templateAdmin/assets/css/main/app.css')}}">
-    <link rel="stylesheet" href="{{asset('templateAdmin/assets/css/pages/auth.css')}}">
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Login &mdash; {{ array_key_exists('nama_app_admin', $settings) ? $settings['nama_app_admin'] : '' }}</title>
+
     <link rel="shortcut icon" href="{{ array_key_exists('favicon', $settings) ? img_src($settings['favicon'], 'settings') : '' }}" type="image/png">
+    <!-- General CSS Files -->
+  <link rel="stylesheet" href="{{template_stisla('modules/bootstrap/css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{template_stisla('modules/fontawesome/css/all.min.css')}}">
 
-    <link rel="stylesheet" href="{{ asset('templateAdmin/assets/extensions/toastify-js/src/toastify.css') }}">
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="{{template_stisla('modules/bootstrap-social/bootstrap-social.css')}}">
 
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{{template_stisla('css/style.css')}}">
+  <link rel="stylesheet" href="{{template_stisla('css/components.css')}}">
+  @stack('css')
+<!-- Start GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-    @stack('css')
-</head>
+  gtag('config', 'UA-94034622-3');
+</script>
+<!-- /END GA --></head>
 
 <body>
+  <div id="app">
     @yield('content')
+  </div>
 
+  <!-- General JS Scripts -->
+  <script src="{{template_stisla('modules/jquery.min.js')}}"></script>
+  <script src="{{template_stisla('modules/popper.js')}}"></script>
+  <script src="{{template_stisla('modules/tooltip.js')}}"></script>
+  <script src="{{template_stisla('modules/bootstrap/js/bootstrap.min.js')}}"></script>
+  <script src="{{template_stisla('modules/nicescroll/jquery.nicescroll.min.js')}}"></script>
+  <script src="{{template_stisla('modules/moment.min.js')}}"></script>
+  <script src="{{template_stisla('js/stisla.js')}}"></script>
+  
+  <!-- JS Libraies -->
 
-    <script src="{{ asset('templateAdmin/assets/extensions/toastify-js/src/toastify.js') }}"></script>
-    <script src="{{ asset('templateAdmin/assets/js/pages/toastify.js') }}"></script>
+  <!-- Page Specific JS File -->
+  
+  <!-- Template JS File -->
+  <script src="{{template_stisla('js/scripts.js')}}"></script>
+  <script src="{{template_stisla('js/custom.js')}}"></script>
 
-
-    <script>
-        var toastMessages = {
-            errors: [],
-            error: @json(session('error')),
-            success: @json(session('success')),
-            warning: @json(session('warning')),
-            info: @json(session('info'))
-        };
-    </script>
-    @stack('js')
+  @stack('js')
 </body>
-
 </html>
