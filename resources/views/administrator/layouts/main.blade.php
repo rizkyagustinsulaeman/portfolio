@@ -117,8 +117,8 @@
     <script src="{{ template_stisla('js/scripts.js') }}"></script>
     <script src="{{ template_stisla('js/custom.js') }}"></script>
 
-  <script src="{{ template_stisla('js/page/modules-toastr.js') }}"></script>
-  <script>
+    <script src="{{ template_stisla('js/page/modules-toastr.js') }}"></script>
+    <script>
         var toastMessages = {
             errors: [],
             error: @json(session('error')),
