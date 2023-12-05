@@ -19,6 +19,11 @@ function template_stisla($url)
 	return asset('templateStisla/dist/assets/' . $url);
 }
 
+function template_frontpage($url)
+{
+	return asset('templateFrontpage/' . $url);
+}
+
 function asset_frontpage($url)
 {
 	return asset('frontpage/' . $url);
@@ -32,6 +37,9 @@ function upload_path($type = '', $file = '')
 			break;
 		case 'profile':
 			$target_folder = 'profile';
+			break;
+		case 'project':
+			$target_folder = 'project';
 			break;
 		default:
 			$target_folder = '';
@@ -54,6 +62,9 @@ function img_src($image = '', $img_type = '')
 				break;
 			case 'profile':
 				$folder = '/profile/';
+				break;
+			case 'project':
+				$folder = '/project/';
 				break;
 			default:
 				$folder = '/';
