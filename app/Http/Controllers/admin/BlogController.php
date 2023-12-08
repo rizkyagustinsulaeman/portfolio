@@ -4,16 +4,16 @@ namespace App\Http\Controllers\admin;
 
 use File;
 use DataTables;
+use App\Models\admin\Blog;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\admin\Project;
+use App\Models\admin\KategoriBlog;
 use App\Http\Controllers\Controller;
-use App\Models\admin\KategoriProject;
 use Intervention\Image\Facades\Image;
 
-class ProjectController extends Controller
+class BlogController extends Controller
 {
-    private static $module = "project";
+    private static $module = "blog";
 
     public function index(){
         //Check permission
@@ -21,11 +21,11 @@ class ProjectController extends Controller
             abort(403);
         }
 
-        return view('administrator.project.index');
+        return view('administrator.blog.index');
     }
     
     public function getData(Request $request){
-        $data = Project::query()->with('kategori_project');
+        $data = Blog::query()->with('kategori');
 
         $data = $data->get();
 
@@ -38,12 +38,12 @@ class ProjectController extends Controller
                 </a>';
                 endif;
                 if (isAllowed(static::$module, "edit")) : //Check permission
-                    $btn .= '<a href="'.route('admin.project.edit',$row->id).'" class="btn btn-primary btn-sm mx-3 ">
+                    $btn .= '<a href="'.route('admin.blog.edit',$row->id).'" class="btn btn-primary btn-sm mx-3 ">
                     Edit
                 </a>';
                 endif;
                 if (isAllowed(static::$module, "detail")) : //Check permission
-                    $btn .= '<a href="'.route('admin.project.detail',$row->slug).'" data-id="' . $row->id . '" class="btn btn-secondary btn-sm ">
+                    $btn .= '<a href="'.route('admin.blog.detail',$row->slug).'" data-id="' . $row->id . '" class="btn btn-secondary btn-sm ">
                     Detail
                 </a>';
                 endif;
@@ -59,7 +59,7 @@ class ProjectController extends Controller
             abort(403);
         }
 
-        return view('administrator.project.add');
+        return view('administrator.blog.add');
     }
     
     public function save(Request $request)
@@ -70,26 +70,28 @@ class ProjectController extends Controller
         }
 
         $rules = [
-            'nama' => 'required|unique:project',
-            'kategori_project' => 'required',
-            'deskripsi' => 'required',
+            'judul' => 'required',
+            'kategori' => 'required',
+            'isi' => 'required',
+            'tanggal_posting' => 'required',
+            'status' => 'required',
         ];
 
         $request->validate($rules);
 
         // dd($request);
 
-        $slug = Str::slug($request->nama);
-        $cekSlugCount = Project::where('slug', $slug)->count();
+        $slug = Str::slug($request->judul);
+        $cekSlugCount = Blog::where('slug', $slug)->count();
 
         // Handle duplicate slug
         if ($cekSlugCount > 0) {
             $slug = $slug . '-' . ($cekSlugCount + 1);
         }
 
-        $deskripsi = $request->deskripsi;
+        $isi = $request->isi;
         $dom = new \domdocument();
-        $dom->loadHtml($deskripsi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $dom->loadHtml($isi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         
         $images = $dom->getelementsbytagname('img');
         foreach($images as $k => $img){
@@ -98,28 +100,31 @@ class ProjectController extends Controller
             list(, $datas)      = explode(',', $datas);
 
             $datas = base64_decode($datas);
-            $image_name= 'deskripsi_'.$slug.'-'.time().$k.'.png';
-            $path = public_path() .'/administrator/assets/media/project/'. $image_name;
+            $image_name= 'isi_'.$slug.'-'.time().$k.'.png';
+            $path = public_path() .'/administrator/assets/media/blog/'. $image_name;
             file_put_contents($path, $datas);
 
             $img->removeattribute('src');
-            $img->setattribute('src', '/administrator/assets/media/project/'.$image_name);
+            $img->setattribute('src', '/administrator/assets/media/blog/'.$image_name);
         }
-        $deskripsi = $dom->saveHTML();
+        $isi = $dom->saveHTML();
 
-        $data = Project::create([
-            'kategori_project_id' => $request->kategori_project,
-            'nama' => $request->nama,
+        $data = Blog::create([
+            'kategori_id' => $request->kategori,
+            'user_id' => auth()->user()->id,
+            'judul' => $request->judul,
+            'tanggal_posting' => date('Y-m-d', strtotime($request->tanggal_posting)),
             'slug' => $slug,
-            'deskripsi' => $deskripsi,
-            'img_url' => '-',
+            'isi' => $isi,
+            'status' => $request->status,
+            'img_url' => '[]',
             'created_by' => auth()->user()->id,
         ]);
         if ($request->hasFile('img')) {
             $dataImgJson = [];
             foreach ($request->file('img') as $image) {
-                $fileName = 'image_' . Str::slug($data->nama) . '_' . date('Y-m-d-H-i-s') . '_' . uniqid(2) . '.' . $image->getClientOriginalExtension();
-                $path = upload_path('project') . $fileName;
+                $fileName = 'image_' . Str::slug($data->judul) . '_' . date('Y-m-d-H-i-s') . '_' . uniqid(2) . '.' . $image->getClientOriginalExtension();
+                $path = upload_path('blog') . $fileName;
                 Image::make($image->getRealPath())->save($path, 100);
                 $dataImgJson[] = $fileName;
             }
@@ -131,7 +136,7 @@ class ProjectController extends Controller
         // Log the data
         createLog(static::$module, __FUNCTION__, $data->id, ['Data yang disimpan' => $data]);
 
-        return redirect()->route('admin.project')->with('success', 'Data berhasil disimpan.');
+        return redirect()->route('admin.blog')->with('success', 'Data berhasil disimpan.');
     }
     
     public function edit($id){
@@ -140,11 +145,11 @@ class ProjectController extends Controller
             abort(403);
         }
 
-        $data = Project::find($id);
+        $data = Blog::find($id);
 
         $decodeImg = json_decode($data->img_url);
         
-        return view('administrator.project.edit',compact('data','decodeImg'));
+        return view('administrator.blog.edit',compact('data','decodeImg'));
     }
     
     public function update(Request $request)
@@ -155,12 +160,14 @@ class ProjectController extends Controller
         }
 
         $id = $request->id;
-        $data = Project::find($id);
+        $data = Blog::find($id);
 
         $rules = [
-            'nama' => 'required|unique:kategori_project,nama,'.$id,
-            'kategori_project' => 'required',
-            'deskripsi' => 'required',
+            'judul' => 'required',
+            'kategori' => 'required',
+            'isi' => 'required',
+            'tanggal_posting' => 'required',
+            'status' => 'required',
         ];
 
         $request->validate($rules);
@@ -168,45 +175,49 @@ class ProjectController extends Controller
         // Simpan data sebelum diupdate
         $previousData = $data->toArray();
 
-        $slug = Str::slug($request->nama);
-        $cekSlugCount = Project::where('id','!=',$id)->where('slug', $slug)->count();
+        $slug = Str::slug($request->judul);
+        $cekSlugCount = Blog::where('id','!=',$id)->where('slug', $slug)->count();
 
         // Handle duplicate slug
         if ($cekSlugCount > 0) {
             $slug = $slug . ($cekSlugCount + 1);
         }
 
-        $deskripsi = $request->deskripsi;
+        $isi = $request->isi;
         $dom = new \domdocument();
         libxml_use_internal_errors(true);
-        $dom->loadHTML($deskripsi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $dom->loadHTML($isi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         $errors = libxml_get_errors();
         libxml_clear_errors();
         
         $images = $dom->getelementsbytagname('img');
         foreach($images as $k => $img){
             $datas = $img->getattribute('src');
+            // Check if the image has base64 encoding
             if (strpos($datas, ';') !== false) {
                 list($type, $datas) = explode(';', $datas);
-                list(, $datas)      = explode(',', $datas);
+                list(, $datas) = explode(',', $datas);
 
                 $datas = base64_decode($datas);
-                $image_name= 'deskripsi_'.$slug.'-'.time().$k.'.png';
-                $path = public_path() .'/administrator/assets/media/project/'. $image_name;
+                $image_name = 'isi_' . $slug . '-' . time() . $k . '.png';
+                $path = public_path() . '/administrator/assets/media/blog/' . $image_name;
                 file_put_contents($path, $datas);
 
-                $img->removeattribute('src');
-                $img->setattribute('src', '/administrator/assets/media/project/'.$image_name);
+                $img->removeAttribute('src');
+                $img->setAttribute('src', '/administrator/assets/media/blog/' . $image_name);
             }
         }
-        $deskripsi = $dom->saveHTML();
+        $isi = $dom->saveHTML();
 
         $updates = [
-            'kategori_project_id' => $request->kategori_project,
-            'nama' => $request->nama,
+            'kategori_id' => $request->kategori,
+            'user_id' => auth()->user()->id,
+            'judul' => $request->judul,
+            'tanggal_posting' => date('Y-m-d', strtotime($request->tanggal_posting)),
             'slug' => $slug,
-            'deskripsi' => $deskripsi,
-            'img_url' => '-',
+            'isi' => $isi,
+            'status' => $request->status,
+            'img_url' => '[]',
             'updated_by' => auth()->user()->id,
         ];
 
@@ -218,11 +229,12 @@ class ProjectController extends Controller
             error_log($errorMessage);
         }
 
+
         if ($request->hasFile('img')) {
             $dataImgJson = [];
             foreach ($request->file('img') as $image) {
                 $fileName = 'image_' . Str::slug($data->nama) . '_' . date('Y-m-d-H-i-s') . '_' . uniqid(2) . '.' . $image->getClientOriginalExtension();
-                $path = upload_path('project') . $fileName;
+                $path = upload_path('blog') . $fileName;
                 Image::make($image->getRealPath())->save($path, 100);
                 $dataImgJson[] = $fileName;
             }
@@ -241,7 +253,7 @@ class ProjectController extends Controller
         $data->update($updates);
 
         createLog(static::$module, __FUNCTION__, $data->id, ['Data sebelum diupdate' => $previousData, 'Data sesudah diupdate' => $updatedData]);
-        return redirect()->route('admin.project')->with('success', 'Data berhasil diupdate.');
+        return redirect()->route('admin.blog')->with('success', 'Data berhasil diupdate.');
     }
     
     public function delete(Request $request)
@@ -254,25 +266,19 @@ class ProjectController extends Controller
         $id = $request->id;
 
         // Find the data based on the provided ID or throw a 404 exception.
-        $data = Project::findOrFail($id);
+        $data = Blog::findOrFail($id);
 
         // Store the data to be logged before deletion
         $deletedData = $data->toArray();
 
+        $dataJson = [
+            'data' => $deletedData
+        ];
         // Delete the data.
         $data->delete();
 
-        $projects = Project::where('kategori_project_id', $data->id)->get();
-
-        // Delete related projects if any
-        if ($projects->isNotEmpty()) {
-            $projects->each(function ($project) {
-                $project->delete();
-            });
-        }
-
         // Write logs for soft delete
-        createLog(static::$module, __FUNCTION__, $id, ['Data yang diarsip' => ['Kategori' => $deletedData, 'Project' => $projects]]);
+        createLog(static::$module, __FUNCTION__, $id, ['Data yang diarsip' => $dataJson]);
 
         return response()->json([
             'status' => 'success',
@@ -280,33 +286,18 @@ class ProjectController extends Controller
         ]);
     }
 
-    public function getDataKategoriProject(Request $request)
+    public function getDataKategori(Request $request)
     {
-        $data = KategoriProject::query();
+        $data = KategoriBlog::query();
 
         return DataTables::of($data)
             ->make(true);
     }
     
     
-    public function getDetail($id){
-        //Check permission
-        if (!isAllowed(static::$module, "detail")) {
-            abort(403);
-        }
-
-        $data = Project::with('project')->find($id);
-
-        return response()->json([
-            'data' => $data,
-            'status' => 'success',
-            'message' => 'Sukses memuat detail data.',
-        ]);
-    }
-    
     public function checkNama(Request $request){
         if($request->ajax()){
-            $users = Project::where('nama', $request->nama)->withTrashed();
+            $users = Blog::where('nama', $request->nama)->withTrashed();
             
             if(isset($request->id)){
                 $users->where('id', '!=', $request->id);
@@ -331,11 +322,12 @@ class ProjectController extends Controller
             abort(403);
         }
 
-        return view('administrator.project.arsip');
+        return view('administrator.blog.arsip');
     }
 
     public function getDataArsip(Request $request){
-        $data = Project::query()
+        $data = Blog::query()
+                    ->with('kategori')
                     ->onlyTrashed()
                     ->get();
 
@@ -367,7 +359,7 @@ class ProjectController extends Controller
         
         $id = $request->id;
 
-        $data = Project::onlyTrashed()->find($id);
+        $data = Blog::onlyTrashed()->find($id);
 
         // Check if data exists in the trash
         if (!$data) {
@@ -380,8 +372,9 @@ class ProjectController extends Controller
         // Restore the category
         $data->restore();
 
+
         $updated = [
-            'data' => $data,
+            'Blog' => $data,
         ];
 
         // Write logs if needed.
@@ -404,27 +397,27 @@ class ProjectController extends Controller
         
         $id = $request->id;
 
-        $data = Project::onlyTrashed()->find($id);
+        $data = Blog::onlyTrashed()->find($id);
 
         // Check if data exists in the trash
         if (!$data) {
-            return redirect()->route('admin.project.arsip')->with('error', 'Data tidak ditemukan.');
+            return redirect()->route('admin.blog.arsip')->with('error', 'Data tidak ditemukan.');
         }
 
         $dataimgdecode = json_decode($data->img_url);
         if ($dataimgdecode != null) {
             foreach ($dataimgdecode as $row) {
-                $image_path = "./administrator/assets/media/project/" . $row;
+                $image_path = "./administrator/assets/media/blog/" . $row;
                     if (File::exists($image_path)) {
                         File::delete($image_path);
                     }
             }
         }
 
-        $deskripsi = $data->deskripsi;
+        $isi = $data->isi;
         $dom = new \domdocument();
         libxml_use_internal_errors(true);
-        $dom->loadHTML($deskripsi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $dom->loadHTML($isi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         $errors = libxml_get_errors();
         libxml_clear_errors();
         
@@ -432,19 +425,18 @@ class ProjectController extends Controller
         foreach($images as $k => $img){
             $datas = $img->getattribute('src');
             // Check if the image has base64 encoding
-            $data_replace = str_replace('/administrator/assets/media/project/', '', $datas);
-            $image_path = "./administrator/assets/media/project/" . $data_replace;
+            $data_replace = str_replace('/administrator/assets/media/blog/', '', $datas);
+            $image_path = "./administrator/assets/media/blog/" . $data_replace;
                     if (File::exists($image_path)) {
                         File::delete($image_path);
                     }
         }
 
-        // Force delete the category
         $data->forceDelete();
-
+        
 
         $dataJson = [
-            'data' => $data,
+            'Data' => $data,
         ];
 
         // Write logs if needed.
@@ -465,7 +457,7 @@ class ProjectController extends Controller
         $id = $request->id;
         $img = $request->img;
 
-        $data = Project::find($id);
+        $data = Blog::find($id);
 
         $dataimgdecode = json_decode($data->img_url);
         $imgJson = [];
@@ -474,7 +466,7 @@ class ProjectController extends Controller
                 array_push($imgJson, $row);
             }
             if ($row == $img) {
-                $image_path = "./administrator/assets/media/project/" . $row;
+                $image_path = "./administrator/assets/media/blog/" . $row;
                 if (File::exists($image_path)) {
                     File::delete($image_path);
                 }
@@ -491,10 +483,10 @@ class ProjectController extends Controller
             abort(403);
         }
 
-        $data = Project::where('slug', $slug)->first();
+        $data = Blog::where('slug', $slug)->first();
 
         $decodeImg = json_decode($data->img_url);
         
-        return view('administrator.project.detail',compact('data','decodeImg'));
+        return view('administrator.blog.detail',compact('data','decodeImg'));
     }
 }

@@ -20,10 +20,10 @@
                         <h4>List Data</h4>
                     </div>
                     <div class="col-4" style="display: flex; justify-content: flex-end;">
-                        @if (isallowed('user', 'add'))
+                        @if (isallowed('project', 'add'))
                             <a href="{{ route('admin.project.add') }}" class="btn btn-primary">Tambah Data</a>
                         @endif
-                        @if (isallowed('user', 'arsip'))
+                        @if (isallowed('project', 'arsip'))
                             <a href="{{ route('admin.project.arsip') }}" class="btn btn-primary mx-3">Arsip</a>
                         @endif
                     </div>

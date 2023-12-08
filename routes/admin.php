@@ -2,16 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\AuthController;
+use App\Http\Controllers\admin\BlogController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\viewController;
 use App\Http\Controllers\admin\ModuleController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\ProjectController;
+use App\Http\Controllers\admin\ServiceController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\LogSystemController;
 use App\Http\Controllers\admin\UserGroupController;
+use App\Http\Controllers\admin\KategoriBlogController;
+use App\Http\Controllers\admin\KomentarBlogController;
 use App\Http\Controllers\admin\KategoriProjectController;
+use App\Http\Controllers\admin\KomentarProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -122,7 +127,7 @@ Route::prefix('admin')->group(function () {
         Route::get('project/getDataKategoriProject', [ProjectController::class, 'getDataKategoriProject'])->name('admin.project.getDataKategoriProject');
         Route::post('project/save', [ProjectController::class, 'save'])->name('admin.project.save');
         Route::get('project/edit/{id}', [ProjectController::class, 'edit'])->name('admin.project.edit');
-        Route::get('project/detail/{nama}', [ProjectController::class, 'detail'])->name('admin.project.detail');
+        Route::get('project/detail/{slug}', [ProjectController::class, 'detail'])->name('admin.project.detail');
         Route::put('project/update', [ProjectController::class, 'update'])->name('admin.project.update');
         Route::delete('project/delete', [ProjectController::class, 'delete'])->name('admin.project.delete');
         Route::delete('project/deleteImage', [ProjectController::class, 'deleteImage'])->name('admin.project.deleteImage');
@@ -133,5 +138,57 @@ Route::prefix('admin')->group(function () {
         Route::get('project/arsip/getDataArsip',[ProjectController::class, 'getDataArsip'])->name('admin.project.getDataArsip');
         Route::put('project/arsip/restore',[ProjectController::class, 'restore'])->name('admin.project.restore');
         Route::delete('project/arsip/forceDelete',[ProjectController::class, 'forceDelete'])->name('admin.project.forceDelete');
+
+        //Service
+        Route::get('service', [ServiceController::class, 'edit'])->name('admin.service');
+        Route::put('service/update', [ServiceController::class, 'update'])->name('admin.service.update');
+        
+        //Kategori Blog
+        Route::get('kategori-blog', [KategoriBlogController::class, 'index'])->name('admin.kategori_blog');
+        Route::get('kategori-blog/add', [KategoriBlogController::class, 'add'])->name('admin.kategori_blog.add');
+        Route::get('kategori-blog/getData', [KategoriBlogController::class, 'getData'])->name('admin.kategori_blog.getData');
+        Route::post('kategori-blog/save', [KategoriBlogController::class, 'save'])->name('admin.kategori_blog.save');
+        Route::get('kategori-blog/edit/{id}', [KategoriBlogController::class, 'edit'])->name('admin.kategori_blog.edit');
+        Route::put('kategori-blog/update', [KategoriBlogController::class, 'update'])->name('admin.kategori_blog.update');
+        Route::delete('kategori-blog/delete', [KategoriBlogController::class, 'delete'])->name('admin.kategori_blog.delete');
+        Route::get('kategori-blog/getDetail-{id}', [KategoriBlogController::class, 'getDetail'])->name('admin.kategori_blog.getDetail');
+        Route::post('kategori-blog/checkNama',[KategoriBlogController::class, 'checkNama'])->name('admin.kategori_blog.checkNama');
+
+        Route::get('kategori-blog/arsip',[KategoriBlogController::class, 'arsip'])->name('admin.kategori_blog.arsip');
+        Route::get('kategori-blog/arsip/getDataArsip',[KategoriBlogController::class, 'getDataArsip'])->name('admin.kategori_blog.getDataArsip');
+        Route::put('kategori-blog/arsip/restore',[KategoriBlogController::class, 'restore'])->name('admin.kategori_blog.restore');
+        Route::delete('kategori-blog/arsip/forceDelete',[KategoriBlogController::class, 'forceDelete'])->name('admin.kategori_blog.forceDelete');
+
+        //Blog
+        Route::get('blog', [BlogController::class, 'index'])->name('admin.blog');
+        Route::get('blog/add', [BlogController::class, 'add'])->name('admin.blog.add');
+        Route::get('blog/getData', [BlogController::class, 'getData'])->name('admin.blog.getData');
+        Route::get('blog/getDataKategori', [BlogController::class, 'getDataKategori'])->name('admin.blog.getDataKategori');
+        Route::post('blog/save', [BlogController::class, 'save'])->name('admin.blog.save');
+        Route::get('blog/edit/{id}', [BlogController::class, 'edit'])->name('admin.blog.edit');
+        Route::get('blog/detail/{slug}', [BlogController::class, 'detail'])->name('admin.blog.detail');
+        Route::put('blog/update', [BlogController::class, 'update'])->name('admin.blog.update');
+        Route::delete('blog/delete', [BlogController::class, 'delete'])->name('admin.blog.delete');
+        Route::delete('blog/deleteImage', [BlogController::class, 'deleteImage'])->name('admin.blog.deleteImage');
+        Route::get('blog/getDetail-{id}', [BlogController::class, 'getDetail'])->name('admin.blog.getDetail');
+        Route::post('blog/checkNama',[BlogController::class, 'checkNama'])->name('admin.blog.checkNama');
+
+        Route::get('blog/arsip',[BlogController::class, 'arsip'])->name('admin.blog.arsip');
+        Route::get('blog/arsip/getDataArsip',[BlogController::class, 'getDataArsip'])->name('admin.blog.getDataArsip');
+        Route::put('blog/arsip/restore',[BlogController::class, 'restore'])->name('admin.blog.restore');
+        Route::delete('blog/arsip/forceDelete',[BlogController::class, 'forceDelete'])->name('admin.blog.forceDelete');
+
+        //Komentar Blog
+        Route::get('komentar-blog', [KomentarBlogController::class, 'index'])->name('admin.komentar_blog');
+        Route::get('komentar-blog/getData', [KomentarBlogController::class, 'getData'])->name('admin.komentar_blog.getData');
+        Route::get('komentar-blog/detail/{id}', [KomentarBlogController::class, 'detail'])->name('admin.komentar_blog.detail');
+        Route::delete('komentar-blog/delete', [KomentarBlogController::class, 'delete'])->name('admin.komentar_blog.delete');
+        
+        //Komentar Project
+        Route::get('komentar-project', [KomentarProjectController::class, 'index'])->name('admin.komentar_project');
+        Route::get('komentar-project/getData', [KomentarProjectController::class, 'getData'])->name('admin.komentar_project.getData');
+        Route::get('komentar-project/detail/{id}', [KomentarProjectController::class, 'detail'])->name('admin.komentar_project.detail');
+        Route::delete('komentar-project/delete', [KomentarProjectController::class, 'delete'])->name('admin.komentar_project.delete');
+
     });
 });

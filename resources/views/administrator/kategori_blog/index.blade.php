@@ -2,14 +2,14 @@
 
 @section('content')
     @push('section_header')
-        <h1>Kategori Project</h1>
+        <h1>Kategori Blog</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-            <div class="breadcrumb-item">Kategori Project</div>
+            <div class="breadcrumb-item">Kategori Blog</div>
         </div>
     @endpush
     @push('section_title')
-    Kategori Project
+        Kategori Blog
     @endpush
 
     <div class="row">
@@ -20,14 +20,14 @@
                         <h4>List Data</h4>
                     </div>
                     <div class="col-4" style="display: flex; justify-content: flex-end;">
-                        @if (isallowed('kategori_project', 'add'))
-                            <a href="{{ route('admin.kategori_project.add') }}" class="btn btn-primary">Tambah Data</a>
+                        @if (isallowed('kategori_blog', 'add'))
+                            <a href="{{ route('admin.kategori_blog.add') }}" class="btn btn-primary">Tambah Data</a>
                         @endif
-                        @if (isallowed('kategori_project', 'arsip'))
-                            <a href="{{ route('admin.kategori_project.arsip') }}" class="btn btn-primary mx-3">Arsip</a>
+                        @if (isallowed('kategori_blog', 'arsip'))
+                            <a href="{{ route('admin.kategori_blog.arsip') }}" class="btn btn-primary mx-3">Arsip</a>
                         @endif
                     </div>
-                    
+
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -36,7 +36,7 @@
                                 <tr>
                                     <th width="25">No</th>
                                     <th width="">Nama</th>
-                                    <th width="">Slug</th>
+                                    <th width="">Status</th>
                                     <th width="200">Action</th>
                                 </tr>
                             </thead>
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-    @include('administrator.kategori_project.modal.detail')
+    @include('administrator.kategori_blog.modal.detail')
 @endsection
 
 @push('js')
@@ -68,11 +68,10 @@
                 ],
                 scrollX: true, // Enable horizontal scrolling
                 ajax: {
-                    url: '{{ route('admin.kategori_project.getData') }}',
+                    url: '{{ route('admin.kategori_blog.getData') }}',
                     dataType: "JSON",
                     type: "GET",
-                    data: function(d) {
-                    }
+                    data: function(d) {}
 
                 },
                 columns: [{
@@ -85,8 +84,13 @@
                         name: 'nama'
                     },
                     {
-                        data: 'slug',
-                        name: 'slug'
+                        render: function(data, type, row, meta) {
+                            if (row.status == 1) {
+                                return 'Public';
+                            } else {
+                                return 'Private';
+                            }
+                        },
                     },
                     {
                         data: 'action',
@@ -121,7 +125,7 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "DELETE",
-                            url: "{{ route('admin.kategori_project.delete') }}",
+                            url: "{{ route('admin.kategori_blog.delete') }}",
                             data: {
                                 "_token": "{{ csrf_token() }}",
                                 "_method": "DELETE",
@@ -129,7 +133,7 @@
                             },
                             success: function() {
                                 // data_table.ajax.url(
-                                //         '{{ route('admin.kategori_project.getData') }}')
+                                //         '{{ route('admin.kategori_blog.getData') }}')
                                 //     .load();
                                 data_table.ajax.reload(null, false);
                                 swalWithBootstrapButtons.fire({

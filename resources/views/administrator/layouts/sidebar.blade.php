@@ -17,14 +17,31 @@
             <li class="menu-header">Dashboard</li>
             <li class="{{ Route::is('admin.dashboard*') ? 'active' : '' }}"><a class="nav-link" href="blank.html"><i class="fas fa-columns"></i><span>Dashboard</span></a></li>
             <li class="menu-header">Menu</li>
-            <li class="dropdown {{ Route::is('admin.kategori_project*') ? 'active' : '' }}">
+            <li class="dropdown {{ Route::is('admin.kategori_project*', 'admin.service*', 'admin.kategori_blog*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-database"></i>
                     <span>Data Master</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ Route::is('admin.kategori_project*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.kategori_project')}}">Kategori Project</a></li>
+                    <li class="{{ Route::is('admin.service*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.service')}}">Service</a></li>
+                    <li class="{{ Route::is('admin.kategori_blog*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.kategori_blog')}}">Kategori Blog</a></li>
                 </ul>
             </li>
-            <li class="{{ Route::is('admin.project*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.project')}}"><i class="fas fa-solid fa-user"></i> <span>Project</span></a></li>
+            <li class="dropdown {{ Route::is('admin.project*', 'admin.komentar_project*') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-database"></i>
+                    <span>Portofolio</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ Route::is('admin.project*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.project')}}">Project</a></li>
+                    <li class="{{ Route::is('admin.komentar_project*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.komentar_project')}}">Komentar</a></li>
+                </ul>
+            </li>
+            <li class="dropdown {{ Route::is('admin.blog*', 'admin.komentar_blog*') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-database"></i>
+                    <span>Blog</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ Route::is('admin.blog*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.blog')}}">Post</a></li>
+                    <li class="{{ Route::is('admin.komentar_blog*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.komentar_blog')}}">Komentar</a></li>
+                </ul>
+            </li>
             <li class="dropdown {{ Route::is('admin.users*','admin.user_groups*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users-cog"></i>
                     <span>User Management</span></a>

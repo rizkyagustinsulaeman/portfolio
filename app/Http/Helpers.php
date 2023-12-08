@@ -41,6 +41,12 @@ function upload_path($type = '', $file = '')
 		case 'project':
 			$target_folder = 'project';
 			break;
+		case 'service':
+			$target_folder = 'service';
+			break;
+		case 'blog':
+			$target_folder = 'blog';
+			break;
 		default:
 			$target_folder = '';
 			break;
@@ -65,6 +71,12 @@ function img_src($image = '', $img_type = '')
 				break;
 			case 'project':
 				$folder = '/project/';
+				break;
+			case 'service':
+				$folder = '/service/';
+				break;
+			case 'blog':
+				$folder = '/blog/';
 				break;
 			default:
 				$folder = '/';
