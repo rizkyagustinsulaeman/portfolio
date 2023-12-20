@@ -34,6 +34,7 @@ Route::get('/project', [ProjectController::class, 'index'])->name('web.project')
 Route::get('/project/{slug}', [ProjectController::class, 'index'])->name('web.project.slug');
 
 Route::get('/service', [ServiceController::class, 'index'])->name('web.service');
+Route::get('/service/getService', [ServiceController::class, 'getService'])->name('web.service.getService');
 
 Route::get('/about', [AboutController::class, 'index'])->name('web.about');
 

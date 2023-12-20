@@ -58,7 +58,7 @@
                         </div>
                         <p>If you hire a videographer of our team you will get a video professional to make a custom
                             video for your business and, once the project is over.</p>
-                        <a href="#" class="primary-btn">View all services</a>
+                        <a href="{{route('web.service')}}" class="primary-btn">View all services</a>
                     </div>
                 </div>
                 <div class="col-lg-8">

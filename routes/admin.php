@@ -202,5 +202,16 @@ Route::prefix('admin')->group(function () {
         Route::get('gallery/getGalleryData', [GalleryController::class, 'getGalleryData'])->name('admin.gallery.getGalleryData');
         Route::post('gallery/save', [GalleryController::class, 'save'])->name('admin.gallery.save');
         Route::delete('gallery/deleteImage', [GalleryController::class, 'deleteImage'])->name('admin.gallery.deleteImage');
+
+        //Client
+        Route::get('client', [ClientController::class, 'index'])->name('admin.client');
+        Route::get('client/add', [ClientController::class, 'add'])->name('admin.client.add');
+        Route::get('client/getData', [ClientController::class, 'getData'])->name('admin.client.getData');
+        Route::post('client/save', [ClientController::class, 'save'])->name('admin.client.save');
+        Route::get('client/edit/{id}', [ClientController::class, 'edit'])->name('admin.client.edit');
+        Route::get('client/detail/{slug}', [ClientController::class, 'detail'])->name('admin.client.detail');
+        Route::put('client/update', [ClientController::class, 'update'])->name('admin.client.update');
+        Route::delete('client/delete', [ClientController::class, 'delete'])->name('admin.client.delete');
+        Route::delete('client/deleteImage', [ClientController::class, 'deleteImage'])->name('admin.client.deleteImage');
     });
 });

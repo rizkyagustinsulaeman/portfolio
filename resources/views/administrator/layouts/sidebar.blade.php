@@ -44,6 +44,7 @@
                 </ul>
             </li>
             <li class="{{ Route::is('admin.gallery*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.gallery')}}"><i class="fas fa-solid fa-user"></i> <span>Gallery</span></a></li>
+            <li class="{{ Route::is('admin.client*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.client')}}"><i class="fas fa-solid fa-user"></i> <span>Client</span></a></li>
             <li class="dropdown {{ Route::is('admin.users*','admin.user_groups*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users-cog"></i>
                     <span>User Management</span></a>
