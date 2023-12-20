@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Models\admin\About;
 use Illuminate\Http\Request;
+use App\Models\admin\Gallery;
 use App\Http\Controllers\Controller;
 
 class AboutController extends Controller
@@ -38,6 +39,7 @@ class AboutController extends Controller
         
         $data_settings = [];
         $data_settings["deskripsi"] = $request->deskripsi;
+        $data_settings["image"] = $request->image;
 
         $logs = []; // Buat array kosong untuk menyimpan log
 
@@ -68,6 +70,13 @@ class AboutController extends Controller
         createLog(static::$module, __FUNCTION__, 0,$logs);
 
         return redirect(route('admin.about'))->with(['success' => 'Data berhasil di update.']);
+    }
 
+    public function getDataGallery(){
+        $data = Gallery::all();
+
+        return response()->json([
+            'data' => $data,
+        ], 200);
     }
 }

@@ -81,3 +81,7 @@
     </section>
     <!-- About Section End -->
 @endsection
+
+@push('js')
+    
+@endpush

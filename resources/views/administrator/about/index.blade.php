@@ -22,9 +22,29 @@
                     <div class="row">
                         <div class="col-md-6 col-12">
                             <div class="form-group mandatory">
-                                <label for="namaAppField" class="form-label">Deskripsi</label>
+                                <label for="inputDeskripsi" class="form-label">Deskripsi</label>
                                 <textarea name="deskripsi" class="form-control" id="inputDeskripsi" placeholder="Masukan Deskripsi" cols="30"
                                     rows="100" autocomplete="off" data-parsley-required="true">{{ array_key_exists('deskripsi', $settings) ? $settings['deskripsi'] : '' }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <div class="form-group mandatory">
+                                <label for="inputImage" class="form-label">Image</label>
+                                <div class="row">
+                                    <div class="col-8" style="padding-right: 0;">
+                                        <!-- Menggunakan col-8 agar input lebih lebar dan menghapus padding kanan -->
+                                        <input type="text" name="image" class="form-control" value="{{ array_key_exists('image', $settings) ? $settings['image'] : '' }}" id="inputImage" readonly>
+                                    </div>
+                                    <div class="col-4" style="padding-left: 0;">
+                                        <!-- Menggunakan col-4 agar tombol "Search" lebih kecil dan menghapus padding kiri -->
+                                        <a href="#" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modalGallery">
+                                            Search
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -46,6 +66,7 @@
         </div>
     </div>
 
+    @include('administrator.about.modal.main')
     <!-- Basic Tables end -->
 @endsection
 

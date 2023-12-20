@@ -194,6 +194,7 @@ Route::prefix('admin')->group(function () {
 
         //About
         Route::get('about', [AboutController::class, 'index'])->name('admin.about');
+        Route::get('about/getDataGallery', [AboutController::class, 'getDataGallery'])->name('admin.about.getDataGallery');
         Route::put('about/update', [AboutController::class, 'update'])->name('admin.about.update');
         
         //Gallery
