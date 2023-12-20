@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\frontpage;
 
-use App\Http\Controllers\Controller;
+use App\Models\admin\About;
 use Illuminate\Http\Request;
+use App\Models\admin\Service;
+use App\Http\Controllers\Controller;
 
 class AboutController extends Controller
 {
@@ -20,7 +22,7 @@ class AboutController extends Controller
     }
 
     public function getAbout(){
-        $data = About::limit(2)->get();
+        $data = About::all();
 
         return response()->json([
             'data' => $data,

@@ -37,6 +37,8 @@ Route::get('/service', [ServiceController::class, 'index'])->name('web.service')
 Route::get('/service/getService', [ServiceController::class, 'getService'])->name('web.service.getService');
 
 Route::get('/about', [AboutController::class, 'index'])->name('web.about');
+Route::get('/about/getService', [AboutController::class, 'getService'])->name('web.about.getService');
+Route::get('/about/getAbout', [AboutController::class, 'getAbout'])->name('web.about.getAbout');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('web.blog');
 
