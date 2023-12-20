@@ -15,7 +15,12 @@ class CreateClientTable extends Migration
     {
         Schema::create('client', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('website_url')->default('javascript:void(0)');
+            $table->text('img_url');
+            $table->string('created_by')->nullable();
             $table->timestamps();
+            $table->string('updated_by')->nullable();
         });
     }
 

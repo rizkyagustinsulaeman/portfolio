@@ -50,6 +50,9 @@ function upload_path($type = '', $file = '')
 		case 'gallery':
 			$target_folder = 'gallery';
 			break;
+		case 'client':
+			$target_folder = 'client';
+			break;
 		default:
 			$target_folder = '';
 			break;
@@ -83,6 +86,9 @@ function img_src($image = '', $img_type = '')
 				break;
 			case 'gallery':
 				$folder = '/gallery/';
+				break;
+			case 'client':
+				$folder = '/client/';
 				break;
 			default:
 				$folder = '/';

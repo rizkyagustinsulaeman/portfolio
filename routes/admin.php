@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\BlogController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\viewController;
 use App\Http\Controllers\admin\AboutController;
+use App\Http\Controllers\admin\ClientController;
 use App\Http\Controllers\admin\ModuleController;
 use App\Http\Controllers\admin\GalleryController;
 use App\Http\Controllers\admin\ProfileController;
@@ -210,9 +211,9 @@ Route::prefix('admin')->group(function () {
         Route::get('client/getData', [ClientController::class, 'getData'])->name('admin.client.getData');
         Route::post('client/save', [ClientController::class, 'save'])->name('admin.client.save');
         Route::get('client/edit/{id}', [ClientController::class, 'edit'])->name('admin.client.edit');
-        Route::get('client/detail/{slug}', [ClientController::class, 'detail'])->name('admin.client.detail');
         Route::put('client/update', [ClientController::class, 'update'])->name('admin.client.update');
         Route::delete('client/delete', [ClientController::class, 'delete'])->name('admin.client.delete');
         Route::delete('client/deleteImage', [ClientController::class, 'deleteImage'])->name('admin.client.deleteImage');
+        Route::get('client/detail/{id}', [ClientController::class, 'detail'])->name('admin.client.detail');
     });
 });
