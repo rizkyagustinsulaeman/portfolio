@@ -1,5 +1,21 @@
 @extends('frontpage.layouts.main')
+@push('css')
+<style>
+    /* Set a fixed height for the container */
+    .logo__item {
+        height: 150px; /* Adjust the height as needed */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
+    /* Set a max-width for the images to maintain their original aspect ratio */
+    .client-logo {
+        max-width: 100%; /* Ensure the image doesn't exceed the container width */
+        max-height: 100%; /* Ensure the image doesn't exceed the container height */
+    }
+</style>
+@endpush
 @section('content')
     <!-- Breadcrumb Begin -->
     <div class="breadcrumb-option spad set-bg" data-setbg="{{ template_frontpage('img/breadcrumb-bg.jpg') }}">
@@ -9,7 +25,7 @@
                     <div class="breadcrumb__text">
                         <h2>Our Sevices</h2>
                         <div class="breadcrumb__links">
-                            <a href="#">Home</a>
+                            <a href="{{route('web.index')}}">Home</a>
                             <span>Services</span>
                         </div>
                     </div>
@@ -109,7 +125,7 @@
     <!-- Logo Begin -->
     <div class="logo spad">
         <div class="container">
-            <div class="logo__carousel owl-carousel">
+            <div class="logo__carousel owl-carousel" id="clientSection">
                 <a href="#" class="logo__item"><img src="{{ template_frontpage('img/logo/logo-1.png') }}"
                         alt=""></a>
                 <a href="#" class="logo__item"><img src="{{ template_frontpage('img/logo/logo-2.png') }}"
@@ -130,7 +146,26 @@
 
 @push('js')
     <script type="text/javascript">
-        //Service
+        // Function to initialize Owl Carousel
+        function initOwlCarousel() {
+            $('.logo__carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                responsive: {
+                    0: {
+                        items: 2
+                    },
+                    600: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 5
+                    }
+                }
+            });
+        }
+
+        // Service
         $.ajax({
             type: "GET",
             url: "{{ route('web.service.getService') }}",
@@ -138,7 +173,7 @@
                 "_token": "{{ csrf_token() }}",
                 "_method": "GET",
             },
-            success: function(respon) {
+            success: function (respon) {
                 let serviceHtml = ''
 
                 for (let i = 0; i < respon.data.length; i++) {
@@ -158,8 +193,37 @@
                 }
                 $('#serviceSection').html(
                     serviceHtml
-                )
+                );
             }
         });
+
+        // Client
+        $.ajax({
+            type: "GET",
+            url: "{{ route('web.service.getClient') }}",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "_method": "GET",
+            },
+            success: function (respon) {
+                let clientHtml = ''
+
+                for (let i = 0; i < respon.data.length; i++) {
+                    const data = respon.data[i];
+
+                    clientHtml += `<a href="` + data.website_url + `" target="_blank" class="logo__item"><img class="client-logo" src="{{ asset_administrator('assets/media/client') }}/` + data.img_url + `" alt=""></a>`;
+                }
+                $('#clientSection').html(
+                    clientHtml
+                );
+
+                // Destroy and reinitialize Owl Carousel after updating content
+                $('.logo__carousel').owlCarousel('destroy');
+                initOwlCarousel();
+            }
+        });
+
+        // Initial Owl Carousel initialization
+        initOwlCarousel();
     </script>
 @endpush

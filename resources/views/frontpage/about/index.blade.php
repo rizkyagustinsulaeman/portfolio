@@ -9,7 +9,7 @@
                     <div class="breadcrumb__text">
                         <h2>About us</h2>
                         <div class="breadcrumb__links">
-                            <a href="#">Home</a>
+                            <a href="{{route('web.index')}}">Home</a>
                             <span>About</span>
                         </div>
                     </div>

@@ -18,7 +18,10 @@
     <link rel="stylesheet" href="{{template_frontpage('css/bootstrap.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{template_frontpage('css/font-awesome.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{template_frontpage('css/elegant-icons.css')}}" type="text/css">
+    <!-- Add Owl Carousel CSS and JS CDN links if not already added -->
     <link rel="stylesheet" href="{{template_frontpage('css/owl.carousel.min.css')}}" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="{{template_frontpage('css/magnific-popup.css')}}" type="text/css">
     <link rel="stylesheet" href="{{template_frontpage('css/slicknav.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{template_frontpage('css/style.css')}}" type="text/css">
