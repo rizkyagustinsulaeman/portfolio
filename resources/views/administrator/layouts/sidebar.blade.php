@@ -15,7 +15,7 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="{{ Route::is('admin.dashboard*') ? 'active' : '' }}"><a class="nav-link" href="blank.html"><i class="fas fa-columns"></i><span>Dashboard</span></a></li>
+            <li class="{{ Route::is('admin.dashboard*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.dashboard')}}"><i class="fas fa-columns"></i><span>Dashboard</span></a></li>
             <li class="menu-header">Menu</li>
             <li class="dropdown {{ Route::is('admin.kategori_project*', 'admin.service*', 'admin.kategori_blog*', 'admin.about*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-database"></i>
@@ -60,7 +60,7 @@
                     <li class="{{ Route::is('admin.logSystems*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.logSystems')}}">Logs</a></li>
                 </ul>
             </li>
-            <li class="{{ Route::is('admin.profile*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.profile',auth()->user()->kode)}}"><i class="fas fa-solid fa-user"></i> <span>Profile</span></a></li>
+            <li class="{{ Route::is('admin.profile*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.profile',(auth()->user() ? auth()->user()->kode : ""))}}"><i class="fas fa-solid fa-user"></i> <span>Profile</span></a></li>
             <li class="dropdown {{ Route::is('admin.settings*','admin.module*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-cogs"></i> <span>Settings</span></a>
                 <ul class="dropdown-menu">
