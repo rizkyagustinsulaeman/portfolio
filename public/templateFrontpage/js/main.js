@@ -108,27 +108,27 @@
     /*------------------
         Latest Slider
     --------------------*/
-    $(".latest__slider").owlCarousel({
-        loop: true,
-        margin: 0,
-        items: 3,
-        dots: true,
-        dotsEach: 2,
-        smartSpeed: 1200,
-        autoHeight: false,
-        autoplay: true,
-        responsive: {
-            992: {
-                items: 3
-            },
-            768: {
-                items: 2
-            },
-            320: {
-                items: 1
-            }
-        }
-    });
+    // $(".latest__slider").owlCarousel({
+    //     loop: true,
+    //     margin: 0,
+    //     items: 3,
+    //     dots: true,
+    //     dotsEach: 2,
+    //     smartSpeed: 1200,
+    //     autoHeight: false,
+    //     autoplay: true,
+    //     responsive: {
+    //         992: {
+    //             items: 3
+    //         },
+    //         768: {
+    //             items: 2
+    //         },
+    //         320: {
+    //             items: 1
+    //         }
+    //     }
+    // });
 
     /*------------------
         Logo Slider

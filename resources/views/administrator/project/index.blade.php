@@ -35,8 +35,8 @@
                             <thead>
                                 <tr>
                                     <th width="25">No</th>
-                                    <th width="">Kategori</th>
-                                    <th width="">Nama</th>
+                                    <th width="300">Kategori</th>
+                                    <th width="100%">Nama</th>
                                     <th width="200">Action</th>
                                 </tr>
                             </thead>

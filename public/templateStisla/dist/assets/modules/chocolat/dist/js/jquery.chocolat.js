@@ -28,6 +28,7 @@
 
         this.element.find(this.settings.imageSelector).each(function () {
             that.settings.images.push({
+                id  : $(this).attr('data-id'),
                 title  : $(this).attr('title'),
                 src    : $(this).attr(that.settings.imageSource),
                 height : false,
@@ -259,11 +260,17 @@
             }
         },
 
-        description : function() {
+        description: function () {
             var that = this;
-            this.elems.description
-                .html(that.settings.images[that.settings.currentImage].title);
+            var currentImage = that.settings.currentImage;
+            var currentImageData = that.settings.images[currentImage];
+            
+            this.elems.description.html(currentImageData.title);
+            this.elems.deleteButton.attr('data-title', currentImageData.title);
+            this.elems.deleteButton.attr('data-id', currentImageData.id);
         },
+        
+        
 
         pagination : function() {
             var that      = this;
@@ -382,6 +389,15 @@
                 'class' : 'chocolat-close'
             }).appendTo(this.elems.top);
 
+            this.elems.deleteButton = $('<button/>', {
+                'class': 'chocolat-delete delete',
+                'text': 'Delete',
+                // 'html': '<i class="fa-solid fa-trash"></i>', /* Use 'html' instead of 'text' to insert the icon */
+                'data-title': '',
+                'data-id': ''
+            }).appendTo(this.elems.bottom);
+            
+            
             this.elems.fullscreen = $('<span/>', {
                 'class' : 'chocolat-fullscreen'
             }).appendTo(this.elems.bottom);
@@ -398,6 +414,13 @@
                 'class' : 'chocolat-set-title',
                 'html' : this.settings.setTitle
             }).appendTo(this.elems.bottom);
+
+            this.elems.deleteButton
+            .off('click.chocolat')
+            .on('click.chocolat', function(i) {
+                // Handle deletion here
+                console.log('Delete button clicked');
+            });
 
             this.settings.afterMarkup.call(this);
         },

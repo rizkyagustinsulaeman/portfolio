@@ -21,7 +21,9 @@ class KomentarBlogController extends Controller
     }
     
     public function getData(Request $request){
-        $data = KomentarBlog::query();
+        $data = KomentarBlog::query()
+                            ->with('blog')
+                            ->where('komentar_id',0);
 
         $data = $data->get();
 
@@ -81,6 +83,10 @@ class KomentarBlogController extends Controller
         }
 
         $data = KomentarBlog::where('id', $id)->first();
+
+        if (!$data) {
+            abort(404);
+        }
 
         $data_detail = KomentarBlog::where('komentar_id', $id)->get();
 

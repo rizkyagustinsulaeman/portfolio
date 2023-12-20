@@ -29,7 +29,7 @@ class ServiceController extends Controller
     {
         // dd($request);
         //Check permission
-        if (!isAllowed(static::$module, "setting")) {
+        if (!isAllowed(static::$module, "edit")) {
             abort(403);
         }
 

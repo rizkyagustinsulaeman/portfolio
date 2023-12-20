@@ -17,12 +17,13 @@
             <li class="menu-header">Dashboard</li>
             <li class="{{ Route::is('admin.dashboard*') ? 'active' : '' }}"><a class="nav-link" href="blank.html"><i class="fas fa-columns"></i><span>Dashboard</span></a></li>
             <li class="menu-header">Menu</li>
-            <li class="dropdown {{ Route::is('admin.kategori_project*', 'admin.service*', 'admin.kategori_blog*') ? 'active' : '' }}">
+            <li class="dropdown {{ Route::is('admin.kategori_project*', 'admin.service*', 'admin.kategori_blog*', 'admin.about*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-database"></i>
                     <span>Data Master</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ Route::is('admin.kategori_project*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.kategori_project')}}">Kategori Project</a></li>
                     <li class="{{ Route::is('admin.service*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.service')}}">Service</a></li>
+                    <li class="{{ Route::is('admin.about*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.about')}}">About</a></li>
+                    <li class="{{ Route::is('admin.kategori_project*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.kategori_project')}}">Kategori Project</a></li>
                     <li class="{{ Route::is('admin.kategori_blog*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.kategori_blog')}}">Kategori Blog</a></li>
                 </ul>
             </li>
@@ -42,6 +43,7 @@
                     <li class="{{ Route::is('admin.komentar_blog*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.komentar_blog')}}">Komentar</a></li>
                 </ul>
             </li>
+            <li class="{{ Route::is('admin.gallery*') ? 'active' : '' }}"><a class="nav-link" href="{{route('admin.gallery')}}"><i class="fas fa-solid fa-user"></i> <span>Gallery</span></a></li>
             <li class="dropdown {{ Route::is('admin.users*','admin.user_groups*') ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users-cog"></i>
                     <span>User Management</span></a>

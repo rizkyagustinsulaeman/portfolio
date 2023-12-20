@@ -29,8 +29,8 @@
                         <thead>
                             <tr>
                                 <th width="25">No</th>
-                                <th width="">Nama</th>
-                                <th width="">Slug</th>
+                                <th width="300">Nama</th>
+                                <th width="100%">Slug</th>
                                 <th width="200">Action</th>
                             </tr>
                         </thead>

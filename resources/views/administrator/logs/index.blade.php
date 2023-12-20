@@ -44,13 +44,13 @@
                         <table class="table table-striped" id="datatable">
                             <thead>
                                 <tr>
-                                    <th class="text-center">
+                                    <th class="text-center" width="25">
                                         #
                                     </th>
-                                    <th>User</th>
-                                    <th>Module</th>
-                                    <th>Action</th>
-                                    <th>Tanggal</th>
+                                    <th width="200">User</th>
+                                    <th width="100%">Module</th>
+                                    <th width="100%">Action</th>
+                                    <th width="200">Tanggal</th>
                                 </tr>
                             </thead>
                         </table>

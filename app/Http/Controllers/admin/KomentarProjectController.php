@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use DataTables;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\admin\KomentarProject;
 
 class KomentarProjectController extends Controller
 {
@@ -16,11 +17,13 @@ class KomentarProjectController extends Controller
             abort(403);
         }
 
-        return view('administrator.komentar_blog.index');
+        return view('administrator.komentar_project.index');
     }
     
     public function getData(Request $request){
-        $data = KomentarProject::query();
+        $data = KomentarProject::query()
+                                ->with('project')
+                                ->where('komentar_id',0);
 
         $data = $data->get();
 
@@ -33,7 +36,7 @@ class KomentarProjectController extends Controller
                 </a>';
                 endif;
                 if (isAllowed(static::$module, "detail")) : //Check permission
-                    $btn .= '<a href="'.route('admin.komentar_blog.detail',$row->id).'" data-id="' . $row->id . '" class="btn btn-secondary btn-sm mx-1">
+                    $btn .= '<a href="'.route('admin.komentar_project.detail',$row->id).'" data-id="' . $row->id . '" class="btn btn-secondary btn-sm mx-1">
                     Detail
                 </a>';
                 endif;
@@ -80,9 +83,11 @@ class KomentarProjectController extends Controller
         }
 
         $data = KomentarProject::where('id', $id)->first();
-
+        if (!$data) {
+            abort(404);
+        }
         $data_detail = KomentarProject::where('komentar_id', $id)->get();
 
-        return view('administrator.komentar_blog.detail',compact('data','data_detail'));
+        return view('administrator.komentar_project.detail',compact('data','data_detail'));
     }
 }

@@ -5,7 +5,9 @@ use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\BlogController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\viewController;
+use App\Http\Controllers\admin\AboutController;
 use App\Http\Controllers\admin\ModuleController;
+use App\Http\Controllers\admin\GalleryController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\ProjectController;
 use App\Http\Controllers\admin\ServiceController;
@@ -190,5 +192,15 @@ Route::prefix('admin')->group(function () {
         Route::get('komentar-project/detail/{id}', [KomentarProjectController::class, 'detail'])->name('admin.komentar_project.detail');
         Route::delete('komentar-project/delete', [KomentarProjectController::class, 'delete'])->name('admin.komentar_project.delete');
 
+        //About
+        Route::get('about', [AboutController::class, 'index'])->name('admin.about');
+        Route::put('about/update', [AboutController::class, 'update'])->name('admin.about.update');
+        
+        //Gallery
+        Route::get('gallery', [GalleryController::class, 'index'])->name('admin.gallery');
+        Route::get('gallery/add', [GalleryController::class, 'add'])->name('admin.gallery.add');
+        Route::get('gallery/getGalleryData', [GalleryController::class, 'getGalleryData'])->name('admin.gallery.getGalleryData');
+        Route::post('gallery/save', [GalleryController::class, 'save'])->name('admin.gallery.save');
+        Route::delete('gallery/deleteImage', [GalleryController::class, 'deleteImage'])->name('admin.gallery.deleteImage');
     });
 });

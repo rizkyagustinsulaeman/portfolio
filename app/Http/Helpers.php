@@ -47,6 +47,9 @@ function upload_path($type = '', $file = '')
 		case 'blog':
 			$target_folder = 'blog';
 			break;
+		case 'gallery':
+			$target_folder = 'gallery';
+			break;
 		default:
 			$target_folder = '';
 			break;
@@ -77,6 +80,9 @@ function img_src($image = '', $img_type = '')
 				break;
 			case 'blog':
 				$folder = '/blog/';
+				break;
+			case 'gallery':
+				$folder = '/gallery/';
 				break;
 			default:
 				$folder = '/';

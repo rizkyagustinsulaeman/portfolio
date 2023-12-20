@@ -33,12 +33,12 @@
         href="{{ template_stisla('modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
 
     <link rel="stylesheet" href="{{ template_stisla('modules/izitoast/css/iziToast.min.css') }}">
+    @stack('css')
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ template_stisla('css/style.css') }}">
     <link rel="stylesheet" href="{{ template_stisla('css/components.css') }}">
     <link rel="stylesheet" href="{{ template_stisla('css/custom.css') }}">
 
-    @stack('css')
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <script>
@@ -97,7 +97,6 @@
     {{-- <script src="{{template_stisla('modules/jqvmap/dist/jquery.vmap.min.js')}}"></script> --}}
     {{-- <script src="{{template_stisla('modules/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script> --}}
     <script src="{{ template_stisla('modules/summernote/summernote-bs4.js') }}"></script>
-    <script src="{{ template_stisla('modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
 
     {{-- <script src="{{template_stisla('modules/sweetalert/sweetalert.min.js')}}"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.31/dist/sweetalert2.all.min.js"></script>
@@ -111,13 +110,14 @@
 
     <script src="{{ asset_administrator('assets/plugins/form-jasnyupload/fileinput.min.js') }}"></script>
 
+    <script src="{{ template_stisla('js/page/modules-toastr.js') }}"></script>
     <script src="{{ template_stisla('modules/izitoast/js/iziToast.min.js') }}"></script>
+    @stack('js')
     <!-- Template JS File -->
     {{-- <script src="{{ template_stisla('js/page/index-0.js') }}"></script> --}}
     <script src="{{ template_stisla('js/scripts.js') }}"></script>
     <script src="{{ template_stisla('js/custom.js') }}"></script>
 
-    <script src="{{ template_stisla('js/page/modules-toastr.js') }}"></script>
     <script>
         var toastMessages = {
             errors: [],
@@ -128,7 +128,6 @@
         };
     </script>
 
-    @stack('js')
 </body>
 
 </html>
