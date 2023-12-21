@@ -1,31 +1,34 @@
 @extends('frontpage.layouts.main')
 @push('css')
-<style>
-    /* Set a fixed height for the container */
-    .logo__item {
-        height: 150px; /* Adjust the height as needed */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+    <style>
+        /* Set a fixed height for the container */
+        .logo__item {
+            height: 150px;
+            /* Adjust the height as needed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    /* Set a max-width for the images to maintain their original aspect ratio */
-    .client-logo {
-        max-width: 100%; /* Ensure the image doesn't exceed the container width */
-        max-height: 100%; /* Ensure the image doesn't exceed the container height */
-    }
-</style>
+        /* Set a max-width for the images to maintain their original aspect ratio */
+        .client-logo {
+            max-width: 100%;
+            /* Ensure the image doesn't exceed the container width */
+            max-height: 100%;
+            /* Ensure the image doesn't exceed the container height */
+        }
+    </style>
 @endpush
 @section('content')
     <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option spad set-bg" data-setbg="{{ template_frontpage('img/breadcrumb-bg.jpg') }}">
+    <div class="breadcrumb-option spad set-bg-color" data-setbgcolor="{{ $settings['general_breadcrumb_color'] ?? '#1e2a45' }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h2>Our Sevices</h2>
                         <div class="breadcrumb__links">
-                            <a href="{{route('web.index')}}">Home</a>
+                            <a href="{{ route('web.index') }}">Home</a>
                             <span>Services</span>
                         </div>
                     </div>
@@ -112,7 +115,8 @@
                     <div class="col-lg-10 text-center">
                         <div class="callto__text">
                             <h2>CREATE AN AMAZING WEBSITE WITH OUR POWERFUL FEATURES</h2>
-                            <p>We combine all the featurs you need to easly create professional websites and presentation</p>
+                            <p>We combine all the featurs you need to easly create professional websites and presentation
+                            </p>
                             <a href="#">Start your stories</a>
                         </div>
                     </div>
@@ -148,18 +152,26 @@
     <script type="text/javascript">
         // Function to initialize Owl Carousel
         function initOwlCarousel() {
-            $('.logo__carousel').owlCarousel({
+            $(".logo__carousel").owlCarousel({
                 loop: true,
-                margin: 10,
+                margin: 100,
+                items: 6,
+                dots: false,
+                smartSpeed: 1200,
+                autoHeight: false,
+                autoplay: true,
                 responsive: {
-                    0: {
-                        items: 2
+                    992: {
+                        items: 5
                     },
-                    600: {
+                    768: {
+                        items: 4
+                    },
+                    480: {
                         items: 3
                     },
-                    1000: {
-                        items: 5
+                    320: {
+                        items: 2
                     }
                 }
             });
@@ -173,7 +185,7 @@
                 "_token": "{{ csrf_token() }}",
                 "_method": "GET",
             },
-            success: function (respon) {
+            success: function(respon) {
                 let serviceHtml = ''
 
                 for (let i = 0; i < respon.data.length; i++) {
@@ -205,13 +217,15 @@
                 "_token": "{{ csrf_token() }}",
                 "_method": "GET",
             },
-            success: function (respon) {
+            success: function(respon) {
                 let clientHtml = ''
 
                 for (let i = 0; i < respon.data.length; i++) {
                     const data = respon.data[i];
 
-                    clientHtml += `<a href="` + data.website_url + `" target="_blank" class="logo__item"><img class="client-logo" src="{{ asset_administrator('assets/media/client') }}/` + data.img_url + `" alt=""></a>`;
+                    clientHtml += `<a href="` + data.website_url +
+                        `" target="_blank" class="logo__item"><img class="client-logo" src="{{ asset_administrator('assets/media/client') }}/` +
+                        data.img_url + `" alt=""></a>`;
                 }
                 $('#clientSection').html(
                     clientHtml

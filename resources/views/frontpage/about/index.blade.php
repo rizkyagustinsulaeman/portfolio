@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option spad set-bg" data-setbg="{{ template_frontpage('img/breadcrumb-bg.jpg') }}">
+    <div class="breadcrumb-option spad set-bg-color" data-setbgcolor="{{ $settings['general_breadcrumb_color'] ?? '#1e2a45' }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -28,17 +28,17 @@
                         <div class="row" id="gallerySection">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="about__pic__item about__pic__item--large set-bg"
-                                    data-setbg="{{ template_frontpage('img/about/about-1.jpg') }}"></div>
+                                    data-setbg="http://placehold.it/500x500?text=Not Found"></div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="about__pic__item set-bg"
-                                            data-setbg="{{ template_frontpage('img/about/about-2.jpg') }}"></div>
+                                            data-setbg="http://placehold.it/500x500?text=Not Found"></div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="about__pic__item set-bg"
-                                            data-setbg="{{ template_frontpage('img/about/about-3.jpg') }}"></div>
+                                            data-setbg="http://placehold.it/500x500?text=Not Found"></div>
                                     </div>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="services__item">
                                     <div class="services__item__icon">
-                                        <img src="{{ template_frontpage('img/icons/si-3.png') }}" alt="">
+                                        <img src="http://placehold.it/500x500?text=Not Found" alt="">
                                     </div>
                                     <h4>Web Developer</h4>
                                     <p>Whether you’re halfway through the editing process, or you.</p>
@@ -64,7 +64,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="services__item">
                                     <div class="services__item__icon">
-                                        <img src="{{ template_frontpage('img/icons/si-4.png') }}" alt="">
+                                        <img src="http://placehold.it/500x500?text=Not Found" alt="">
                                     </div>
                                     <h4>Backend Developer</h4>
                                     <p>Whether you’re halfway through the editing process, or you.</p>

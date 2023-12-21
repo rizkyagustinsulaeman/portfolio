@@ -25,6 +25,16 @@ class DataServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer([
+            'frontpage.layouts.main',
+            'frontpage.layouts.header',
+            'frontpage.layouts.footer',
+            'frontpage.about.index',
+            'frontpage.service.index',
+            'frontpage.blog.index',
+            'frontpage.blog.detail',
+            'frontpage.project.index',
+            'frontpage.contact.index',
+            'frontpage.home.index',
             'administrator.layouts.main',
             'administrator.authentication.main',
             'administrator.authentication.login',

@@ -39,6 +39,12 @@
     <link rel="stylesheet" href="{{ template_stisla('css/components.css') }}">
     <link rel="stylesheet" href="{{ template_stisla('css/custom.css') }}">
 
+    <style>
+        :root {
+            --main-background-color: {{ $settings['admin_main_background_color'] ?? '#63ed7a' }};
+        }
+    </style>
+
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <script>

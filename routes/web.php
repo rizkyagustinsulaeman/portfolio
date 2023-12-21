@@ -29,6 +29,9 @@ Route::get('/', [HomeController::class, 'index'])->name('web.index');
 Route::get('/getService', [HomeController::class, 'getService'])->name('web.getService');
 Route::get('/getProject', [HomeController::class, 'getProject'])->name('web.getProject');
 Route::get('/getBlog', [HomeController::class, 'getBlog'])->name('web.getBlog');
+Route::get('/getGallery', [HomeController::class, 'getGallery'])->name('web.getGallery');
+Route::get('/getBanner', [HomeController::class, 'getBanner'])->name('web.getBanner');
+Route::get('/count', [HomeController::class, 'count'])->name('web.count');
 
 Route::get('/project', [ProjectController::class, 'index'])->name('web.project');
 Route::get('/project/{slug}', [ProjectController::class, 'index'])->name('web.project.slug');

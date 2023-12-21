@@ -53,6 +53,9 @@ function upload_path($type = '', $file = '')
 		case 'client':
 			$target_folder = 'client';
 			break;
+		case 'banner':
+			$target_folder = 'banner';
+			break;
 		default:
 			$target_folder = '';
 			break;
@@ -89,6 +92,9 @@ function img_src($image = '', $img_type = '')
 				break;
 			case 'client':
 				$folder = '/client/';
+				break;
+			case 'banner':
+				$folder = '/banner/';
 				break;
 			default:
 				$folder = '/';

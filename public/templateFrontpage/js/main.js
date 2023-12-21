@@ -39,6 +39,11 @@
         $(this).css('background-image', 'url(' + bg + ')');
     });
 
+    $('.set-bg-color').each(function () {
+        var color = $(this).data('setbgcolor');
+        $(this).css('background-color', color);
+    });
+
     //Masonary
     $('.work__gallery').masonry({
         itemSelector: '.work__item',

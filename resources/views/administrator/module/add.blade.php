@@ -67,7 +67,7 @@
                                                 <div class="form-group kode_akses-input" style="display: none;">
                                                     <label class="form-label">Kode Akses</label>
                                                     <input class="modul_akses-kode_akses-input kode_akses form-control"
-                                                        placeholder="Masukan Kode Akses" name="modul_akses[0][kode_akses]"
+                                                        placeholder="Masukan Kode Akses" name="modul_akses[0][kode_akses]" autocomplete="off"
                                                         type="text" />
                                                 </div>
                                             </div>
@@ -81,15 +81,15 @@
                         </div>
                     </div>
                     <div class="card-footer text-right">
-                        <button type="submit" id="formSubmit" class="btn btn-primary me-1 mb-1">
+                        <button type="submit" id="formSubmit" class="btn btn-primary mx-1 mb-1">
                             <span class="indicator-label">Submit</span>
                             <span class="indicator-progress" style="display: none;">
                                 Tunggu Sebentar...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                             </span>
                         </button>
-                        <button type="reset" class="btn btn-secondary me-1 mb-1">Reset</button>
-                        <a href="{{route('admin.module')}}" class="btn btn-danger me-1 mb-1">Kembali</a>
+                        <button type="reset" class="btn btn-secondary mx-1 mb-1">Reset</button>
+                        <a href="{{route('admin.module')}}" class="btn btn-danger mx-1 mb-1">Cancel</a>
                     </div>
                 </form>
             </div>

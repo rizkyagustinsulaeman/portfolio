@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Blog Details Hero Begin -->
-    <section class="blog-hero spad set-bg" data-setbg="{{template_frontpage('img/blog/blog-hero.jpg')}}">
+    <section class="blog-hero spad set-bg-color" data-setbgcolor="{{ $settings['general_breadcrumb_color'] ?? '#1e2a45' }}">
         <div class="container">
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-8">

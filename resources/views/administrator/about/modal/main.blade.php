@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalGalleryLabel">Filter Module</h5>
+                <h5 class="modal-title" id="modalGalleryLabel">Gallery</h5>
                 <button type="button" class="close m-0" id="buttonCloseModuleModal" data-dismiss="modal"
                     aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -60,7 +60,7 @@
                     }
                     modalBody.html(
                         `<div class="form-group">` +
-                        `<label class="form-label">Image Check</label>` +
+                        `<label class="form-label">Image</label>` +
                         `<div class="row gutters-sm" id="gallery">` +
 
                         body +

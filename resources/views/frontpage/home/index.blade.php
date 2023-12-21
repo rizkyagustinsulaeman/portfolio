@@ -2,8 +2,9 @@
 
 @section('content')
     <section class="hero">
-        <div class="hero__slider owl-carousel">
-            <div class="hero__item set-bg" data-setbg="{{ template_frontpage('img/hero/hero-1.jpg') }}">
+        <div class="hero__slider owl-carousel" id="bannerSection">
+            <div class="hero__item set-bg"
+                data-setbg="https://www.freecodecamp.org/news/content/images/size/w2000/2021/06/w-qjCHPZbeXCQ-unsplash.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6">
@@ -16,7 +17,8 @@
                     </div>
                 </div>
             </div>
-            <div class="hero__item set-bg" data-setbg="{{ template_frontpage('img/hero/hero-1.jpg') }}">
+            <div class="hero__item set-bg"
+                data-setbg="https://www.freecodecamp.org/news/content/images/size/w2000/2021/06/w-qjCHPZbeXCQ-unsplash.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6">
@@ -29,7 +31,8 @@
                     </div>
                 </div>
             </div>
-            <div class="hero__item set-bg" data-setbg="{{ template_frontpage('img/hero/hero-1.jpg') }}">
+            <div class="hero__item set-bg"
+                data-setbg="https://www.freecodecamp.org/news/content/images/size/w2000/2021/06/w-qjCHPZbeXCQ-unsplash.jpg">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6">
@@ -58,7 +61,7 @@
                         </div>
                         <p>If you hire a videographer of our team you will get a video professional to make a custom
                             video for your business and, once the project is over.</p>
-                        <a href="{{route('web.service')}}" class="primary-btn">View all services</a>
+                        <a href="{{ route('web.service') }}" class="primary-btn">View all services</a>
                     </div>
                 </div>
                 <div class="col-lg-8">
@@ -76,7 +79,7 @@
         <div class="work__gallery">
             <div class="grid-sizer"></div>
             <div id="projectSection">
-                <div class="work__item wide__item set-bg" data-setbg="{{ template_frontpage('img/work/work-1.jpg') }}">
+                <div class="work__item wide__item set-bg" data-setbg="http://placehold.it/500x500?text=Not Found">
                     <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
                             class="fa fa-play"></i></a>
                     <div class="work__item__hover">
@@ -87,15 +90,15 @@
                         </ul>
                     </div>
                 </div>
-                <div class="work__item small__item set-bg" data-setbg="{{ template_frontpage('img/work/work-2.jpg') }}">
+                <div class="work__item small__item set-bg" data-setbg="http://placehold.it/500x500?text=Not Found">
                     <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
                             class="fa fa-play"></i></a>
                 </div>
-                <div class="work__item small__item set-bg" data-setbg="{{ template_frontpage('img/work/work-3.jpg') }}">
+                <div class="work__item small__item set-bg" data-setbg="http://placehold.it/500x500?text=Not Found">
                     <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
                             class="fa fa-play"></i></a>
                 </div>
-                <div class="work__item large__item set-bg" data-setbg="{{ template_frontpage('img/work/work-4.jpg') }}">
+                <div class="work__item large__item set-bg" data-setbg="http://placehold.it/500x500?text=Not Found">
                     <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
                             class="fa fa-play"></i></a>
                     <div class="work__item__hover">
@@ -106,15 +109,15 @@
                         </ul>
                     </div>
                 </div>
-                <div class="work__item small__item set-bg" data-setbg="{{ template_frontpage('img/work/work-5.jpg') }}">
+                <div class="work__item small__item set-bg" data-setbg="http://placehold.it/500x500?text=Not Found">
                     <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
                             class="fa fa-play"></i></a>
                 </div>
-                <div class="work__item small__item set-bg" data-setbg="{{ template_frontpage('img/work/work-6.jpg') }}">
+                <div class="work__item small__item set-bg" data-setbg="http://placehold.it/500x500?text=Not Found">
                     <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
                             class="fa fa-play"></i></a>
                 </div>
-                <div class="work__item wide__item set-bg" data-setbg="{{ template_frontpage('img/work/work-7.jpg') }}">
+                <div class="work__item wide__item set-bg" data-setbg="http://placehold.it/500x500?text=Not Found">
                     <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="play-btn video-popup"><i
                             class="fa fa-play"></i></a>
                     <div class="work__item__hover">
@@ -139,7 +142,7 @@
                         <div class="counter__item">
                             <div class="counter__item__text">
                                 <img src="{{ template_frontpage('img/icons/ci-1.png') }}" alt="">
-                                <h2 class="counter_num">230</h2>
+                                <h2 class="counter_num" id="countProject">99</h2>
                                 <p>Compled Projects</p>
                             </div>
                         </div>
@@ -148,7 +151,7 @@
                         <div class="counter__item second__item">
                             <div class="counter__item__text">
                                 <img src="{{ template_frontpage('img/icons/ci-2.png') }}" alt="">
-                                <h2 class="counter_num">1068</h2>
+                                <h2 class="counter_num" id="countClient">245</h2>
                                 <p>Happy clients</p>
                             </div>
                         </div>
@@ -157,8 +160,8 @@
                         <div class="counter__item third__item">
                             <div class="counter__item__text">
                                 <img src="{{ template_frontpage('img/icons/ci-3.png') }}" alt="">
-                                <h2 class="counter_num">230</h2>
-                                <p>Perspective clients</p>
+                                <h2 class="counter_num" id="countService">145</h2>
+                                <p>Service</p>
                             </div>
                         </div>
                     </div>
@@ -166,8 +169,8 @@
                         <div class="counter__item four__item">
                             <div class="counter__item__text">
                                 <img src="{{ template_frontpage('img/icons/ci-4.png') }}" alt="">
-                                <h2 class="counter_num">230</h2>
-                                <p>Compled Projects</p>
+                                <h2 class="counter_num" id="countBlog">453</h2>
+                                <p>Blog</p>
                             </div>
                         </div>
                     </div>
@@ -178,19 +181,19 @@
     <!-- Counter Section End -->
 
     <!-- Team Section Begin -->
-    <section class="team spad set-bg" data-setbg="{{ template_frontpage('img/team-bg.jpg') }}">
+    <section class="team spad set-bg-color" data-setbgcolor="{{ $settings['general_breadcrumb_color'] ?? '#1e2a45' }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title team__title">
                         <span>Nice to meet</span>
-                        <h2>OUR Team</h2>
+                        <h2>Gallery</h2>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="gallerySection">
                 <div class="col-lg-3 col-md-6 col-sm-6 p-0">
-                    <div class="team__item set-bg" data-setbg="{{ template_frontpage('img/team/team-1.jpg') }}">
+                    <div class="team__item set-bg" data-setbg="http://placehold.it/500x500?text=Not Found">
                         <div class="team__item__text">
                             <h4>AMANDA STONE</h4>
                             <p>Videographer</p>
@@ -205,7 +208,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 p-0">
                     <div class="team__item team__item--second set-bg"
-                        data-setbg="{{ template_frontpage('img/team/team-2.jpg') }}">
+                        data-setbg="http://placehold.it/500x500?text=Not Found">
                         <div class="team__item__text">
                             <h4>AMANDA STONE</h4>
                             <p>Videographer</p>
@@ -220,7 +223,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 p-0">
                     <div class="team__item team__item--third set-bg"
-                        data-setbg="{{ template_frontpage('img/team/team-3.jpg') }}">
+                        data-setbg="http://placehold.it/500x500?text=Not Found">
                         <div class="team__item__text">
                             <h4>AMANDA STONE</h4>
                             <p>Videographer</p>
@@ -235,7 +238,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 p-0">
                     <div class="team__item team__item--four set-bg"
-                        data-setbg="{{ template_frontpage('img/team/team-4.jpg') }}">
+                        data-setbg="http://placehold.it/500x500?text=Not Found">
                         <div class="team__item__text">
                             <h4>AMANDA STONE</h4>
                             <p>Videographer</p>
@@ -442,7 +445,6 @@
                     for (let i = 0; i < respon.data.length; i++) {
                         const data = respon.data[i];
                         let imgJsonDecode = JSON.parse(data.img_url);
-                        console.log(data);
 
                         let className = '';
                         if (i == 0 || i == 5 || i == 3 || i == 6) {
@@ -497,7 +499,6 @@
                     for (let i = 0; i < respon.data.length; i++) {
                         const data = respon.data[i];
                         let imgJsonDecode = JSON.parse(data.img_url);
-                        console.log(data);
 
                         // Assuming data.isi contains the text you want to limit
                         let truncatedContent = data.isi;
@@ -530,10 +531,10 @@
                         function() {
                             var bg = $(this).data('setbg');
                             $(this).css('background-image', 'url(' + bg + ')');
-                        // },
-                        // function() {
-                        //     // Reset the background image on hover out if needed
-                        //     $(this).css('background-image', '');
+                            // },
+                            // function() {
+                            //     // Reset the background image on hover out if needed
+                            //     $(this).css('background-image', '');
                         }
                     );
 
@@ -557,6 +558,156 @@
                                 items: 1
                             }
                         }
+                    });
+                }
+            });
+            $.ajax({
+                type: "GET",
+                url: "{{ route('web.getGallery') }}",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "_method": "GET",
+                },
+                success: function(respon) {
+                    let galleryHtml = '';
+
+                    for (let i = 0; i < respon.data.length; i++) {
+                        const data = respon.data[i];
+                        let classGallery = ''; // Declare it here
+
+                        if (i === 1) {
+                            classGallery = '--second';
+                        } else if (i === 2) {
+                            classGallery = '--third';
+                        } else if (i === 3) {
+                            classGallery = '--four';
+                        }
+
+                        let imgParse = JSON.parse(data.img_url);
+
+                        galleryHtml += `<div class="col-lg-3 col-md-6 col-sm-6 p-0">` +
+                            `<div class="team__item team__item${classGallery} set-bg-gallery" data-setbg="{{ asset_administrator('assets/media/gallery') }}/` +
+                            imgParse[0] + `">` +
+                            `<div class="team__item__text">` +
+                            `</div>` +
+                            `</div>` +
+                            `</div>`;
+                    }
+
+                    $('#gallerySection').html(galleryHtml);
+
+                    $('.set-bg-gallery').each(function() {
+                        var bg = $(this).data('setbg');
+                        $(this).css('background-image', 'url(' + bg + ')');
+                    });
+                }
+            });
+
+            function initcarousel() {
+                $('#bannerSection').owlCarousel({
+                    loop: true,
+                    dots: true,
+                    mouseDrag: false,
+                    animateOut: 'fadeOut',
+                    animateIn: 'fadeIn',
+                    items: 1,
+                    margin: 0,
+                    smartSpeed: 1200,
+                    autoHeight: false,
+                    autoplay: true,
+                });
+
+                var dot = $('#bannerSection .owl-dot');
+                dot.each(function() {
+                    var index = $(this).index() + 1;
+                    if (index < 10) {
+                        $(this).html('0').append(index);
+                    } else {
+                        $(this).html(index);
+                    }
+                });
+            }
+
+            //Service
+            $.ajax({
+                type: "GET",
+                url: "{{ route('web.getBanner') }}",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "_method": "GET",
+                },
+                success: function(respon) {
+                    let bannerHtml = ''
+
+                    for (let i = 0; i < respon.data.length; i++) {
+                        const data = respon.data[i];
+
+                        let bannerJsonDecode = JSON.parse(data.value);
+                        bannerHtml +=
+                            `<div class="hero__item set-bg-banner" data-setbg="{{ asset('administrator/assets/media/banner') }}/` +
+                            bannerJsonDecode.img_url + `">` +
+                            `<div class="container">` +
+                            `<div class="row">` +
+                            `<div class="col-lg-6">` +
+                            `<div class="hero__text">` +
+                            `<span>` + bannerJsonDecode.title + `</span>` +
+                            `<h2>` + bannerJsonDecode.body + `</h2>` +
+                            `<a href="#" class="primary-btn">See more about us</a>` +
+                            `</div>` +
+                            `</div>` +
+                            `</div>` +
+                            `</div>` +
+                            `</div>`;
+                    }
+                    $('#bannerSection').html(
+                        bannerHtml
+                    )
+
+                    $('.set-bg-banner').each(function() {
+                        var bg = $(this).data('setbg');
+                        $(this).css('background-image', 'url(' + bg + ')');
+                    });
+
+                    $('#bannerSection').owlCarousel('destroy');
+                    initcarousel();
+                }
+            });
+            initcarousel();
+
+
+            //Project
+            $.ajax({
+                type: "GET",
+                url: "{{ route('web.count') }}",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "_method": "GET",
+                },
+                success: function(respon) {
+                    const data = respon.data;
+                    console.log(data.countProject);
+                    $('#countProject').html(
+                        data.countProject
+                    )
+                    $('#countBlog').html(
+                        data.countBlog
+                    )
+                    $('#countService').html(
+                        data.countService
+                    )
+                    $('#countClient').html(
+                        data.countClient
+                    )
+                    $('.counter_num').each(function() {
+                        $(this).prop('Counter', 0).animate({
+                            Counter: $(this).text()
+                        }, {
+                            duration: 4000,
+                            easing: 'swing',
+                            step: function(now) {
+                                $(this).text(Math.ceil(now));
+                            }
+                        });
                     });
                 }
             });

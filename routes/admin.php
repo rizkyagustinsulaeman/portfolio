@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\BlogController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\viewController;
 use App\Http\Controllers\admin\AboutController;
+use App\Http\Controllers\admin\BannerController;
 use App\Http\Controllers\admin\ClientController;
 use App\Http\Controllers\admin\ModuleController;
 use App\Http\Controllers\admin\GalleryController;
@@ -94,8 +95,11 @@ Route::prefix('admin')->group(function () {
         Route::post('profile/checkEmail',[ProfileController::class, 'checkEmail'])->name('admin.profile.checkEmail');
         
         //Setting
-        Route::get('settings', [SettingController::class, 'index'])->name('admin.settings');
-        Route::put('settings/update', [SettingController::class, 'update'])->name('admin.settings.update');
+        Route::get('settings', [SettingController::class, 'main'])->name('admin.settings');
+
+        //Setting Admin
+        Route::get('settings/administrator', [SettingController::class, 'index'])->name('admin.settings.administrator');
+        Route::put('settings/administrator/update', [SettingController::class, 'update'])->name('admin.settings.administrator.update');
 
         //Modul dan Modul Akses
         Route::get('module', [ModuleController::class, 'index'])->name('admin.module');
@@ -215,5 +219,19 @@ Route::prefix('admin')->group(function () {
         Route::delete('client/delete', [ClientController::class, 'delete'])->name('admin.client.delete');
         Route::delete('client/deleteImage', [ClientController::class, 'deleteImage'])->name('admin.client.deleteImage');
         Route::get('client/detail/{id}', [ClientController::class, 'detail'])->name('admin.client.detail');
+        
+        //Service
+        Route::get('banner', [BannerController::class, 'edit'])->name('admin.banner');
+        Route::put('banner/update', [BannerController::class, 'update'])->name('admin.banner.update');
+
+        //Setting Frontpage Footer
+        Route::get('settings/frontpage/footer', [SettingController::class, 'frontpage_footer_index'])->name('admin.settings.frontpage.footer');
+        Route::put('settings/frontpage/footer/update', [SettingController::class, 'frontpage_footer_update'])->name('admin.settings.frontpage.footer.update');
+        Route::delete('settings/frontpage/footer/deleteLink', [SettingController::class, 'frontpage_footer_deleteLink'])->name('admin.settings.frontpage.footer.deleteLink');
+
+        //Setting Frontpage General
+        Route::get('settings/frontpage/general', [SettingController::class, 'frontpage_general_index'])->name('admin.settings.frontpage.general');
+        Route::put('settings/frontpage/general/update', [SettingController::class, 'frontpage_general_update'])->name('admin.settings.frontpage.general.update');
+        Route::delete('settings/frontpage/general/deleteSosmed', [SettingController::class, 'frontpage_general_deleteSosmed'])->name('admin.settings.frontpage.general.deleteSosmed');
     });
 });
