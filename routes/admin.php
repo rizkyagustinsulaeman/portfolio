@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\AboutController;
 use App\Http\Controllers\admin\BannerController;
 use App\Http\Controllers\admin\ClientController;
 use App\Http\Controllers\admin\ModuleController;
+use App\Http\Controllers\admin\ContactController;
 use App\Http\Controllers\admin\GalleryController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\ProjectController;
@@ -194,8 +195,10 @@ Route::prefix('admin')->group(function () {
         //Komentar Project
         Route::get('komentar-project', [KomentarProjectController::class, 'index'])->name('admin.komentar_project');
         Route::get('komentar-project/getData', [KomentarProjectController::class, 'getData'])->name('admin.komentar_project.getData');
-        Route::get('komentar-project/detail/{id}', [KomentarProjectController::class, 'detail'])->name('admin.komentar_project.detail');
         Route::delete('komentar-project/delete', [KomentarProjectController::class, 'delete'])->name('admin.komentar_project.delete');
+        Route::get('komentar-project/detail/{id}', [KomentarProjectController::class, 'detail'])->name('admin.komentar_project.detail');
+        Route::get('komentar-project/detail/getData/{id}', [KomentarProjectController::class, 'getDataDetail'])->name('admin.komentar_project.detail.getData');
+        Route::delete('komentar-project/detail/delete', [KomentarProjectController::class, 'deleteDetail'])->name('admin.komentar_project.detail.delete');
 
         //About
         Route::get('about', [AboutController::class, 'index'])->name('admin.about');
@@ -220,7 +223,7 @@ Route::prefix('admin')->group(function () {
         Route::delete('client/deleteImage', [ClientController::class, 'deleteImage'])->name('admin.client.deleteImage');
         Route::get('client/detail/{id}', [ClientController::class, 'detail'])->name('admin.client.detail');
         
-        //Service
+        //Banner
         Route::get('banner', [BannerController::class, 'edit'])->name('admin.banner');
         Route::put('banner/update', [BannerController::class, 'update'])->name('admin.banner.update');
 
@@ -233,5 +236,9 @@ Route::prefix('admin')->group(function () {
         Route::get('settings/frontpage/general', [SettingController::class, 'frontpage_general_index'])->name('admin.settings.frontpage.general');
         Route::put('settings/frontpage/general/update', [SettingController::class, 'frontpage_general_update'])->name('admin.settings.frontpage.general.update');
         Route::delete('settings/frontpage/general/deleteSosmed', [SettingController::class, 'frontpage_general_deleteSosmed'])->name('admin.settings.frontpage.general.deleteSosmed');
+        
+        //Contact
+        Route::get('contact', [ContactController::class, 'index'])->name('admin.contact');
+        Route::put('contact/update', [ContactController::class, 'update'])->name('admin.contact.update');
     });
 });

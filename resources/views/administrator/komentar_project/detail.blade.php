@@ -2,14 +2,15 @@
 
 @section('content')
     @push('section_header')
-        <h1>Kategori Project</h1>
+        <h1>Komentar Project</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-            <div class="breadcrumb-item">Kategori Project</div>
+            <div class="breadcrumb-item active"><a href="{{ route('admin.komentar_project') }}">Komentar Pr</a></div>
+            <div class="breadcrumb-item">Detail</div>
         </div>
     @endpush
     @push('section_title')
-    Kategori Project
+    {{$data->isi}}
     @endpush
 
     <div class="row">
@@ -20,12 +21,7 @@
                         <h4>List Data</h4>
                     </div>
                     <div class="col-4" style="display: flex; justify-content: flex-end;">
-                        @if (isallowed('kategori_project', 'add'))
-                            <a href="{{ route('admin.kategori_project.add') }}" class="btn btn-primary">Tambah Data</a>
-                        @endif
-                        @if (isallowed('kategori_project', 'arsip'))
-                            <a href="{{ route('admin.kategori_project.arsip') }}" class="btn btn-primary mx-3">Arsip</a>
-                        @endif
+                        
                     </div>
                     
                 </div>
@@ -35,8 +31,9 @@
                             <thead>
                                 <tr>
                                     <th width="25">No</th>
-                                    <th width="50%">Nama</th>
-                                    <th width="50%">Slug</th>
+                                    <th width="200">User</th>
+                                    <th width="200">Project</th>
+                                    <th width="100%">Komentar</th>
                                     <th width="200">Action</th>
                                 </tr>
                             </thead>
@@ -46,7 +43,6 @@
             </div>
         </div>
     </div>
-    @include('administrator.kategori_project.modal.detail')
 @endsection
 
 @push('js')
@@ -68,7 +64,7 @@
                 ],
                 scrollX: true, // Enable horizontal scrolling
                 ajax: {
-                    url: '{{ route('admin.kategori_project.getData') }}',
+                    url: '{{ route('admin.komentar_project.detail.getData', $data->id) }}',
                     dataType: "JSON",
                     type: "GET",
                     data: function(d) {
@@ -81,12 +77,21 @@
                         },
                     },
                     {
-                        data: 'nama',
-                        name: 'nama'
+                        render: function(data, type, row, meta) {
+                            if (row.user_id == 0) {
+                                return 'Guest';
+                            } else {
+                                return row.user.nama;
+                            }
+                        },
                     },
                     {
-                        data: 'slug',
-                        name: 'slug'
+                        data: 'project.nama',
+                        name: 'project.nama'
+                    },
+                    {
+                        data: 'isi',
+                        name: 'isi'
                     },
                     {
                         data: 'action',
@@ -121,7 +126,7 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "DELETE",
-                            url: "{{ route('admin.kategori_project.delete') }}",
+                            url: "{{ route('admin.komentar_project.detail.delete') }}",
                             data: {
                                 "_token": "{{ csrf_token() }}",
                                 "_method": "DELETE",
@@ -129,7 +134,7 @@
                             },
                             success: function() {
                                 // data_table.ajax.url(
-                                //         '{{ route('admin.kategori_project.getData') }}')
+                                //         '{{ route('admin.komentar_project.getData') }}')
                                 //     .load();
                                 data_table.ajax.reload(null, false);
                                 swalWithBootstrapButtons.fire({

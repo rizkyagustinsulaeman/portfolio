@@ -6,6 +6,7 @@ use DataTables;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\admin\KomentarProject;
+use App\Models\admin\KomentarProjectReply;
 
 class KomentarProjectController extends Controller
 {
@@ -56,13 +57,20 @@ class KomentarProjectController extends Controller
         $id = $request->id;
 
         // Find the data based on the provided ID or throw a 404 exception.
-        $data = KomentarProject::findOrFail($id);
+        $data = KomentarProject::with('reply')->findOrFail($id);
 
         // Store the data to be logged before deletion
         $deletedData = $data->toArray();
 
+        $detail = [];
+        foreach ($data->reply as $row) {
+            $detail[] += $row;
+            $row->delete();
+        }
+
         $dataJson = [
-            'data' => $deletedData
+            'data' => $deletedData,
+            'reply' => $detail
         ];
         // Delete the data.
         $data->delete();
@@ -86,8 +94,57 @@ class KomentarProjectController extends Controller
         if (!$data) {
             abort(404);
         }
-        $data_detail = KomentarProject::where('komentar_id', $id)->get();
 
-        return view('administrator.komentar_project.detail',compact('data','data_detail'));
+        return view('administrator.komentar_project.detail',compact('data'));
+    }
+
+    public function getDataDetail(Request $request){
+        $data = KomentarProjectReply::query()
+                                ->with('project');
+
+        $data = $data->get();
+
+        return DataTables::of($data)
+            ->addColumn('action', function ($row) {
+                $btn = "";
+                if (isAllowed(static::$module, "delete")) : //Check permission
+                    $btn .= '<a href="#" data-id="' . $row->id . '" class="btn btn-danger btn-sm delete mx-1">
+                    Delete
+                </a>';
+                endif;
+                return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function deleteDetail(Request $request)
+    {
+        // Check permission
+        if (!isAllowed(static::$module, "delete")) {
+            abort(403);
+        }
+
+        $id = $request->id;
+
+        // Find the data based on the provided ID or throw a 404 exception.
+        $data = KomentarProjectReply::findOrFail($id);
+
+        // Store the data to be logged before deletion
+        $deletedData = $data->toArray();
+
+        $dataJson = [
+            'data' => $deletedData,
+        ];
+        // Delete the data.
+        $data->delete();
+
+        // Write logs for soft delete
+        createLog(static::$module, __FUNCTION__, $id, ['Data yang dihapus' => $dataJson]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data telah dihapus.',
+        ]);
     }
 }

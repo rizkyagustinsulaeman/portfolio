@@ -20,7 +20,7 @@
                     @csrf
                     @method('PUT')
                     <div class="row">
-                        <div class="col-md-6 col-12">
+                        <div class="col-12">
                             <div class="form-group mandatory">
                                 <label for="inputDeskripsi" class="form-label">Deskripsi</label>
                                 <textarea name="deskripsi" class="form-control" id="inputDeskripsi" placeholder="Masukan Deskripsi" cols="30"

@@ -1608,7 +1608,7 @@ ol {
 }
 .blog__details__option__item__text span {
   font-size: 14px;
-  color: #777777;
+  color: #fff;
   font-weight: 300;
 }
 
@@ -1637,7 +1637,7 @@ ol {
   margin-bottom: 4px;
 }
 .blog__details__recent__item span {
-  color: #777777;
+  color: var(--main-text-color);
   font-size: 14px;
   font-weight: 300;
 }
@@ -1655,15 +1655,15 @@ ol {
   border: 1px solid rgba(225, 225, 225, 0.5);
   background: transparent;
   font-size: 16px;
-  color: #adadad;
+  color: var(--main-text-color);
   padding-top: 12px;
   padding-left: 20px;
   font-weight: 300;
   margin-bottom: 14px;
   resize: none;
 }
-.blog__details__comment form textarea:placeholder {
-  color: #adadad;
+.blog__details__comment form textarea::placeholder {
+  color: var(--main-text-color);
 }
 
 .input__list {
@@ -1677,14 +1677,14 @@ ol {
   border: 1px solid rgba(225, 225, 225, 0.5);
   background: transparent;
   font-size: 16px;
-  color: #adadad;
+  color: var(--main-text-color);
   padding-left: 20px;
   font-weight: 300;
   margin-right: 20px;
   margin-bottom: 20px;
 }
-.input__list input:placeholder {
-  color: #adadad;
+.input__list input::placeholder {
+  color: var(--main-text-color);
 }
 
 /*---------------------
@@ -1756,7 +1756,7 @@ ol {
   border: 1px solid rgba(225, 225, 225, 0.5);
   background: transparent;
   font-size: 16px;
-  color: #adadad;
+  color: var(--main-text-color);
   padding-left: 20px;
   font-weight: 300;
   margin-right: 20px;
@@ -1765,8 +1765,8 @@ ol {
   -o-transition: all, 0.3s;
   transition: all, 0.3s;
 }
-.contact__form form input:placeholder {
-  color: #adadad;
+.contact__form form input::placeholder {
+  color: var(--main-text-color);
 }
 .contact__form form input:focus {
   border-color: #e1e1e1;
@@ -1777,7 +1777,7 @@ ol {
   border: 1px solid rgba(225, 225, 225, 0.5);
   background: transparent;
   font-size: 16px;
-  color: #adadad;
+  color: var(--main-text-color);
   padding-top: 12px;
   padding-left: 20px;
   font-weight: 300;
@@ -1787,8 +1787,8 @@ ol {
   -o-transition: all, 0.3s;
   transition: all, 0.3s;
 }
-.contact__form form textarea:placeholder {
-  color: #adadad;
+.contact__form form textarea::placeholder {
+  color: var(--main-text-color);
 }
 .contact__form form textarea:focus {
   border-color: #e1e1e1;

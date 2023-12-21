@@ -34,7 +34,11 @@ Route::get('/getBanner', [HomeController::class, 'getBanner'])->name('web.getBan
 Route::get('/count', [HomeController::class, 'count'])->name('web.count');
 
 Route::get('/project', [ProjectController::class, 'index'])->name('web.project');
-Route::get('/project/{slug}', [ProjectController::class, 'index'])->name('web.project.slug');
+Route::get('/project/fetchData', [ProjectController::class, 'fetchData'])->name('web.project.fetchData');
+Route::get('/project/{slug}', [ProjectController::class, 'detail'])->name('web.project.slug');
+Route::post('/project/{slug}/comment', [ProjectController::class, 'comment'])->name('web.project.slug.comment');
+Route::post('/project/{slug}/comment/reply', [ProjectController::class, 'reply'])->name('web.project.slug.comment.reply');
+Route::get('/project/fetchData/comment', [ProjectController::class, 'fetchDataComment'])->name('web.project.fetchData.comment');
 
 Route::get('/service', [ServiceController::class, 'index'])->name('web.service');
 Route::get('/service/getService', [ServiceController::class, 'getService'])->name('web.service.getService');
