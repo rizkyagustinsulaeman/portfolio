@@ -34,7 +34,7 @@ class HomeController extends Controller
     }
     
     public function getBlog(){
-        $data = Blog::with('kategori')->where('status', 1)->orderBy('created_at', 'desc')->get();
+        $data = Blog::with('kategori')->with('komentar_blog')->with('komentar_blog_reply')->where('status', 1)->orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'data' => $data,

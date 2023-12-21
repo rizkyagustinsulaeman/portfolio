@@ -2,14 +2,15 @@
 
 @section('content')
     <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option spad set-bg-color" data-setbgcolor="{{ $settings['general_breadcrumb_color'] ?? '#1e2a45' }}">
+    <div class="breadcrumb-option spad set-bg-color"
+        data-setbgcolor="{{ $settings['general_breadcrumb_color'] ?? '#1e2a45' }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h2>Our Blog</h2>
                         <div class="breadcrumb__links">
-                            <a href="#">Home</a>
+                            <a href="{{route('web.index')}}">Home</a>
                             <span>Blog</span>
                         </div>
                     </div>
@@ -21,128 +22,71 @@
 
     <!-- Blog Section Begin -->
     <section class="blog spad">
-        <div class="container">
+        <div class="container" id="blogSection">
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <h4>What Makes Users Want to Share a Video on Social Media?</h4>
-                        <ul>
-                            <li>Jan 03, 2020</li>
-                            <li>05 Comment</li>
-                        </ul>
-                        <p>We recently launched a new website for a Vital client and wanted to share some of the cool
-                            features we were able...</p>
-                        <a href="#">Read more <span class="arrow_right"></span></a>
+                @foreach ($data as $key => $row)
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        @php
+                            $jsonParse = json_decode($row->img_url);
+                        @endphp
+                        <div class="blog__item set-bg-blog" data-setbg="{{ img_src($jsonParse[0], 'blog') }}">
+                            <h4>{{ $row->judul }}</h4>
+                            <ul>
+                                <li>{{ date('F d, Y', strtotime($row->tanggal_posting)) }}</li>
+                                <li>{{$row->komentar_blog->count() + $row->komentar_blog_reply->count()}} Comment</li>
+                            </ul>
+                            <p>{{ Str::limit(strip_tags($row->isi), 100) }}</p>
+                            <a href="{{ route('web.blog.slug', $row->slug) }}">Read more <span
+                                    class="arrow_right"></span></a>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <h4>Bumper Ads: How to Tell a Story in 6 Seconds</h4>
-                        <ul>
-                            <li>Jan 03, 2020</li>
-                            <li>05 Comment</li>
-                        </ul>
-                        <p>We recently launched a new website for a Vital client and wanted to share some of the cool
-                            features we were able...</p>
-                        <a href="#">Read more <span class="arrow_right"></span></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <h4>Recruitment Marketing for the Digital Age: A Definitive Guide</h4>
-                        <ul>
-                            <li>Jan 03, 2020</li>
-                            <li>05 Comment</li>
-                        </ul>
-                        <p>We recently launched a new website for a Vital client and wanted to share some of the cool
-                            features we were able...</p>
-                        <a href="#">Read more <span class="arrow_right"></span></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <h4>Say Bonjour! Ola! & Guten Tag! to Our New Team Members</h4>
-                        <ul>
-                            <li>Jan 03, 2020</li>
-                            <li>05 Comment</li>
-                        </ul>
-                        <p>We recently launched a new website for a Vital client and wanted to share some of the cool
-                            features we were able...</p>
-                        <a href="#">Read more <span class="arrow_right"></span></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <h4>Recruitment Marketing for the Digital Age: A Definitive Guide</h4>
-                        <ul>
-                            <li>Jan 03, 2020</li>
-                            <li>05 Comment</li>
-                        </ul>
-                        <p>We recently launched a new website for a Vital client and wanted to share some of the cool
-                            features we were able...</p>
-                        <a href="#">Read more <span class="arrow_right"></span></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <h4>Pay-Per-Click Marketing: A ‘Nuts & Bolts’ Guide</h4>
-                        <ul>
-                            <li>Jan 03, 2020</li>
-                            <li>05 Comment</li>
-                        </ul>
-                        <p>We recently launched a new website for a Vital client and wanted to share some of the cool
-                            features we were able...</p>
-                        <a href="#">Read more <span class="arrow_right"></span></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <h4>Vital Launches New University Website Design for...</h4>
-                        <ul>
-                            <li>Jan 03, 2020</li>
-                            <li>05 Comment</li>
-                        </ul>
-                        <p>We recently launched a new website for a Vital client and wanted to share some of the cool
-                            features we were able...</p>
-                        <a href="#">Read more <span class="arrow_right"></span></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <h4>How and When to Write a Press Release: Best Practices...</h4>
-                        <ul>
-                            <li>Jan 03, 2020</li>
-                            <li>05 Comment</li>
-                        </ul>
-                        <p>We recently launched a new website for a Vital client and wanted to share some of the cool
-                            features we were able...</p>
-                        <a href="#">Read more <span class="arrow_right"></span></a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="blog__item">
-                        <h4>What Makes Users Want to Share a Video on Social Media?</h4>
-                        <ul>
-                            <li>Jan 03, 2020</li>
-                            <li>05 Comment</li>
-                        </ul>
-                        <p>We recently launched a new website for a Vital client and wanted to share some of the cool
-                            features we were able...</p>
-                        <a href="#">Read more <span class="arrow_right"></span></a>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="pagination__option blog__pagi">
-                        <a href="#" class="arrow__pagination left__arrow"><span class="arrow_left"></span> Prev</a>
-                        <a href="#" class="number__pagination">1</a>
-                        <a href="#" class="number__pagination">2</a>
-                        <a href="#" class="arrow__pagination right__arrow">Next <span class="arrow_right"></span></a>
-                    </div>
-                </div>
-            </div>
+            {{ $data->links('frontpage.layouts.pagination.index') }}
+
         </div>
     </section>
     <!-- Blog Section End -->
 @endsection
+
+@push('js')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.set-bg-blog').hover(
+                function() {
+                    var originalBg = $(this).data('setbg');
+                    $(this).css('background-image', 'url(' + originalBg + ')');
+                },
+                function() {
+                    $(this).css('background-image', ''); // Clear background image on mouse out
+                }
+            );
+
+            $(document).on('click', '.pagination__option a', function(event) {
+                event.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                fetch_data(page);
+            });
+
+            function fetch_data(page) {
+                $.ajax({
+                    url: "{{ route('web.blog.fetchData') }}?page=" + page,
+                    success: function(data) {
+                        $('#blogSection').html(data);
+                        $('.set-bg-blog').hover(
+                            function() {
+                                var originalBg = $(this).data('setbg');
+                                $(this).css('background-image', 'url(' + originalBg + ')');
+                            },
+                            function() {
+                                $(this).css('background-image',
+                                ''); // Clear background image on mouse out
+                            }
+                        );
+                    },
+                });
+            }
+        });
+    </script>
+@endpush

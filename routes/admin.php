@@ -189,8 +189,10 @@ Route::prefix('admin')->group(function () {
         //Komentar Blog
         Route::get('komentar-blog', [KomentarBlogController::class, 'index'])->name('admin.komentar_blog');
         Route::get('komentar-blog/getData', [KomentarBlogController::class, 'getData'])->name('admin.komentar_blog.getData');
-        Route::get('komentar-blog/detail/{id}', [KomentarBlogController::class, 'detail'])->name('admin.komentar_blog.detail');
         Route::delete('komentar-blog/delete', [KomentarBlogController::class, 'delete'])->name('admin.komentar_blog.delete');
+        Route::get('komentar-blog/detail/{id}', [KomentarBlogController::class, 'detail'])->name('admin.komentar_blog.detail');
+        Route::get('komentar-blog/detail/getData/{id}', [KomentarBlogController::class, 'getDataDetail'])->name('admin.komentar_blog.detail.getData');
+        Route::delete('komentar-blog/detail/delete', [KomentarBlogController::class, 'deleteDetail'])->name('admin.komentar_blog.detail.delete');
         
         //Komentar Project
         Route::get('komentar-project', [KomentarProjectController::class, 'index'])->name('admin.komentar_project');

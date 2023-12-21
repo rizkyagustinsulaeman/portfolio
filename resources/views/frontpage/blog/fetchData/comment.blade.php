@@ -66,6 +66,7 @@
 @endforeach
 <script type="text/javascript">
     $(document).ready(function() {
+
         $('.triggerCommentReply').on('click', function(e) {
             e.preventDefault();
 
@@ -81,7 +82,7 @@
             if (textarea.val() != '') {
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('web.project.slug.comment.reply', $data->slug) }}",
+                    url: "{{ route('web.blog.slug.comment.reply', $data->slug) }}",
                     data: {
                         "_token": "{{ csrf_token() }}",
                         "_method": "POST",
@@ -90,7 +91,7 @@
                     },
                     success: function() {
                         $.ajax({
-                            url: "{{ route('web.project.fetchData.comment') }}",
+                            url: "{{ route('web.blog.fetchData.comment') }}",
                             data: {
                                 slug: "{{ $data->slug }}",
                             },

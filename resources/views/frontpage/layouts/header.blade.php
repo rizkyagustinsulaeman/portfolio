@@ -22,12 +22,14 @@
                             <li class="{{ Route::is('web.service*') ? 'active' : '' }}"><a
                                     href="{{ route('web.service') }}">Services</a></li>
                             <li class="{{ Route::is('web.blog*') ? 'active' : '' }}"><a
+                                    href="{{ route('web.blog') }}">Blog</a></li>
+                            {{-- <li class="{{ Route::is('web.blog*') ? 'active' : '' }}"><a
                                     href="javascript:void(0)">Blog</a>
                                 <ul class="dropdown">
                                     <li><a href="{{ route('web.blog') }}">Post</a></li>
                                     <li><a href="{{ route('web.blog') }}">Kategori</a></li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <li class="{{ Route::is('web.contact*') ? 'active' : '' }}"><a
                                     href="{{ route('web.contact') }}">Contact</a></li>
                         </ul>

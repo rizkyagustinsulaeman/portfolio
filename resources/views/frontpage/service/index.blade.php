@@ -110,7 +110,7 @@
     <!-- Call To Action Section Begin -->
     <section class="callto sp__callto">
         <div class="container">
-            <div class="callto__services spad set-bg" data-setbg="{{ template_frontpage('img/calltos-bg.jpg') }}">
+            <div class="callto__services spad set-bg-color" data-setbgcolor="{{ $settings['general_breadcrumb_color'] ?? '#1e2a45' }}">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-10 text-center">
                         <div class="callto__text">

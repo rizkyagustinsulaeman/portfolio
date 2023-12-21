@@ -64,7 +64,7 @@ class KomentarProjectController extends Controller
 
         $detail = [];
         foreach ($data->reply as $row) {
-            $detail[] += $row;
+            $detail[] = $row;
             $row->delete();
         }
 

@@ -1371,7 +1371,6 @@ ol {
 }
 .blog__item:hover {
   border: 1px solid transparent !important;
-  background: url(../img/blog/blog-2.jpg) no-repeat;
   background-size: cover;
 }
 .blog__item:hover ul li {
@@ -1390,7 +1389,7 @@ ol {
   margin-bottom: 20px;
 }
 .blog__item ul li {
-  color: #777777;
+  color: var(--main-text-color);
   list-style: none;
   font-size: 14px;
   font-weight: 300;

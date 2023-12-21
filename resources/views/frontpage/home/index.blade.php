@@ -3,8 +3,7 @@
 @section('content')
     <section class="hero">
         <div class="hero__slider owl-carousel" id="bannerSection">
-            <div class="hero__item set-bg"
-                data-setbg="https://www.freecodecamp.org/news/content/images/size/w2000/2021/06/w-qjCHPZbeXCQ-unsplash.jpg">
+            <div class="hero__item set-bg" data-setbg="https://i.giphy.com/XfDiixCqdH7OrEBg5z.webp">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6">
@@ -17,8 +16,7 @@
                     </div>
                 </div>
             </div>
-            <div class="hero__item set-bg"
-                data-setbg="https://www.freecodecamp.org/news/content/images/size/w2000/2021/06/w-qjCHPZbeXCQ-unsplash.jpg">
+            <div class="hero__item set-bg" data-setbg="https://i.giphy.com/XfDiixCqdH7OrEBg5z.webp">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6">
@@ -31,8 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="hero__item set-bg"
-                data-setbg="https://www.freecodecamp.org/news/content/images/size/w2000/2021/06/w-qjCHPZbeXCQ-unsplash.jpg">
+            <div class="hero__item set-bg" data-setbg="https://i.giphy.com/XfDiixCqdH7OrEBg5z.webp">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6">
@@ -365,7 +362,7 @@
     <!-- Latest Blog Section End -->
 
     <!-- Call To Action Section Begin -->
-    <section class="callto spad set-bg" data-setbg="{{ template_frontpage('img/callto-bg.jpg') }}">
+    <section class="callto spad set-bg-color" data-setbgcolor="{{ $settings['general_breadcrumb_color'] ?? '#1e2a45' }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
@@ -500,14 +497,17 @@
                         const data = respon.data[i];
                         let imgJsonDecode = JSON.parse(data.img_url);
 
-                        // Assuming data.isi contains the text you want to limit
-                        let truncatedContent = data.isi;
+                        // Assuming data.isi contains the text with HTML tags
+                        let contentWithHTML = data.isi;
+
+                        // Remove HTML tags
+                        let contentWithoutHTML = contentWithHTML.replace(/<\/?[^>]+(>|$)/g, '');
 
                         // Limit the content to 200 characters
-                        const maxLength = 1000;
-                        if (truncatedContent.length > maxLength) {
-                            truncatedContent = truncatedContent.substring(0, maxLength) + '...';
-                        }
+                        const maxLength = 200;
+                        let truncatedContent = contentWithoutHTML.length > maxLength ?
+                            contentWithoutHTML.substring(0, maxLength) + '...' :
+                            contentWithoutHTML;
 
                         blogHtml +=
                             `<div class="col-lg-4">` +
@@ -516,10 +516,12 @@
                             `<h4>` + data.judul + `</h4>` +
                             `<ul>` +
                             `<li>` + formatDate(data.tanggal_posting) + `</li>` +
-                            `<li>05 Comment</li>` +
+                            `<li>` + (data.komentar_blog.length + data.komentar_blog_reply.length) +
+                            ` Comment</li>` +
                             `</ul>` +
                             `<p>` + truncatedContent + `</p>` +
-                            `<a href="#">Read more <span class="arrow_right"></span></a>` +
+                            `<a href="/blog/` + data.slug +
+                            `">Read more <span class="arrow_right"></span></a>` +
                             `</div>` +
                             `</div>`;
                     }
@@ -652,7 +654,7 @@
                             `<div class="hero__text">` +
                             `<span>` + bannerJsonDecode.title + `</span>` +
                             `<h2>` + bannerJsonDecode.body + `</h2>` +
-                            `<a href="#" class="primary-btn">See more about us</a>` +
+                            `<a href="javascript:void(0)" class="primary-btn">See more about us</a>` +
                             `</div>` +
                             `</div>` +
                             `</div>` +
@@ -675,7 +677,7 @@
             initcarousel();
 
 
-            //Project
+            //Count
             $.ajax({
                 type: "GET",
                 url: "{{ route('web.count') }}",
@@ -685,7 +687,6 @@
                 },
                 success: function(respon) {
                     const data = respon.data;
-                    console.log(data.countProject);
                     $('#countProject').html(
                         data.countProject
                     )

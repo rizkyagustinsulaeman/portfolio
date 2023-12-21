@@ -334,7 +334,12 @@
             $('#triggerSubmitCommment').on('click', function(e) {
                 e.preventDefault();
 
+                var submitButton = $(this);
+
                 if ($('#inputComment').val() != '') {
+                    // Disable the submit button and show loading state
+                    submitButton.prop('disabled', true).text('Submitting...');
+
                     $.ajax({
                         type: "POST",
                         url: "{{ route('web.project.slug.comment', $data->slug) }}",
@@ -344,6 +349,9 @@
                             "comment": $('#inputComment').val(),
                         },
                         success: function() {
+                            // Enable the submit button and restore its original text
+                            submitButton.prop('disabled', false).text('Submit');
+
                             $.ajax({
                                 url: "{{ route('web.project.fetchData.comment') }}",
                                 data: {
@@ -354,10 +362,16 @@
                                     $('#inputComment').val('')
                                 },
                             });
+                        },
+                        error: function() {
+                            // Handle errors if needed
+                            // Enable the submit button and restore its original text
+                            submitButton.prop('disabled', false).text('Submit');
                         }
                     });
                 }
-            })
+            });
+
 
             $('.triggerCommentReply').on('click', function(e) {
                 e.preventDefault();

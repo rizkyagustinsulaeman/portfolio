@@ -5,11 +5,12 @@
         <h1>Komentar Blog</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
-            <div class="breadcrumb-item">Komentar Blog</div>
+            <div class="breadcrumb-item active"><a href="{{ route('admin.komentar_blog') }}">Komentar Blog</a></div>
+            <div class="breadcrumb-item">Detail</div>
         </div>
     @endpush
     @push('section_title')
-    Komentar Blog
+    {{$data->judul}}
     @endpush
 
     <div class="row">
@@ -63,7 +64,7 @@
                 ],
                 scrollX: true, // Enable horizontal scrolling
                 ajax: {
-                    url: '{{ route('admin.komentar_blog.getData') }}',
+                    url: '{{ route('admin.komentar_blog.detail.getData',$data->id) }}',
                     dataType: "JSON",
                     type: "GET",
                     data: function(d) {
@@ -125,7 +126,7 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: "DELETE",
-                            url: "{{ route('admin.komentar_blog.delete') }}",
+                            url: "{{ route('admin.komentar_blog.detail.delete') }}",
                             data: {
                                 "_token": "{{ csrf_token() }}",
                                 "_method": "DELETE",
