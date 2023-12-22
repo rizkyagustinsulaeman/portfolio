@@ -361,14 +361,16 @@
     <!-- Latest Blog Section End -->
 
     <!-- Call To Action Section Begin -->
-    <section class="callto spad set-bg-color" id="sectionPromosi" data-setbgcolor="{{ $settings['general_breadcrumb_color'] ?? '#1e2a45' }}">
+    <section class="callto spad set-bg-color" id="sectionPromosi"
+        data-setbgcolor="{{ $settings['general_breadcrumb_color'] ?? '#1e2a45' }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="callto__text">
                         <h2>{{ $settings['title_promosi_frontpage_homepage'] ?? '' }}</h2>
                         <p>{{ $settings['body_promosi_frontpage_homepage'] ?? '' }}</p>
-                        <a href="{{ $settings['url_button_promosi_frontpage_homepage'] ?? '' }}">{{ $settings['text_button_promosi_frontpage_homepage'] ?? '' }}</a>
+                        <a
+                            href="{{ $settings['url_button_promosi_frontpage_homepage'] ?? '' }}">{{ $settings['text_button_promosi_frontpage_homepage'] ?? '' }}</a>
                     </div>
                 </div>
             </div>
@@ -640,37 +642,39 @@
                 success: function(respon) {
                     let bannerHtml = ''
 
-                    for (let i = 0; i < respon.data.length; i++) {
-                        const data = respon.data[i];
-
-                        let bannerJsonDecode = JSON.parse(data.value);
-                        bannerHtml +=
-                            `<div class="hero__item set-bg-banner" data-setbg="{{ asset('administrator/assets/media/banner') }}/` +
-                            bannerJsonDecode.img_url + `">` +
-                            `<div class="container">` +
-                            `<div class="row">` +
-                            `<div class="col-lg-6">` +
-                            `<div class="hero__text">` +
-                            `<span>` + bannerJsonDecode.title + `</span>` +
-                            `<h2>` + bannerJsonDecode.body + `</h2>` +
-                            `<a href="javascript:void(0)" class="primary-btn">See more about us</a>` +
-                            `</div>` +
-                            `</div>` +
-                            `</div>` +
-                            `</div>` +
-                            `</div>`;
+                    if (respon.data.length !== 0) {
+                        for (let i = 0; i < respon.data.length; i++) {
+                            const data = respon.data[i];
+    
+                            let bannerJsonDecode = JSON.parse(data.value);
+                            bannerHtml +=
+                                `<div class="hero__item set-bg-banner" data-setbg="{{ asset('administrator/assets/media/banner') }}/` +
+                                bannerJsonDecode.img_url + `">` +
+                                `<div class="container">` +
+                                `<div class="row">` +
+                                `<div class="col-lg-6">` +
+                                `<div class="hero__text">` +
+                                `<span>` + bannerJsonDecode.title + `</span>` +
+                                `<h2>` + bannerJsonDecode.body + `</h2>` +
+                                `<a href="javascript:void(0)" class="primary-btn">See more about us</a>` +
+                                `</div>` +
+                                `</div>` +
+                                `</div>` +
+                                `</div>` +
+                                `</div>`;
+                        }
+                        $('#bannerSection').html(
+                            bannerHtml
+                        )
+    
+                        $('.set-bg-banner').each(function() {
+                            var bg = $(this).data('setbg');
+                            $(this).css('background-image', 'url(' + bg + ')');
+                        });
+    
+                        $('#bannerSection').owlCarousel('destroy');
+                        initcarousel();
                     }
-                    $('#bannerSection').html(
-                        bannerHtml
-                    )
-
-                    $('.set-bg-banner').each(function() {
-                        var bg = $(this).data('setbg');
-                        $(this).css('background-image', 'url(' + bg + ')');
-                    });
-
-                    $('#bannerSection').owlCarousel('destroy');
-                    initcarousel();
                 }
             });
             initcarousel();

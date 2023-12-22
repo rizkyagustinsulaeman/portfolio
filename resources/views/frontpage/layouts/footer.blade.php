@@ -13,15 +13,17 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="footer__top__social">
                         @php
-                            $sosmed = array_key_exists('general_sosmed', $settings) ? json_decode($settings['general_sosmed']) : '';
+                            $sosmed = array_key_exists('general_sosmed', $settings) ? json_decode($settings['general_sosmed']) : null;
                         @endphp
-                        @foreach ($sosmed as $key => $item)
-                            @if (!empty($item->icon_sosmed))
-                                <a href="{{ $item->nama_sosmed }}" target="_blank">
-                                    <i class="{{ $item->icon_sosmed }}"></i>
-                                </a>
-                            @endif
-                        @endforeach
+                        @if (!empty($sosmed))
+                            @foreach ($sosmed as $key => $item)
+                                @if (!empty($item->icon_sosmed))
+                                    <a href="{{ $item->nama_sosmed }}" target="_blank">
+                                        <i class="{{ $item->icon_sosmed }}"></i>
+                                    </a>
+                                @endif
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -53,21 +55,23 @@
                         <h5>Our link</h5>
                         <ul>
                             @php
-                                $link = array_key_exists('link_frontpage_footer', $settings) ? json_decode($settings['link_frontpage_footer']) : '';
+                                $link = array_key_exists('link_frontpage_footer', $settings) ? json_decode($settings['link_frontpage_footer']) : null;
                             @endphp
-                            @foreach ($link as $key => $item)
-                                @if (!empty($item->url_link))
-                                    <a href="{{ $item->url_link }}" target="_blank">
-                                        <i class="{{ $item->nama_link }}"></i>
-                                    </a>
-                                    <li><a href="{{ $item->url_link }}" target="_blank">{{ $item->nama_link }}</a>
-                                    </li>
-                                @endif
-                            @endforeach
+                            @if (!empty($link))
+                                @foreach ($link as $key => $item)
+                                    @if (!empty($item->url_link))
+                                        <a href="{{ $item->url_link }}" target="_blank">
+                                            <i class="{{ $item->nama_link }}"></i>
+                                        </a>
+                                        <li><a href="{{ $item->url_link }}" target="_blank">{{ $item->nama_link }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12">    
+                <div class="col-lg-4 col-md-12">
                     <div class="footer__option__item">
                         <h5>Have a Question?</h5>
                         <p>Feel free to ask us anything. We're here to help!</p>

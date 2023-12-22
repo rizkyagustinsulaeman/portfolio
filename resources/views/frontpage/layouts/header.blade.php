@@ -36,15 +36,21 @@
                     </nav>
                     <div class="header__nav__social">
                         @php
-                            $sosmed = array_key_exists('general_sosmed', $settings) ? json_decode($settings['general_sosmed']) : '';
+                            $sosmed = array_key_exists('general_sosmed', $settings) ? json_decode($settings['general_sosmed']) : null;
                         @endphp
-                        @foreach ($sosmed as $key => $item)
-                        @if (!empty($item))
-                        <a href="{{ $item->nama_sosmed }}" target="_blank">
-                            <i class="{{$item->icon_sosmed}}"></i>
-                        </a>
+
+                        @if (!empty($sosmed))
+                            @foreach ($sosmed as $key => $item)
+                                @if (!empty($item))
+                                    <a href="{{ $item->nama_sosmed }}" target="_blank">
+                                        <i class="{{ $item->icon_sosmed }}"></i>
+                                    </a>
+                                @endif
+                            @endforeach
                         @endif
-                        @endforeach
+
+
+
                     </div>
                 </div>
             </div>
