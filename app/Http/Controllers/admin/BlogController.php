@@ -146,7 +146,10 @@ class BlogController extends Controller
         }
 
         $data = Blog::find($id);
-
+        if (!$data) {
+            abort(404);
+        }
+        
         $decodeImg = json_decode($data->img_url);
         
         return view('administrator.blog.edit',compact('data','decodeImg'));
@@ -174,6 +177,24 @@ class BlogController extends Controller
 
         // Simpan data sebelum diupdate
         $previousData = $data->toArray();
+
+        $img_isi = $data->isi;
+        $dom = new \domdocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($img_isi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $errors = libxml_get_errors();
+        libxml_clear_errors();
+        
+        $images = $dom->getelementsbytagname('img');
+        foreach($images as $k => $img){
+            $datas = $img->getattribute('src');
+            // Check if the image has base64 encoding
+            $data_replace = str_replace('/administrator/assets/media/blog/', '', $datas);
+            $image_path = "./administrator/assets/media/blog/" . $data_replace;
+                    if (File::exists($image_path)) {
+                        File::delete($image_path);
+                    }
+        }
 
         $slug = Str::slug($request->judul);
         $cekSlugCount = Blog::where('id','!=',$id)->where('slug', $slug)->count();
@@ -397,7 +418,7 @@ class BlogController extends Controller
         
         $id = $request->id;
 
-        $data = Blog::onlyTrashed()->find($id);
+        $data = Blog::onlyTrashed()->with('komentar_blog')->with('komentar_blog_reply')->find($id);
 
         // Check if data exists in the trash
         if (!$data) {
@@ -431,7 +452,15 @@ class BlogController extends Controller
                         File::delete($image_path);
                     }
         }
-
+        
+        if (!$data->komentar_blog->isEmpty()) {
+            $data->komentar_blog->each->delete();
+        }
+        
+        if (!$data->komentar_blog_reply->isEmpty()) {
+            $data->komentar_blog_reply->each->delete();
+        }
+        
         $data->forceDelete();
         
 
@@ -484,6 +513,10 @@ class BlogController extends Controller
         }
 
         $data = Blog::where('slug', $slug)->first();
+
+        if (!$data) {
+            abort(404);
+        }
 
         $decodeImg = json_decode($data->img_url);
         

@@ -30,6 +30,10 @@ class BlogController extends Controller
     public function detail($slug){
         $data = Blog::with('kategori')->where('slug', $slug)->first();
 
+        if (!$data) {
+            abort(404);
+        }
+
         $decodeImg = json_decode($data->img_url);
 
         $previous = Blog::where('slug', '!=', $slug)->limit(2)->inRandomOrder()->get();

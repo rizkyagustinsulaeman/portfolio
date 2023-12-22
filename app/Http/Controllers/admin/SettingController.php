@@ -23,6 +23,24 @@ class SettingController extends Controller
         return view('administrator.settings.main');
     }
 
+    public function frontpage(){
+        //Check permission
+        if (!isAllowed(static::$module, "frontpage")) {
+            abort(403);
+        }
+
+        return view('administrator.settings.frontpage');
+    }
+
+    public function admin(){
+        //Check permission
+        if (!isAllowed(static::$module, "admin")) {
+            abort(403);
+        }
+
+        return view('administrator.settings.administrator');
+    }
+
     public function index()
     {
         //Check permission
@@ -122,7 +140,7 @@ class SettingController extends Controller
         //Write log
         createLog(static::$module, __FUNCTION__, 0,$logs);
 
-        return redirect(route('admin.settings.administrator'))->with(['success' => 'Data berhasil di update.']);
+        return redirect(route('admin.settings.admin.general'))->with(['success' => 'Data berhasil di update.']);
 
     }
     
@@ -361,6 +379,68 @@ class SettingController extends Controller
         // Update the database record
         $set = Setting::where('name', 'general_sosmed')->first();
         $set->update(['value' => $jsonEncodedData]);
+    }
+
+    public function frontpage_homepage_index()
+    {
+        //Check permission
+        if (!isAllowed(static::$module, "frontpage_homepage")) {
+            abort(403);
+        }
+        $settings = Setting::get()->toArray();
+        
+        $settings = array_column($settings, 'value', 'name');
+
+        // Ambil pengaturan dari database dan tampilkan di halaman
+        return view('administrator.settings.frontpage.homepage', compact('settings'));
+    }
+
+    public function frontpage_homepage_update(Request $request)
+    {
+        // return $request;
+        //Check permission
+        if (!isAllowed(static::$module, "frontpage_homepage")) {
+            abort(403);
+        }
+
+        
+
+        $settings = Setting::get()->toArray();
+        $settings = array_column($settings, 'value', 'name');
+
+        
+        $data_settings = [];
+        $data_settings["title_promosi_frontpage_homepage"] = $request->title_promosi_frontpage_homepage;
+        $data_settings["body_promosi_frontpage_homepage"] = $request->body_promosi_frontpage_homepage;
+        $data_settings["text_button_promosi_frontpage_homepage"] = $request->text_button_promosi_frontpage_homepage;
+        $data_settings["url_button_promosi_frontpage_homepage"] = $request->url_button_promosi_frontpage_homepage;
+        $data_settings["body_service_frontpage_homepage"] = $request->body_service_frontpage_homepage;
+
+        $logs = []; // Buat array kosong untuk menyimpan log
+
+        foreach ($data_settings as $key => $value) {
+            $data = [];
+
+            if (array_key_exists($key, $settings)) {
+                $data["value"] = $value;
+                $set = Setting::where('name', $key)->first();
+                $set->update($data);
+
+                $logs[] = ['---'.$key.'---' => ['Data Sebelumnya' => ['value' => $settings[$key]], 'Data terbaru' => ['value' => $value]]];
+            } else {
+                $data["name"] = $key;
+                $data["value"] = $value;
+                $set = Setting::create($data);
+
+                $logs[] = $set;
+            }
+        }
+
+        //Write log
+        createLog(static::$module, __FUNCTION__, 0,$logs);
+
+        return redirect(route('admin.settings.frontpage.homepage'))->with(['success' => 'Data berhasil di update.']);
+
     }
 
 }

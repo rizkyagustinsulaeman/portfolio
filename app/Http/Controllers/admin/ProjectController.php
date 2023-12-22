@@ -141,7 +141,10 @@ class ProjectController extends Controller
         }
 
         $data = Project::find($id);
-
+        if (!$data) {
+            abort(404);
+        }
+        
         $decodeImg = json_decode($data->img_url);
         
         return view('administrator.project.edit',compact('data','decodeImg'));
@@ -167,6 +170,24 @@ class ProjectController extends Controller
 
         // Simpan data sebelum diupdate
         $previousData = $data->toArray();
+
+        $data_deskripsi = $data->deskripsi;
+        $dom = new \domdocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML($data_deskripsi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $errors = libxml_get_errors();
+        libxml_clear_errors();
+        
+        $images = $dom->getelementsbytagname('img');
+        foreach($images as $k => $img){
+            $datas = $img->getattribute('src');
+            // Check if the image has base64 encoding
+            $data_replace = str_replace('/administrator/assets/media/project/', '', $datas);
+            $image_path = "./administrator/assets/media/project/" . $data_replace;
+                    if (File::exists($image_path)) {
+                        File::delete($image_path);
+                    }
+        }
 
         $slug = Str::slug($request->nama);
         $cekSlugCount = Project::where('id','!=',$id)->where('slug', $slug)->count();
@@ -296,6 +317,10 @@ class ProjectController extends Controller
         }
 
         $data = Project::with('project')->find($id);
+        
+        if (!$data) {
+            abort(404);
+        }
 
         return response()->json([
             'data' => $data,
@@ -404,7 +429,7 @@ class ProjectController extends Controller
         
         $id = $request->id;
 
-        $data = Project::onlyTrashed()->find($id);
+        $data = Project::onlyTrashed()->with('komentar_project')->with('komentar_project_reply')->find($id);
 
         // Check if data exists in the trash
         if (!$data) {
@@ -439,8 +464,16 @@ class ProjectController extends Controller
                     }
         }
 
-        // Force delete the category
+        if (!$data->komentar_project->isEmpty()) {
+            $data->komentar_project->each->delete();
+        }
+        
+        if (!$data->komentar_project_reply->isEmpty()) {
+            $data->komentar_project_reply->each->delete();
+        }
+        
         $data->forceDelete();
+        
 
 
         $dataJson = [
@@ -492,6 +525,10 @@ class ProjectController extends Controller
         }
 
         $data = Project::where('slug', $slug)->first();
+
+        if (!$data) {
+            abort(404);
+        }
 
         $decodeImg = json_decode($data->img_url);
         

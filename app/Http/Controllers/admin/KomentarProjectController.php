@@ -58,19 +58,20 @@ class KomentarProjectController extends Controller
 
         // Find the data based on the provided ID or throw a 404 exception.
         $data = KomentarProject::with('reply')->findOrFail($id);
+        if (!$data) {
+            abort(404);
+        }
 
         // Store the data to be logged before deletion
         $deletedData = $data->toArray();
 
-        $detail = [];
-        foreach ($data->reply as $row) {
-            $detail[] = $row;
-            $row->delete();
+        if(!$data->reply->isEmpty()){
+            $data->reply->each->delete();
         }
 
         $dataJson = [
             'data' => $deletedData,
-            'reply' => $detail
+            'reply' => $data->reply
         ];
         // Delete the data.
         $data->delete();
@@ -98,9 +99,10 @@ class KomentarProjectController extends Controller
         return view('administrator.komentar_project.detail',compact('data'));
     }
 
-    public function getDataDetail(Request $request){
+    public function getDataDetail(Request $request, $id){
         $data = KomentarProjectReply::query()
-                                ->with('project');
+                                ->with('project')
+                                ->where('komentar_id', $id);
 
         $data = $data->get();
 
@@ -129,7 +131,9 @@ class KomentarProjectController extends Controller
 
         // Find the data based on the provided ID or throw a 404 exception.
         $data = KomentarProjectReply::findOrFail($id);
-
+        if (!$data) {
+            abort(404);
+        }
         // Store the data to be logged before deletion
         $deletedData = $data->toArray();
 

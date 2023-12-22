@@ -97,10 +97,26 @@ Route::prefix('admin')->group(function () {
         
         //Setting
         Route::get('settings', [SettingController::class, 'main'])->name('admin.settings');
+        Route::get('settings/admin', [SettingController::class, 'admin'])->name('admin.settings.admin');
+        Route::get('settings/frontpage', [SettingController::class, 'frontpage'])->name('admin.settings.frontpage');
 
         //Setting Admin
-        Route::get('settings/administrator', [SettingController::class, 'index'])->name('admin.settings.administrator');
-        Route::put('settings/administrator/update', [SettingController::class, 'update'])->name('admin.settings.administrator.update');
+        Route::get('settings/admin/general', [SettingController::class, 'index'])->name('admin.settings.admin.general');
+        Route::put('settings/admin/general/update', [SettingController::class, 'update'])->name('admin.settings.admin.general.update');
+
+        //Setting Frontpage Footer
+        Route::get('settings/frontpage/footer', [SettingController::class, 'frontpage_footer_index'])->name('admin.settings.frontpage.footer');
+        Route::put('settings/frontpage/footer/update', [SettingController::class, 'frontpage_footer_update'])->name('admin.settings.frontpage.footer.update');
+        Route::delete('settings/frontpage/footer/deleteLink', [SettingController::class, 'frontpage_footer_deleteLink'])->name('admin.settings.frontpage.footer.deleteLink');
+
+        //Setting Frontpage General
+        Route::get('settings/frontpage/general', [SettingController::class, 'frontpage_general_index'])->name('admin.settings.frontpage.general');
+        Route::put('settings/frontpage/general/update', [SettingController::class, 'frontpage_general_update'])->name('admin.settings.frontpage.general.update');
+        Route::delete('settings/frontpage/general/deleteSosmed', [SettingController::class, 'frontpage_general_deleteSosmed'])->name('admin.settings.frontpage.general.deleteSosmed');
+        
+        //Setting Frontpage Homepage
+        Route::get('settings/frontpage/homepage', [SettingController::class, 'frontpage_homepage_index'])->name('admin.settings.frontpage.homepage');
+        Route::put('settings/frontpage/homepage/update', [SettingController::class, 'frontpage_homepage_update'])->name('admin.settings.frontpage.homepage.update');
 
         //Modul dan Modul Akses
         Route::get('module', [ModuleController::class, 'index'])->name('admin.module');
@@ -229,18 +245,9 @@ Route::prefix('admin')->group(function () {
         Route::get('banner', [BannerController::class, 'edit'])->name('admin.banner');
         Route::put('banner/update', [BannerController::class, 'update'])->name('admin.banner.update');
 
-        //Setting Frontpage Footer
-        Route::get('settings/frontpage/footer', [SettingController::class, 'frontpage_footer_index'])->name('admin.settings.frontpage.footer');
-        Route::put('settings/frontpage/footer/update', [SettingController::class, 'frontpage_footer_update'])->name('admin.settings.frontpage.footer.update');
-        Route::delete('settings/frontpage/footer/deleteLink', [SettingController::class, 'frontpage_footer_deleteLink'])->name('admin.settings.frontpage.footer.deleteLink');
-
-        //Setting Frontpage General
-        Route::get('settings/frontpage/general', [SettingController::class, 'frontpage_general_index'])->name('admin.settings.frontpage.general');
-        Route::put('settings/frontpage/general/update', [SettingController::class, 'frontpage_general_update'])->name('admin.settings.frontpage.general.update');
-        Route::delete('settings/frontpage/general/deleteSosmed', [SettingController::class, 'frontpage_general_deleteSosmed'])->name('admin.settings.frontpage.general.deleteSosmed');
-        
         //Contact
         Route::get('contact', [ContactController::class, 'index'])->name('admin.contact');
         Route::put('contact/update', [ContactController::class, 'update'])->name('admin.contact.update');
+
     });
 });

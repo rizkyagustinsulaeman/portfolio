@@ -62,15 +62,13 @@ class KomentarBlogController extends Controller
         // Store the data to be logged before deletion
         $deletedData = $data->toArray();
 
-        $detail = [];
-        foreach ($data->reply as $row) {
-            $detail[] = $row;
-            $row->delete();
+        if(!$data->reply->isEmpty()){
+            $data->reply->each->delete();
         }
 
         $dataJson = [
             'data' => $deletedData,
-            'reply' => $detail
+            'reply' => $data->reply
         ];
         // Delete the data.
         $data->delete();
@@ -101,9 +99,10 @@ class KomentarBlogController extends Controller
         return view('administrator.komentar_blog.detail',compact('data','data_detail'));
     }
 
-    public function getDataDetail(Request $request){
+    public function getDataDetail(Request $request, $id){
         $data = KomentarBlogReply::query()
-                                ->with('blog');
+                                ->with('blog')
+                                ->where('komentar_id', $id);
 
         $data = $data->get();
 

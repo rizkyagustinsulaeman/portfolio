@@ -33,6 +33,10 @@ class ProjectController extends Controller
     public function detail($slug){
         $data = Project::with('kategori_project')->where('slug', $slug)->first();
 
+        if (!$data) {
+            abort(404);
+        }
+
         $decodeImg = json_decode($data->img_url);
 
         $previous = Project::where('slug', '!=', $slug)->limit(2)->inRandomOrder()->get();

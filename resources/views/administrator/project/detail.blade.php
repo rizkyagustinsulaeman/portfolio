@@ -102,8 +102,7 @@
                         <div class="col-12">
                             <div class="form-group mandatory">
                                 <label for="inputDeskripsi" class="form-label">Deskripsi</label>
-                                <textarea name="deskripsi" id="inputDeskripsi" class="form-control" placeholder="Masukan Deskripsi"
-                                    autocomplete="off" data-parsley-required="true" readonly>{!! $data->deskripsi !!}</textarea>
+                                {!! $data->deskripsi !!}
                             </div>
                         </div>
                     </div>

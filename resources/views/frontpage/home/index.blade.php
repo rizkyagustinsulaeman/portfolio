@@ -49,15 +49,14 @@
     <!-- Services Section Begin -->
     <section class="services spad">
         <div class="container">
-            <div class="row">
+            <div class="row" id="sectionService">
                 <div class="col-lg-4">
                     <div class="services__title">
                         <div class="section-title">
                             <span>Our services</span>
                             <h2>What We do?</h2>
                         </div>
-                        <p>If you hire a videographer of our team you will get a video professional to make a custom
-                            video for your business and, once the project is over.</p>
+                        <p>{{ $settings['body_service_frontpage_homepage'] ?? '' }}</p>
                         <a href="{{ route('web.service') }}" class="primary-btn">View all services</a>
                     </div>
                 </div>
@@ -362,14 +361,14 @@
     <!-- Latest Blog Section End -->
 
     <!-- Call To Action Section Begin -->
-    <section class="callto spad set-bg-color" data-setbgcolor="{{ $settings['general_breadcrumb_color'] ?? '#1e2a45' }}">
+    <section class="callto spad set-bg-color" id="sectionPromosi" data-setbgcolor="{{ $settings['general_breadcrumb_color'] ?? '#1e2a45' }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="callto__text">
-                        <h2>Fresh Ideas, Fresh Moments Giving Wings to your Stories.</h2>
-                        <p>INC5000, Best places to work 2019</p>
-                        <a href="#">Start your stories</a>
+                        <h2>{{ $settings['title_promosi_frontpage_homepage'] ?? '' }}</h2>
+                        <p>{{ $settings['body_promosi_frontpage_homepage'] ?? '' }}</p>
+                        <a href="{{ $settings['url_button_promosi_frontpage_homepage'] ?? '' }}">{{ $settings['text_button_promosi_frontpage_homepage'] ?? '' }}</a>
                     </div>
                 </div>
             </div>

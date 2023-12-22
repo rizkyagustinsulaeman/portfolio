@@ -6,6 +6,7 @@
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard') }}">Dashboard</a></div>
             <div class="breadcrumb-item active"><a href="{{ route('admin.settings') }}">Settings</a></div>
+            <div class="breadcrumb-item active"><a href="{{ route('admin.settings.admin') }}">Administrator</a></div>
             <div class="breadcrumb-item">General</div>
         </div>
     @endpush
@@ -16,7 +17,7 @@
     <div class="card">
         <div class="card-content">
             <div class="card-body">
-                <form action="{{ route('admin.settings.administrator.update') }}" method="post"
+                <form action="{{ route('admin.settings.admin.general.update') }}" method="post"
                     enctype="multipart/form-data" class="form" id="form" data-parsley-validate>
                     @csrf
                     @method('PUT')
@@ -113,7 +114,7 @@
                                 </span>
                             </button>
                             <button type="reset" class="btn btn-secondary mx-1 mb-1">Reset</button>
-                            <a href="{{ route('admin.settings') }}" class="btn btn-danger mx-1 mb-1">Cancel</a>
+                            <a href="{{ route('admin.settings.admin') }}" class="btn btn-danger mx-1 mb-1">Cancel</a>
                         </div>
                     </div>
                 </form>
@@ -159,40 +160,29 @@
 
             const submitButton = document.getElementById("formSubmit");
 
-            form.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                }
-            });
+            // form.addEventListener('keydown', function(e) {
+            //     if (e.key === 'Enter') {
+            //         e.preventDefault();
+            //     }
+            // });
 
             submitButton.addEventListener("click", async function(e) {
                 e.preventDefault();
-
+                indicatorBlock();
+                
                 // Validate the form using Parsley
                 if ($(form).parsley().validate()) {
-                    // Disable the submit button and show the "Please wait..." message
-                    submitButton.querySelector('.indicator-label').style.display = 'none';
-                    submitButton.querySelector('.indicator-progress').style.display =
-                        'inline-block';
+                    indicatorSubmit();
 
-                    // Perform your asynchronous form submission here
-                    // Simulating a 2-second delay for demonstration
-                    setTimeout(function() {
-                        // Re-enable the submit button and hide the "Please wait..." message
-                        submitButton.querySelector('.indicator-label').style.display =
-                            'inline-block';
-                        submitButton.querySelector('.indicator-progress').style.display =
-                            'none';
-
-                        // Submit the form
-                        form.submit();
-                    }, 2000);
+                    // Submit the form
+                    form.submit();
                 } else {
                     // Handle validation errors
                     const validationErrors = [];
                     $(form).find(':input').each(function() {
                         const field = $(this);
                         if (!field.parsley().isValid()) {
+                            indicatorNone();
                             const attrName = field.attr('name');
                             const errorMessage = field.parsley().getErrorsMessages().join(
                                 ', ');
@@ -202,6 +192,29 @@
                     console.log("Validation errors:", validationErrors.join('\n'));
                 }
             });
+
+            function indicatorSubmit() {
+                submitButton.querySelector('.indicator-label').style.display =
+                    'inline-block';
+                submitButton.querySelector('.indicator-progress').style.display =
+                    'none';
+            }
+
+            function indicatorNone() {
+                submitButton.querySelector('.indicator-label').style.display =
+                    'inline-block';
+                submitButton.querySelector('.indicator-progress').style.display =
+                    'none';
+                submitButton.disabled = false;
+            }
+
+            function indicatorBlock() {
+                // Disable the submit button and show the "Please wait..." message
+                submitButton.disabled = true;
+                submitButton.querySelector('.indicator-label').style.display = 'none';
+                submitButton.querySelector('.indicator-progress').style.display =
+                    'inline-block';
+            }
 
         });
     </script>
