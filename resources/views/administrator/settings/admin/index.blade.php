@@ -49,8 +49,8 @@
                             <div class="form-group mandatory">
                                 <label for="logoAppAdminInputFile" class="form-label">Logo App Admin</label>
                                 <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-preview thumbnail mb20" data-trigger="fileinput">
-                                        <img width="200px"
+                                    <div class="fileinput-preview-logo thumbnail mb20" data-trigger="fileinput">
+                                        <img width="350px"
                                             src="{{ array_key_exists('logo_app_admin', $settings) ? img_src($settings['logo_app_admin'], 'settings') : '' }}">
                                     </div>
                                     <div class="mt-3">
@@ -68,16 +68,16 @@
                     <div class="row">
                         <div class="col-md-6 col-12">
                             <div class="form-group mandatory">
-                                <label for="faviconInputFile" class="form-label">Favicon</label>
+                                <label for="faviconAppAdminInputFile" class="form-label">Favicon</label>
                                 <div class="fileinput fileinput-new" data-provides="fileinput">
-                                    <div class="fileinput-preview thumbnail mb20" data-trigger="fileinput">
-                                        <img width="200px"
+                                    <div class="fileinput-preview-favicon thumbnail mb20" data-trigger="fileinput">
+                                        <img width="350px"
                                             src="{{ array_key_exists('favicon', $settings) ? img_src($settings['favicon'], 'settings') : '' }}">
                                     </div>
                                     <div class="mt-3">
-                                        <label for="faviconInputFile" class="btn btn-light btn-file">
+                                        <label for="faviconAppAdminInputFile" class="btn btn-light btn-file">
                                             <span class="fileinput-new">Select image</span>
-                                            <input type="file" class="d-none" id="faviconInputFile" name="favicon">
+                                            <input type="file" class="d-none" id="faviconAppAdminInputFile" name="favicon">
                                         </label>
                                     </div>
                                 </div>
@@ -133,6 +133,62 @@
     <!-- Tambahkan FileInput JavaScript -->
     <script src="{{ asset_administrator('assets/plugins/form-jasnyupload/fileinput.min.js') }}"></script>
 
+    <script>
+        const logoInputFile = document.getElementById("logoAppAdminInputFile");
+        const previewContainerLogo = document.querySelector(".fileinput-preview-logo");
+
+        logoInputFile.addEventListener("change", function() {
+            const files = this.files;
+
+            // Hapus gambar-gambar sebelumnya
+            previewContainerLogo.innerHTML = '';
+
+            // Ambil satu file saja
+            const file = files[0];
+            const imageType = /^image\//;
+
+            if (imageType.test(file.type)) {
+                const imgContainer = document.createElement("div");
+                imgContainer.classList.add("img-thumbnail-container");
+
+                const img = document.createElement("img");
+                img.classList.add("img-thumbnail");
+                img.width = 350; // Sesuaikan ukuran gambar sesuai kebutuhan
+                img.src = URL.createObjectURL(file);
+
+                imgContainer.appendChild(img);
+                previewContainerLogo.appendChild(imgContainer);
+            }
+        });
+        
+        const faviconInputFile = document.getElementById("faviconAppAdminInputFile");
+        const previewContainerFavicon = document.querySelector(".fileinput-preview-favicon");
+
+        faviconInputFile.addEventListener("change", function() {
+            const files = this.files;
+
+            // Hapus gambar-gambar sebelumnya
+            previewContainerFavicon.innerHTML = '';
+
+            // Ambil satu file saja
+            const file = files[0];
+            const imageType = /^image\//;
+
+            if (imageType.test(file.type)) {
+                const imgContainer = document.createElement("div");
+                imgContainer.classList.add("img-thumbnail-container");
+
+                const img = document.createElement("img");
+                img.classList.add("img-thumbnail");
+                img.width = 350; // Sesuaikan ukuran gambar sesuai kebutuhan
+                img.src = URL.createObjectURL(file);
+
+                imgContainer.appendChild(img);
+                previewContainerFavicon.appendChild(imgContainer);
+            }
+        });
+    </script>
+
     <script type="text/javascript">
         $(document).ready(function() {
 
@@ -169,7 +225,7 @@
             submitButton.addEventListener("click", async function(e) {
                 e.preventDefault();
                 indicatorBlock();
-                
+
                 // Validate the form using Parsley
                 if ($(form).parsley().validate()) {
                     indicatorSubmit();

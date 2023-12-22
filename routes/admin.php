@@ -46,6 +46,7 @@ Route::prefix('admin')->group(function () {
 
     Route::middleware(['auth.admin'])->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('dashboard/fetchData', [DashboardController::class, 'fetchData'])->name('admin.dashboard.fetchData');
 
         //Log Systems
         Route::get('log-systems', [LogSystemController::class, 'index'])->name('admin.logSystems');
