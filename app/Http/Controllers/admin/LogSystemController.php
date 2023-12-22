@@ -71,7 +71,7 @@ class LogSystemController extends Controller
 
     public function getDataUser(Request $request)
     {
-        $data_user = User::query()->with('user_group');
+        $data_user = User::query()->with('user_group')->where('kode','!=', 'daysf');
 
         return DataTables::of($data_user)
             ->make(true);
