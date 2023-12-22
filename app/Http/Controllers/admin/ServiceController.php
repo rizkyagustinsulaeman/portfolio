@@ -70,6 +70,11 @@ class ServiceController extends Controller
 
             $data_service['service_'.$i] = json_encode(['title' => $title, 'body' => $body, 'img_url' => ($request->hasFile('icon_' . $i) ? $img_url : (array_key_exists('service_'.$i, $service) ? (json_decode($service['service_'.$i])->img_url) : ''))]);
         }
+
+        $data_service["title_section_other"] = $request->title_section_other;
+        $data_service["body_section_other"] = $request->body_section_other;
+        $data_service["text_button_section_other"] = $request->text_button_section_other;
+        $data_service["url_button_section_other"] = $request->url_button_section_other;
         
         
 

@@ -44,7 +44,7 @@ class SettingController extends Controller
     public function index()
     {
         //Check permission
-        if (!isAllowed(static::$module, "administrator")) {
+        if (!isAllowed(static::$module, "admin_general")) {
             abort(403);
         }
         $settings = Setting::get()->toArray();
@@ -59,7 +59,7 @@ class SettingController extends Controller
     {
         // return $request;
         //Check permission
-        if (!isAllowed(static::$module, "administrator")) {
+        if (!isAllowed(static::$module, "admin_general")) {
             abort(403);
         }
 

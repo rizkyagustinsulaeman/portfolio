@@ -109,15 +109,15 @@
 
     <!-- Call To Action Section Begin -->
     <section class="callto sp__callto">
-        <div class="container">
+        <div class="container" id="sectionOther">
             <div class="callto__services spad set-bg-color" data-setbgcolor="{{ $settings['general_breadcrumb_color'] ?? '#1e2a45' }}">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-10 text-center">
                         <div class="callto__text">
-                            <h2>CREATE AN AMAZING WEBSITE WITH OUR POWERFUL FEATURES</h2>
-                            <p>We combine all the featurs you need to easly create professional websites and presentation
+                            <h2>{{ $service['title_section_other'] ?? '' }}</h2>
+                            <p>{{ $service['body_section_other'] ?? '' }}
                             </p>
-                            <a href="#">Start your stories</a>
+                            <a href="{{ $service['url_button_section_other'] ?? '' }}">{{ $service['text_button_section_other'] ?? '' }}</a>
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,11 @@ use App\Http\Controllers\Controller;
 class ServiceController extends Controller
 {
     public function index(){
-        return view('frontpage.service.index');
+        $service = Service::get()->toArray();
+        
+        $service = array_column($service, 'value', 'name');
+
+        return view('frontpage.service.index', compact('service'));
     }
 
     public function getService(){

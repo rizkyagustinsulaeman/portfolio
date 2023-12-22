@@ -19,7 +19,7 @@
                     <i class="fas fa-bars"></i>
                 </div>
                 <div class="card-body">
-                    <h4>Adminsitrator</h4>
+                    <h4>General</h4>
                     <p>General Adminsitrator.</p>
                     <a href="{{route('admin.settings.admin.general')}}" class="card-cta">Change Setting <i
                             class="fas fa-chevron-right"></i></a>

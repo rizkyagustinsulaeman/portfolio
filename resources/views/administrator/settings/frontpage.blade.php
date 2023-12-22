@@ -19,7 +19,7 @@
                     <i class="fas fa-cog"></i>
                 </div>
                 <div class="card-body">
-                    <h4>Frontpage</h4>
+                    <h4>General</h4>
                     <p>General Frontpage.</p>
                     <a href="{{route('admin.settings.frontpage.general')}}" class="card-cta">Change Setting <i
                             class="fas fa-chevron-right"></i></a>
