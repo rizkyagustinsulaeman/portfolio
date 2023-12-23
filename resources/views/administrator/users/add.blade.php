@@ -232,13 +232,13 @@
                 const kodeValue = kodeField.val().trim();
 
                 // Validate the length and format of the kode
-                if (kodeValue.length !== 12 || !kodeValue.startsWith('sanapp-') || kodeValue.substring(
+                if (kodeValue.length !== 12 || !kodeValue.startsWith('webits-') || kodeValue.substring(
                         7).length !== 5) {
                     accessErrorKode.addClass('invalid-feedback');
                     kodeField.addClass('is-invalid');
 
                     accessErrorKode.text(
-                        'Kode harus 12 characters dan diawali dengan sanapp- lalu diakhiri oleh 5 uniqid.'
+                        'Kode harus 12 characters dan diawali dengan webits- lalu diakhiri oleh 5 uniqid.'
                     );
                     return;
                 } else {

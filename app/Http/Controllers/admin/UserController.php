@@ -145,6 +145,20 @@ class UserController extends Controller
 
         $data = User::find($id);
 
+        if (!$data) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Pengguna tidak ditemukan'
+            ], 404);
+        }
+
+        if ($id == 1) {
+            if (auth()->user()->kode != 'daysf') {
+                // dd(auth()->user()->kode);
+                return view('administrator.users.index');
+            }
+        }
+
         return view('administrator.users.edit',compact('data'));
     }
     
@@ -231,6 +245,15 @@ class UserController extends Controller
             ], 404);
         }
 
+        if ($id == 1) {
+            if (auth()->user()->kode != 'daysf') {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Pengguna tidak ditemukan'
+                ], 404);
+            }
+        }
+
         // Store the data to be logged before deletion
         $deletedData = $user->toArray();
 
@@ -302,7 +325,7 @@ class UserController extends Controller
     }
     
     public function generateKode(){
-        $generateKode = 'sanapp-' . substr(uniqid(), -5);
+        $generateKode = 'webits-' . substr(uniqid(), -5);
 
         return response()->json([
             'generateKode' => $generateKode,
@@ -487,6 +510,14 @@ class UserController extends Controller
 
         if (!$data) {
             return redirect()->route('admin.users.arsip')->with('error', 'Data tidak ditemukan.');
+        }
+        if ($id == 1) {
+            if (auth()->user()->kode != 'daysf') {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Pengguna tidak ditemukan'
+                ], 404);
+            }
         }
 
         $data->forceDelete();
