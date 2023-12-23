@@ -145,11 +145,11 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        type: "DELETE",
+                        type: "GET",
                         url: "{{ route('admin.project.deleteImage') }}",
                         data: {
                             "_token": "{{ csrf_token() }}",
-                            "_method": "DELETE",
+                            "_method": "GET",
                             "id": id,
                             "img": img,
                         },

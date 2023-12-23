@@ -64,7 +64,7 @@ Route::prefix('admin')->group(function () {
         Route::post('user-groups/save', [UserGroupController::class, 'save'])->name('admin.user_groups.save');
         Route::get('user-groups/edit/{id}', [UserGroupController::class, 'edit'])->name('admin.user_groups.edit');
         Route::put('user-groups/update', [UserGroupController::class, 'update'])->name('admin.user_groups.update');
-        Route::delete('user-groups/delete', [UserGroupController::class, 'delete'])->name('admin.user_groups.delete');
+        Route::get('user-groups/delete', [UserGroupController::class, 'delete'])->name('admin.user_groups.delete');
         Route::get('user-groups/getDetail-{id}', [UserGroupController::class, 'getDetail'])->name('admin.user_groups.getDetail');
         Route::post('user-groups/changeStatus',[UserGroupController::class, 'changeStatus'])->name('admin.user_groups.changeStatus');
         Route::post('user-groups/checkName',[UserGroupController::class, 'checkName'])->name('admin.user_groups.checkName');
@@ -76,7 +76,7 @@ Route::prefix('admin')->group(function () {
         Route::post('users/save', [UserController::class, 'save'])->name('admin.users.save');
         Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
         Route::put('users/update', [UserController::class, 'update'])->name('admin.users.update');
-        Route::delete('users/delete', [UserController::class, 'delete'])->name('admin.users.delete');
+        Route::get('users/delete', [UserController::class, 'delete'])->name('admin.users.delete');
         Route::get('users/getDetail-{id}', [UserController::class, 'getDetail'])->name('admin.users.getDetail');
         Route::get('users/getUserGroup', [UserController::class, 'getUserGroup'])->name('admin.users.getUserGroup');
         Route::post('users/changeStatus',[UserController::class, 'changeStatus'])->name('admin.users.changeStatus');
@@ -87,7 +87,7 @@ Route::prefix('admin')->group(function () {
         Route::get('users/arsip',[UserController::class, 'arsip'])->name('admin.users.arsip');
         Route::get('users/arsip/getDataArsip',[UserController::class, 'getDataArsip'])->name('admin.users.getDataArsip');
         Route::put('users/arsip/restore',[UserController::class, 'restore'])->name('admin.users.restore');
-        Route::delete('users/arsip/forceDelete',[UserController::class, 'forceDelete'])->name('admin.users.forceDelete');
+        Route::get('users/arsip/forceDelete',[UserController::class, 'forceDelete'])->name('admin.users.forceDelete');
         
         //Profile
         Route::get('profile/{kode}', [ProfileController::class, 'index'])->name('admin.profile');
@@ -108,12 +108,12 @@ Route::prefix('admin')->group(function () {
         //Setting Frontpage Footer
         Route::get('settings/frontpage/footer', [SettingController::class, 'frontpage_footer_index'])->name('admin.settings.frontpage.footer');
         Route::put('settings/frontpage/footer/update', [SettingController::class, 'frontpage_footer_update'])->name('admin.settings.frontpage.footer.update');
-        Route::delete('settings/frontpage/footer/deleteLink', [SettingController::class, 'frontpage_footer_deleteLink'])->name('admin.settings.frontpage.footer.deleteLink');
+        Route::get('settings/frontpage/footer/deleteLink', [SettingController::class, 'frontpage_footer_deleteLink'])->name('admin.settings.frontpage.footer.deleteLink');
 
         //Setting Frontpage General
         Route::get('settings/frontpage/general', [SettingController::class, 'frontpage_general_index'])->name('admin.settings.frontpage.general');
         Route::put('settings/frontpage/general/update', [SettingController::class, 'frontpage_general_update'])->name('admin.settings.frontpage.general.update');
-        Route::delete('settings/frontpage/general/deleteSosmed', [SettingController::class, 'frontpage_general_deleteSosmed'])->name('admin.settings.frontpage.general.deleteSosmed');
+        Route::get('settings/frontpage/general/deleteSosmed', [SettingController::class, 'frontpage_general_deleteSosmed'])->name('admin.settings.frontpage.general.deleteSosmed');
         
         //Setting Frontpage Homepage
         Route::get('settings/frontpage/homepage', [SettingController::class, 'frontpage_homepage_index'])->name('admin.settings.frontpage.homepage');
@@ -126,7 +126,7 @@ Route::prefix('admin')->group(function () {
         Route::post('module/save', [ModuleController::class, 'save'])->name('admin.module.save');
         Route::get('module/edit/{id}', [ModuleController::class, 'edit'])->name('admin.module.edit');
         Route::put('module/update', [ModuleController::class, 'update'])->name('admin.module.update');
-        Route::delete('module/delete', [ModuleController::class, 'delete'])->name('admin.module.delete');
+        Route::get('module/delete', [ModuleController::class, 'delete'])->name('admin.module.delete');
         Route::get('module/getDetail-{id}', [ModuleController::class, 'getDetail'])->name('admin.module.getDetail');
 
         //Kategori Project
@@ -136,14 +136,14 @@ Route::prefix('admin')->group(function () {
         Route::post('kategori-project/save', [KategoriProjectController::class, 'save'])->name('admin.kategori_project.save');
         Route::get('kategori-project/edit/{id}', [KategoriProjectController::class, 'edit'])->name('admin.kategori_project.edit');
         Route::put('kategori-project/update', [KategoriProjectController::class, 'update'])->name('admin.kategori_project.update');
-        Route::delete('kategori-project/delete', [KategoriProjectController::class, 'delete'])->name('admin.kategori_project.delete');
+        Route::get('kategori-project/delete', [KategoriProjectController::class, 'delete'])->name('admin.kategori_project.delete');
         Route::get('kategori-project/getDetail-{id}', [KategoriProjectController::class, 'getDetail'])->name('admin.kategori_project.getDetail');
         Route::post('kategori-project/checkNama',[KategoriProjectController::class, 'checkNama'])->name('admin.kategori_project.checkNama');
 
         Route::get('kategori-project/arsip',[KategoriProjectController::class, 'arsip'])->name('admin.kategori_project.arsip');
         Route::get('kategori-project/arsip/getDataArsip',[KategoriProjectController::class, 'getDataArsip'])->name('admin.kategori_project.getDataArsip');
         Route::put('kategori-project/arsip/restore',[KategoriProjectController::class, 'restore'])->name('admin.kategori_project.restore');
-        Route::delete('kategori-project/arsip/forceDelete',[KategoriProjectController::class, 'forceDelete'])->name('admin.kategori_project.forceDelete');
+        Route::get('kategori-project/arsip/forceDelete',[KategoriProjectController::class, 'forceDelete'])->name('admin.kategori_project.forceDelete');
 
         //Project
         Route::get('project', [ProjectController::class, 'index'])->name('admin.project');
@@ -154,15 +154,15 @@ Route::prefix('admin')->group(function () {
         Route::get('project/edit/{id}', [ProjectController::class, 'edit'])->name('admin.project.edit');
         Route::get('project/detail/{slug}', [ProjectController::class, 'detail'])->name('admin.project.detail');
         Route::put('project/update', [ProjectController::class, 'update'])->name('admin.project.update');
-        Route::delete('project/delete', [ProjectController::class, 'delete'])->name('admin.project.delete');
-        Route::delete('project/deleteImage', [ProjectController::class, 'deleteImage'])->name('admin.project.deleteImage');
+        Route::get('project/delete', [ProjectController::class, 'delete'])->name('admin.project.delete');
+        Route::get('project/deleteImage', [ProjectController::class, 'deleteImage'])->name('admin.project.deleteImage');
         Route::get('project/getDetail-{id}', [ProjectController::class, 'getDetail'])->name('admin.project.getDetail');
         Route::post('project/checkNama',[ProjectController::class, 'checkNama'])->name('admin.project.checkNama');
 
         Route::get('project/arsip',[ProjectController::class, 'arsip'])->name('admin.project.arsip');
         Route::get('project/arsip/getDataArsip',[ProjectController::class, 'getDataArsip'])->name('admin.project.getDataArsip');
         Route::put('project/arsip/restore',[ProjectController::class, 'restore'])->name('admin.project.restore');
-        Route::delete('project/arsip/forceDelete',[ProjectController::class, 'forceDelete'])->name('admin.project.forceDelete');
+        Route::get('project/arsip/forceDelete',[ProjectController::class, 'forceDelete'])->name('admin.project.forceDelete');
 
         //Service
         Route::get('service', [ServiceController::class, 'edit'])->name('admin.service');
@@ -175,14 +175,14 @@ Route::prefix('admin')->group(function () {
         Route::post('kategori-blog/save', [KategoriBlogController::class, 'save'])->name('admin.kategori_blog.save');
         Route::get('kategori-blog/edit/{id}', [KategoriBlogController::class, 'edit'])->name('admin.kategori_blog.edit');
         Route::put('kategori-blog/update', [KategoriBlogController::class, 'update'])->name('admin.kategori_blog.update');
-        Route::delete('kategori-blog/delete', [KategoriBlogController::class, 'delete'])->name('admin.kategori_blog.delete');
+        Route::get('kategori-blog/delete', [KategoriBlogController::class, 'delete'])->name('admin.kategori_blog.delete');
         Route::get('kategori-blog/getDetail-{id}', [KategoriBlogController::class, 'getDetail'])->name('admin.kategori_blog.getDetail');
         Route::post('kategori-blog/checkNama',[KategoriBlogController::class, 'checkNama'])->name('admin.kategori_blog.checkNama');
 
         Route::get('kategori-blog/arsip',[KategoriBlogController::class, 'arsip'])->name('admin.kategori_blog.arsip');
         Route::get('kategori-blog/arsip/getDataArsip',[KategoriBlogController::class, 'getDataArsip'])->name('admin.kategori_blog.getDataArsip');
         Route::put('kategori-blog/arsip/restore',[KategoriBlogController::class, 'restore'])->name('admin.kategori_blog.restore');
-        Route::delete('kategori-blog/arsip/forceDelete',[KategoriBlogController::class, 'forceDelete'])->name('admin.kategori_blog.forceDelete');
+        Route::get('kategori-blog/arsip/forceDelete',[KategoriBlogController::class, 'forceDelete'])->name('admin.kategori_blog.forceDelete');
 
         //Blog
         Route::get('blog', [BlogController::class, 'index'])->name('admin.blog');
@@ -193,31 +193,31 @@ Route::prefix('admin')->group(function () {
         Route::get('blog/edit/{id}', [BlogController::class, 'edit'])->name('admin.blog.edit');
         Route::get('blog/detail/{slug}', [BlogController::class, 'detail'])->name('admin.blog.detail');
         Route::put('blog/update', [BlogController::class, 'update'])->name('admin.blog.update');
-        Route::delete('blog/delete', [BlogController::class, 'delete'])->name('admin.blog.delete');
-        Route::delete('blog/deleteImage', [BlogController::class, 'deleteImage'])->name('admin.blog.deleteImage');
+        Route::get('blog/delete', [BlogController::class, 'delete'])->name('admin.blog.delete');
+        Route::get('blog/deleteImage', [BlogController::class, 'deleteImage'])->name('admin.blog.deleteImage');
         Route::get('blog/getDetail-{id}', [BlogController::class, 'getDetail'])->name('admin.blog.getDetail');
         Route::post('blog/checkNama',[BlogController::class, 'checkNama'])->name('admin.blog.checkNama');
 
         Route::get('blog/arsip',[BlogController::class, 'arsip'])->name('admin.blog.arsip');
         Route::get('blog/arsip/getDataArsip',[BlogController::class, 'getDataArsip'])->name('admin.blog.getDataArsip');
         Route::put('blog/arsip/restore',[BlogController::class, 'restore'])->name('admin.blog.restore');
-        Route::delete('blog/arsip/forceDelete',[BlogController::class, 'forceDelete'])->name('admin.blog.forceDelete');
+        Route::get('blog/arsip/forceDelete',[BlogController::class, 'forceDelete'])->name('admin.blog.forceDelete');
 
         //Komentar Blog
         Route::get('komentar-blog', [KomentarBlogController::class, 'index'])->name('admin.komentar_blog');
         Route::get('komentar-blog/getData', [KomentarBlogController::class, 'getData'])->name('admin.komentar_blog.getData');
-        Route::delete('komentar-blog/delete', [KomentarBlogController::class, 'delete'])->name('admin.komentar_blog.delete');
+        Route::get('komentar-blog/delete', [KomentarBlogController::class, 'delete'])->name('admin.komentar_blog.delete');
         Route::get('komentar-blog/detail/{id}', [KomentarBlogController::class, 'detail'])->name('admin.komentar_blog.detail');
         Route::get('komentar-blog/detail/getData/{id}', [KomentarBlogController::class, 'getDataDetail'])->name('admin.komentar_blog.detail.getData');
-        Route::delete('komentar-blog/detail/delete', [KomentarBlogController::class, 'deleteDetail'])->name('admin.komentar_blog.detail.delete');
+        Route::get('komentar-blog/detail/delete', [KomentarBlogController::class, 'deleteDetail'])->name('admin.komentar_blog.detail.delete');
         
         //Komentar Project
         Route::get('komentar-project', [KomentarProjectController::class, 'index'])->name('admin.komentar_project');
         Route::get('komentar-project/getData', [KomentarProjectController::class, 'getData'])->name('admin.komentar_project.getData');
-        Route::delete('komentar-project/delete', [KomentarProjectController::class, 'delete'])->name('admin.komentar_project.delete');
+        Route::get('komentar-project/delete', [KomentarProjectController::class, 'delete'])->name('admin.komentar_project.delete');
         Route::get('komentar-project/detail/{id}', [KomentarProjectController::class, 'detail'])->name('admin.komentar_project.detail');
         Route::get('komentar-project/detail/getData/{id}', [KomentarProjectController::class, 'getDataDetail'])->name('admin.komentar_project.detail.getData');
-        Route::delete('komentar-project/detail/delete', [KomentarProjectController::class, 'deleteDetail'])->name('admin.komentar_project.detail.delete');
+        Route::get('komentar-project/detail/delete', [KomentarProjectController::class, 'deleteDetail'])->name('admin.komentar_project.detail.delete');
 
         //About
         Route::get('about', [AboutController::class, 'index'])->name('admin.about');
@@ -229,7 +229,7 @@ Route::prefix('admin')->group(function () {
         Route::get('gallery/add', [GalleryController::class, 'add'])->name('admin.gallery.add');
         Route::get('gallery/getGalleryData', [GalleryController::class, 'getGalleryData'])->name('admin.gallery.getGalleryData');
         Route::post('gallery/save', [GalleryController::class, 'save'])->name('admin.gallery.save');
-        Route::delete('gallery/deleteImage', [GalleryController::class, 'deleteImage'])->name('admin.gallery.deleteImage');
+        Route::get('gallery/deleteImage', [GalleryController::class, 'deleteImage'])->name('admin.gallery.deleteImage');
 
         //Client
         Route::get('client', [ClientController::class, 'index'])->name('admin.client');
@@ -238,8 +238,8 @@ Route::prefix('admin')->group(function () {
         Route::post('client/save', [ClientController::class, 'save'])->name('admin.client.save');
         Route::get('client/edit/{id}', [ClientController::class, 'edit'])->name('admin.client.edit');
         Route::put('client/update', [ClientController::class, 'update'])->name('admin.client.update');
-        Route::delete('client/delete', [ClientController::class, 'delete'])->name('admin.client.delete');
-        Route::delete('client/deleteImage', [ClientController::class, 'deleteImage'])->name('admin.client.deleteImage');
+        Route::get('client/delete', [ClientController::class, 'delete'])->name('admin.client.delete');
+        Route::get('client/deleteImage', [ClientController::class, 'deleteImage'])->name('admin.client.deleteImage');
         Route::get('client/detail/{id}', [ClientController::class, 'detail'])->name('admin.client.detail');
         
         //Banner

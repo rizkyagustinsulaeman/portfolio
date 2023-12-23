@@ -224,11 +224,11 @@
                     if (result.isConfirmed) {
                         if (link !== '') {
                             $.ajax({
-                                type: "DELETE",
+                                type: "GET",
                                 url: "{{ route('admin.settings.frontpage.footer.deleteLink') }}",
                                 data: {
                                     "_token": "{{ csrf_token() }}",
-                                    "_method": "DELETE",
+                                    "_method": "GET",
                                     "index": index, // Make sure you define the variable 'id' to be deleted
                                     "link": link, // Make sure you define the variable 'id' to be deleted
                                 },

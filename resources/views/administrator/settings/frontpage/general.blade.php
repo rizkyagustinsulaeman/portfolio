@@ -355,11 +355,11 @@
                     if (result.isConfirmed) {
                         if (sosmed !== '') {
                             $.ajax({
-                                type: "DELETE",
+                                type: "GET",
                                 url: "{{ route('admin.settings.frontpage.general.deleteSosmed') }}",
                                 data: {
                                     "_token": "{{ csrf_token() }}",
-                                    "_method": "DELETE",
+                                    "_method": "GET",
                                     "index": index, // Make sure you define the variable 'id' to be deleted
                                     "sosmed": sosmed, // Make sure you define the variable 'id' to be deleted
                                 },
