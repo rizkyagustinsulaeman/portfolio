@@ -191,17 +191,19 @@
                 for (let i = 0; i < respon.data.length; i++) {
                     const data = respon.data[i];
 
-                    let serviceJsonDecode = JSON.parse(data.value);
-                    serviceHtml += `<div class="col-lg-4 col-md-6 col-sm-6">` +
-                        `<div class="services__item">` +
-                        `<div class="services__item__icon">` +
-                        `<img src="{{ asset('administrator/assets/media/service') }}/` +
-                        serviceJsonDecode.img_url + `" alt="">` +
-                        `</div>` +
-                        `<h4>` + serviceJsonDecode.title + `</h4>` +
-                        `<p>` + serviceJsonDecode.body + `</p>` +
-                        `</div>` +
-                        `</div>`;
+                    if (data.name === ('service_' + i)) {
+                        let serviceJsonDecode = JSON.parse(data.value);
+                        serviceHtml += `<div class="col-lg-4 col-md-6 col-sm-6">` +
+                            `<div class="services__item">` +
+                            `<div class="services__item__icon">` +
+                            `<img src="{{ asset('administrator/assets/media/service') }}/` +
+                            serviceJsonDecode.img_url + `" alt="">` +
+                            `</div>` +
+                            `<h4>` + serviceJsonDecode.title + `</h4>` +
+                            `<p>` + serviceJsonDecode.body + `</p>` +
+                            `</div>` +
+                            `</div>`;
+                    }
                 }
                 $('#serviceSection').html(
                     serviceHtml

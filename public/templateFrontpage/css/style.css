@@ -1176,6 +1176,10 @@ ol {
   line-height: 70px;
   text-align: center;
 }
+
+.services__item__icon img{
+  width: 50px;
+}
 .services__item__icon:after {
   position: absolute;
   left: 0;
