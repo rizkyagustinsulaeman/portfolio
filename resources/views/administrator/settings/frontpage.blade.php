@@ -13,44 +13,50 @@
         Setting
     @endpush
     <div class="row">
-        <div class="col-lg-6 col-12">
-            <div class="card card-large-icons">
-                <div class="card-icon bg-main-background-color text-white">
-                    <i class="fas fa-cog"></i>
-                </div>
-                <div class="card-body">
-                    <h4>General</h4>
-                    <p>General Frontpage.</p>
-                    <a href="{{route('admin.settings.frontpage.general')}}" class="card-cta">Change Setting <i
-                            class="fas fa-chevron-right"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-12">
-            <div class="card card-large-icons">
-                <div class="card-icon bg-main-background-color text-white">
-                    <i class="fas fa-window-minimize"></i>
-                </div>
-                <div class="card-body">
-                    <h4>Footer</h4>
-                    <p>Footer Frontpage.</p>
-                    <a href="{{route('admin.settings.frontpage.footer')}}" class="card-cta">Change Setting <i
-                            class="fas fa-chevron-right"></i></a>
+        @if (isallowed('settings', 'frontpage_general'))
+            <div class="col-lg-6 col-12">
+                <div class="card card-large-icons">
+                    <div class="card-icon bg-main-background-color text-white">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="card-body">
+                        <h4>General</h4>
+                        <p>General Frontpage.</p>
+                        <a href="{{ route('admin.settings.frontpage.general') }}" class="card-cta">Change Setting <i
+                                class="fas fa-chevron-right"></i></a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-6 col-12">
-            <div class="card card-large-icons">
-                <div class="card-icon bg-main-background-color text-white">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <div class="card-body">
-                    <h4>Homepage</h4>
-                    <p>Homepage Adminsitrator.</p>
-                    <a href="{{route('admin.settings.frontpage.homepage')}}" class="card-cta">Change Setting <i
-                            class="fas fa-chevron-right"></i></a>
+        @endif
+        @if (isallowed('settings', 'frontpage_footer'))
+            <div class="col-lg-6 col-12">
+                <div class="card card-large-icons">
+                    <div class="card-icon bg-main-background-color text-white">
+                        <i class="fas fa-window-minimize"></i>
+                    </div>
+                    <div class="card-body">
+                        <h4>Footer</h4>
+                        <p>Footer Frontpage.</p>
+                        <a href="{{ route('admin.settings.frontpage.footer') }}" class="card-cta">Change Setting <i
+                                class="fas fa-chevron-right"></i></a>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
+        @if (isallowed('settings', 'frontpage_homepage'))
+            <div class="col-lg-6 col-12">
+                <div class="card card-large-icons">
+                    <div class="card-icon bg-main-background-color text-white">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    <div class="card-body">
+                        <h4>Homepage</h4>
+                        <p>Homepage Adminsitrator.</p>
+                        <a href="{{ route('admin.settings.frontpage.homepage') }}" class="card-cta">Change Setting <i
+                                class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 @endsection
