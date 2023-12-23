@@ -13,7 +13,7 @@
         Setting
     @endpush
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6 col-12">
             <div class="card card-large-icons">
                 <div class="card-icon bg-main-background-color text-white">
                     <i class="fas fa-bars"></i>

@@ -71,8 +71,14 @@ class SettingController extends Controller
         
         $data_settings = [];
         $data_settings["nama_app_admin"] = $request->nama_app_admin;
-        $data_settings["footer_app_admin"] = $request->footer_app_admin;
-        $data_settings["admin_main_background_color"] = $request->admin_main_background_color;
+
+        if (!empty($request->footer_app_admin)) {
+            $data_settings["footer_app_admin"] = $request->footer_app_admin;
+        }
+
+        if (!empty($request->admin_main_background_color)) {
+            $data_settings["admin_main_background_color"] = $request->admin_main_background_color;
+        }
         
 
         if ($request->hasFile('logo_app_admin')) {
@@ -173,7 +179,9 @@ class SettingController extends Controller
 
         
         $data_settings = [];
-        $data_settings["text_frontpage_footer"] = $request->text_frontpage_footer;
+        if (!empty($request->text_frontpage_footer)) {
+            $data_settings["text_frontpage_footer"] = $request->text_frontpage_footer;
+        }
         $data_settings["about_frontpage_footer"] = $request->about_frontpage_footer;
 
         $dataLink = [];
@@ -187,7 +195,9 @@ class SettingController extends Controller
         // Encode the array to JSON
         $json_encoded_link = json_encode($dataLink);
 
-        $data_settings["link_frontpage_footer"] = $json_encoded_link;
+        if (!empty($dataLink)) {
+            $data_settings["link_frontpage_footer"] = $json_encoded_link;
+        }
 
         $logs = []; // Buat array kosong untuk menyimpan log
 
@@ -289,16 +299,20 @@ class SettingController extends Controller
 
         $data_sosmed = [];
         for ($i = 0; $i < $request->jumlah_sosmed; $i++) {
-            $data_sosmed[] = [
-                'nama_sosmed' => $request->{'nama_sosmed_' . $i},
-                'icon_sosmed' => $request->{'icon_sosmed_' . $i},
-            ];
+            if ($request->{'nama_sosmed_' . $i} || $request->{'icon_sosmed_' . $i}) {
+                $data_sosmed[] = [
+                    'nama_sosmed' => $request->{'nama_sosmed_' . $i},
+                    'icon_sosmed' => $request->{'icon_sosmed_' . $i},
+                ];
+            }
         }
 
         // Encode the array to JSON
         $json_encoded_sosmed = json_encode($data_sosmed);
 
-        $data_settings["general_sosmed"] = $json_encoded_sosmed;
+        if (!empty($data_sosmed)) {
+            $data_settings["general_sosmed"] = $json_encoded_sosmed;
+        }
 
 
 
