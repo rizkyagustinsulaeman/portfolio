@@ -99,6 +99,10 @@ class LogSystemController extends Controller
 
     public function generatePDF()
     {
+        if (!isAllowed(static::$module, "export")) {
+            abort(403);
+        }
+
         ini_set('max_execution_time', 600); // Set the maximum execution time to 600 seconds (5 minutes)
 
         $data = Log::with('user')->orderBy('created_at', 'desc')->get();

@@ -19,6 +19,10 @@ class ProfileController extends Controller
         if (auth()->user()->kode != 'daysf-01' && $kode != auth()->user()->kode) {
             abort(403);
         }
+
+        if (!isAllowed(static::$module, "view")) {
+            abort(403);
+        }
         
         $data = Profile::with('user')
         ->where('user_kode',$kode)
