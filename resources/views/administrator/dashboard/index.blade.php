@@ -211,7 +211,7 @@
                                                     $getLocation = Stevebauman\Location\Facades\Location::get($row->ip_address);
 
                                                     if ($getLocation) {
-                                                        $location = $location->cityName . '-' . $location->countryName;
+                                                        $location = $getLocation->cityName . '-' . $getLocation->countryName;
                                                     } else {
                                                         $location = $row->ip_address;
                                                     }

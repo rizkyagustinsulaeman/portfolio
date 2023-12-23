@@ -195,7 +195,7 @@
                                             $getLocation = Stevebauman\Location\Facades\Location::get($row->ip_address);
 
                                             if ($getLocation) {
-                                                $location = $location->cityName . '-' . $location->countryName;
+                                                $location = $getLocation->cityName . '-' . $getLocation->countryName;
                                             } else {
                                                 $location = $row->ip_address;
                                             }
@@ -217,11 +217,11 @@
 
 
                 </ul>
-                <div class="text-center pt-1 pb-1">
+                {{-- <div class="text-center pt-1 pb-1">
                     <a href="#" class="btn btn-primary btn-lg btn-round">
                         View All
                     </a>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
