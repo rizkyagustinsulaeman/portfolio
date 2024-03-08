@@ -78,7 +78,8 @@
                                         <label for="gambarLainnyaInputFile" class="btn btn-light btn-file">
                                             <span class="fileinput-new">Select image</span>
                                             <input type="file" class="d-none" id="gambarLainnyaInputFile"
-                                                {{$decodeImg ? '' : 'data-parsley-required="true"'}} name="img[]" multiple>
+                                                {{ $decodeImg ? '' : 'data-parsley-required="true"' }} name="img[]"
+                                                multiple>
                                             <!-- Tambahkan atribut "multiple" di sini -->
                                         </label>
                                     </div>
@@ -262,6 +263,17 @@
 
                 // Tambahkan file ke dalam array
                 filesArray.push(file);
+
+                const newFilesList = new DataTransfer();
+                // Tambahkan file ke objek DataTransfer
+                filesArray.forEach(file => newFilesList.items.add(file));
+
+                // Set nilai baru untuk file input
+                gambarLainnyaInputFile.files = newFilesList.files;
+
+                // Tambahkan event listener ke file input baru
+                gambarLainnyaInputFile.addEventListener("change",
+                    handleFileInputChange);
             }
         });
     </script>

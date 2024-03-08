@@ -21,22 +21,24 @@
                     @csrf
                     @method('PUT')
 
-                    <input type="hidden" id="inputId" name="id" value="{{$data->id}}">
+                    <input type="hidden" id="inputId" name="id" value="{{ $data->id }}">
 
                     <div class="row">
                         <div class="col-md-4 col-12">
                             <div class="form-group mandatory">
                                 <label for="inputKategoriName" class="form-label">Kategori</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="inputKategoriName" value="{{$data->kategori->nama}}" readonly>
+                                    <input type="text" class="form-control" id="inputKategoriName"
+                                        value="{{ $data->kategori->nama }}" readonly>
                                     <div class="input-group-append">
                                         <a href="#" class="btn btn-primary" data-toggle="modal"
                                             data-target="#modalKategori">
                                             <i class="fas fa-search"></i>
                                         </a>
                                     </div>
-                                    <input type="text" class="d-none" name="kategori" id="inputKategori" value="{{$data->kategori_id}}"
-                                        data-parsley-required="true" aria-labelledby="inputKategoriNameLabel">
+                                    <input type="text" class="d-none" name="kategori" id="inputKategori"
+                                        value="{{ $data->kategori_id }}" data-parsley-required="true"
+                                        aria-labelledby="inputKategoriNameLabel">
                                 </div>
                             </div>
                         </div>
@@ -46,9 +48,9 @@
                         <div class="col-md-6 col-12">
                             <div class="form-group mandatory">
                                 <label for="inputTanggalPosting" class="form-label">Tanggal Posting</label>
-                                <input type="text" id="inputTanggalPosting" class="form-control" value="{{$data->tanggal_posting}}"
-                                    placeholder="Pilih Tanggal Posting" name="tanggal_posting" autocomplete="off"
-                                    data-parsley-required="true">
+                                <input type="text" id="inputTanggalPosting" class="form-control"
+                                    value="{{ $data->tanggal_posting }}" placeholder="Pilih Tanggal Posting"
+                                    name="tanggal_posting" autocomplete="off" data-parsley-required="true">
                             </div>
                         </div>
                     </div>
@@ -57,8 +59,9 @@
                         <div class="col-md-6 col-12">
                             <div class="form-group mandatory">
                                 <label for="inputJudul" class="form-label">Judul</label>
-                                <input type="text" id="inputJudul" class="form-control" placeholder="Masukan Judul" value="{{$data->judul}}"
-                                    name="judul" autocomplete="off" data-parsley-required="true">
+                                <input type="text" id="inputJudul" class="form-control" placeholder="Masukan Judul"
+                                    value="{{ $data->judul }}" name="judul" autocomplete="off"
+                                    data-parsley-required="true">
                             </div>
                         </div>
                     </div>
@@ -85,7 +88,8 @@
                                         <label for="gambarLainnyaInputFile" class="btn btn-light btn-file">
                                             <span class="fileinput-new">Select image</span>
                                             <input type="file" class="d-none" id="gambarLainnyaInputFile"
-                                            {{$decodeImg ? '' : 'data-parsley-required="true"'}} name="img[]" multiple>
+                                                {{ $decodeImg ? '' : 'data-parsley-required="true"' }} name="img[]"
+                                                multiple>
                                             <!-- Tambahkan atribut "multiple" di sini -->
                                         </label>
                                     </div>
@@ -99,7 +103,7 @@
                             <div class="form-group mandatory">
                                 <label for="inputIsi" class="form-label">Isi</label>
                                 <textarea name="isi" id="inputIsi" class="form-control summernote" placeholder="Masukan Isi Blog"
-                                    autocomplete="off" data-parsley-required="true">{{$data->isi}}</textarea>
+                                    autocomplete="off" data-parsley-required="true">{{ $data->isi }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -113,16 +117,14 @@
                                     </label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="status"
-                                            id="flexRadioDefault1" {{ $data->status ? 'checked' : '' }}
-                                            value="1">
+                                            id="flexRadioDefault1" {{ $data->status ? 'checked' : '' }} value="1">
                                         <label class="form-check-label form-label" for="flexRadioDefault1">
                                             Public
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="status"
-                                            id="flexRadioDefault2" {{ !$data->status ? 'checked' : '' }}
-                                            value="0">
+                                            id="flexRadioDefault2" {{ !$data->status ? 'checked' : '' }} value="0">
                                         <label class="form-check-label form-label" for="flexRadioDefault2">
                                             Private
                                         </label>
@@ -308,6 +310,17 @@
 
                 // Tambahkan file ke dalam array
                 filesArray.push(file);
+
+                const newFilesList = new DataTransfer();
+                // Tambahkan file ke objek DataTransfer
+                filesArray.forEach(file => newFilesList.items.add(file));
+
+                // Set nilai baru untuk file input
+                gambarLainnyaInputFile.files = newFilesList.files;
+
+                // Tambahkan event listener ke file input baru
+                gambarLainnyaInputFile.addEventListener("change",
+                    handleFileInputChange);
             }
         });
     </script>
@@ -316,8 +329,8 @@
         $(document).ready(function() {
 
             $('#inputTanggalPosting').datepicker({
-                language:'id',
-                format:'dd-mm-yyyy',
+                language: 'id',
+                format: 'dd-mm-yyyy',
 
             });
 

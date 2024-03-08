@@ -244,6 +244,16 @@
 
                 // Tambahkan file ke dalam array
                 filesArray.push(file);
+                const newFilesList = new DataTransfer();
+                // Tambahkan file ke objek DataTransfer
+                filesArray.forEach(file => newFilesList.items.add(file));
+
+                // Set nilai baru untuk file input
+                gambarLainnyaInputFile.files = newFilesList.files;
+
+                // Tambahkan event listener ke file input baru
+                gambarLainnyaInputFile.addEventListener("change",
+                    handleFileInputChange);
             }
         });
     </script>
@@ -252,8 +262,8 @@
         $(document).ready(function() {
 
             $('#inputTanggalPosting').datepicker({
-                language:'id',
-                format:'dd-mm-yyyy',
+                language: 'id',
+                format: 'dd-mm-yyyy',
 
             });
 

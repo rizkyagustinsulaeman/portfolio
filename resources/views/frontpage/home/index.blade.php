@@ -460,7 +460,7 @@
                             `<div class="work__item ` + className +
                             ` set-bg" data-setbg="{{ asset('administrator/assets/media/project') }}/` +
                             imgJsonDecode[0] + `">` +
-                            `<a href="" class="play-btn video-popup">` +
+                            `<a href="/project/${data.slug}" class="play-btn video-popup">` +
                             `<i class="fa fa-arrow-right"></i>` +
                             `</a>` +
                             `<div class="work__item__hover">` +
