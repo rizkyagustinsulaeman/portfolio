@@ -66,7 +66,7 @@
 @endforeach
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.triggerCommentReply').on('click', function(e) {
+        $('.triggerCommentReply').off().on('click', function(e) {
             e.preventDefault();
 
             var comment_id = $(this).data('id');
@@ -104,7 +104,7 @@
             }
         });
 
-        $('.triggerReplay').on('click', function() {
+        $('.triggerReplay').off().on('click', function() {
             var sectionReply = $(this).closest('.comment-section').find('.sectionReply');
             if (sectionReply.hasClass('d-none')) {
                 sectionReply.removeClass('d-none');

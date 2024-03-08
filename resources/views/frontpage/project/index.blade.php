@@ -30,7 +30,6 @@
                         @foreach ($kategori as $col)
                             <li data-filter=".{{ $col->slug }}">{{ $col->nama }}</li>
                         @endforeach
-
                     </ul>
                 </div>
             </div>
@@ -57,44 +56,64 @@
                 @endforeach
             </div>
 
-            {{ $project->links('frontpage.layouts.pagination.index') }}
+            {{ $project->appends(request()->input())->links('frontpage.layouts.pagination.index') }}
 
         </div>
     </section>
     <!-- Portfolio Section End -->
 @endsection
 
-
 @push('js')
     <script type="text/javascript">
         $(document).ready(function() {
 
-            $(document).on('click', '.pagination__option a', function(event) {
+            $(document).off().on('click', '.pagination__option a', function(event) {
                 event.preventDefault();
                 var page = $(this).attr('href').split('page=')[1];
-                fetch_data(page);
+                var category = $('.portfolio__filter li.active').data('filter').substring(1);
+                fetch_data(page, category);
             });
 
-            function fetch_data(page) {
+            $('.portfolio__filter li').off().on('click', function() {
+                let clickedFilter = $(this);
+                $('.portfolio__filter li').removeClass('active');
+                clickedFilter.addClass('active');
+                var category = clickedFilter.data('filter').substring(1);
+                fetch_data(1, category, clickedFilter.data('filter'));
+            });
+
+            function fetch_data(page, category, activeFilter) {
                 $.ajax({
-                    url: "{{ route('web.project.fetchData') }}?page=" + page,
+                    url: "{{ route('web.project.fetchData') }}?page=" + page + "&category=" + category,
                     success: function(data) {
                         $('#projectData').html(data);
                         $('.set-bg').each(function() {
                             var bg = $(this).data('setbg');
                             $(this).css('background-image', 'url(' + bg + ')');
                         });
-                        $('.portfolio__filter li').on('click', function() {
+
+                        $('.portfolio__filter li').off().on('click', function() {
+                            let clickedFilter = $(this);
                             $('.portfolio__filter li').removeClass('active');
-                            $(this).addClass('active');
+                            clickedFilter.addClass('active');
+                            var category = clickedFilter.data('filter').substring(1);
+                            fetch_data(1, category, clickedFilter.data('filter'));
                         });
+
                         if ($('.portfolio__gallery').length > 0) {
                             var containerEl = document.querySelector('.portfolio__gallery');
                             var mixer = mixitup(containerEl);
+
+                            if (activeFilter) {
+                                $('.portfolio__filter li').removeClass('active');
+                                $('.portfolio__filter li[data-filter="' + activeFilter + '"]').addClass(
+                                    'active');
+                            }
                         }
                     },
                 });
             }
+
         });
     </script>
 @endpush

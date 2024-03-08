@@ -11,7 +11,8 @@ use App\Models\admin\KomentarProjectReply;
 
 class ProjectController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $kategori = KategoriProject::all();
 
         $project = Project::with('kategori_project')->paginate(9);
@@ -22,13 +23,22 @@ class ProjectController extends Controller
     public function fetchData(Request $request)
     {
         if ($request->ajax()) {
+            $category = $request->input('category'); // Get the selected category from the request
             $kategori = KategoriProject::all();
 
-            $project = Project::with('kategori_project')->paginate(9);
+            // Query projects with category filter if a category is selected
+            $query = Project::with('kategori_project');
+            if ($category) {
+                $query->whereHas('kategori_project', function ($q) use ($category) {
+                    $q->where('slug', $category);
+                });
+            }
 
-            return view('frontpage.project.fetchData.index', compact('kategori', 'project'))->render();
+            $project = $query->paginate(9);
+
+            return view('frontpage.project.fetchData.index', compact('project', 'kategori'))->render();
         }
-    }
+}
 
     public function detail($slug){
         $data = Project::with('kategori_project')->where('slug', $slug)->first();
